@@ -7,12 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StrandMat4
-  m_Shader: {fileID: 4800000, guid: a9ad6c5f566e9504d957d7f3871b5057, type: 3}
+  m_Name: AlienMangrove
+  m_Shader: {fileID: 4800000, guid: 1c9a2e1313ce2c74480c6e24b2a6166d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_ValidKeywords:
+  - _METALLICGLOSSMAP
+  - _NORMALMAP
+  - _PARALLAXMAP
+  m_InvalidKeywords:
+  - FT_EDGE_TESS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -24,7 +28,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 075c8f57690e465438de66f8442f99f8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -39,48 +43,85 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DispTex:
+        m_Texture: {fileID: 2800000, guid: b5df782bf19fdb249a56e6807f331fb2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Foam:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 36d0604c308b3f54e9b1dd45e0db8018, type: 3}
+        m_Texture: {fileID: 2800000, guid: a73be4ae4ebc8bd4880140379afbdee5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 595689fb584a4e64a83fe70d9d30bf4e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 84e4b4920721e7b4eb24c237fc148f90, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 2800000, guid: b5df782bf19fdb249a56e6807f331fb2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amount: 4.42
+    - _Amount: 3
     - _BumpScale: 1
+    - _ChromaticAberration: 0.1
     - _Cutoff: 0.5
+    - _DetailAO: 0.5
     - _DetailNormalMapScale: 1
-    - _Distance: 0.21
+    - _DiffuseAO: 0.245
+    - _DispOffset: 0.5
+    - _DispPhong: 0.121
+    - _Displacement: 0.471
+    - _Distance: 0.3
     - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.165
+    - _GI_AO: 0
+    - _GlossMapScale: 0.125
+    - _Glossiness: 0.487
     - _GlossyReflections: 1
-    - _Metallic: 0.357
+    - _IndexofRefraction: 1
+    - _Metallic: 0.085
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.02
+    - _Opacity: 0
+    - _Parallax: 0.040324997
+    - _Phong: 0.119
+    - _ShadowLOD: 0.038
+    - _Smoothness: 0.8
     - _SmoothnessTextureChannel: 0
+    - _SoapAmount: 0
+    - _SpecAO: -0.51
+    - _SpecBurn: 0.286
+    - _Specular: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.65
+    - _Speed: 1
     - _SrcBlend: 1
+    - _Tess: 2.3
+    - _TessMode: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - __dirty: 0
+    - _maxDist: 22
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.5019608}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Displacement_TO: {r: 1, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
