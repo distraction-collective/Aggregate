@@ -15,7 +15,6 @@ Material:
   - FT_EDGE_TESS
   - _DETAIL_MULX2
   - _GLOSSYREFLECTIONS_OFF
-  - _METALLICGLOSSMAP
   - _NORMALMAP
   - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords:
@@ -51,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 595689fb584a4e64a83fe70d9d30bf4e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
@@ -79,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 595689fb584a4e64a83fe70d9d30bf4e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
@@ -134,7 +133,7 @@ Material:
     m_Floats:
     - Normal_Blend: 0.5
     - _Amount: 3
-    - _BumpScale: 1
+    - _BumpScale: 2
     - _ChromaticAberration: 0.1
     - _Cutoff: 0.5
     - _DecalMeshBiasType: 0
@@ -173,7 +172,7 @@ Material:
     - _Speed: 1
     - _SrcBlend: 1
     - _StartDitheringFade: 0
-    - _Tess: 11.7
+    - _Tess: 20.6
     - _TessMode: 1
     - _UVSec: 0
     - _ZWrite: 1

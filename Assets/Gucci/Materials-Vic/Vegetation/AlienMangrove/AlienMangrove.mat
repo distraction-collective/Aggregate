@@ -82,7 +82,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Amount: 3
-    - _BumpScale: 1
+    - _BumpScale: 2
     - _ChromaticAberration: 0.1
     - _Cutoff: 0.5
     - _DetailAO: 0.5
