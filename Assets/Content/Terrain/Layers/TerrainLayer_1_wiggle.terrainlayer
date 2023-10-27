@@ -7,15 +7,15 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TerrainLayer_1_wiggle
-  m_DiffuseTexture: {fileID: 2800000, guid: 4e63a47f36f864f46a1394bfc06902a6, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: 1f42dbc6d1d7a409c8b5ac1de1f9ef6c, type: 3}
+  m_DiffuseTexture: {fileID: 2800000, guid: a73be4ae4ebc8bd4880140379afbdee5, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 075c8f57690e465438de66f8442f99f8, type: 3}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 3, y: 3}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
-  m_Smoothness: 0
-  m_NormalScale: 2
+  m_Smoothness: 0.032
+  m_NormalScale: 10
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_DiffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
   m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
