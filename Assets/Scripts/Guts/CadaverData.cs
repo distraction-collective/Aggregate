@@ -10,4 +10,6 @@ public class CadaverData: ScriptableObject
     public int maxNumberOfKnotsBetweenCadavers = 2;
     public float basicDetectionHeightDifferential = 10f;
     public float cadaverDepositExtraHeight = 0.5f;
+    public float autoBezierCurveAmplitude = 2f;
+    public float intermediateKnotSinAmplitude = 3f;
 }
