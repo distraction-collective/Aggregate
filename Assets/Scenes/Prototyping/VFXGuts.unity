@@ -424,8 +424,8 @@ MonoBehaviour:
   m_RebuildOnSplineChange: 0
   m_RebuildFrequency: 1
   m_UpdateColliders: 0
-  m_Sides: 3
-  m_SegmentsPerUnit: 3
+  m_Sides: 9
+  m_SegmentsPerUnit: 6
   m_Capped: 1
   m_Radius: 0.25
   m_Range: {x: 0, y: 1}
@@ -449,7 +449,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d32c2eefa0e5d8e48a4cfa90e9b549e7, type: 2}
+  - {fileID: 2100000, guid: 1a8f653738041cd448b5ca14e42d6aab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
