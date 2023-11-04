@@ -862,7 +862,7 @@ MonoBehaviour:
   m_Sides: 9
   m_SegmentsPerUnit: 6
   m_Capped: 1
-  m_Radius: 0.05
+  m_Radius: 0.035
   m_Range: {x: 0, y: 1}
 --- !u!23 &1311094391
 MeshRenderer:

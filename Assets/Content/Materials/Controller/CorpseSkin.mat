@@ -172,7 +172,7 @@ Material:
     - _Strength: 0
     - _Surface: 0
     - _TopNormalValue: 1.53
-    - _UpBlendValue: 1
+    - _UpBlendValue: 0.525
     - _Wave_GlobalSpeed: 1
     - _Wave_Intensity: 0.04
     - _Wave_Shape: 1
