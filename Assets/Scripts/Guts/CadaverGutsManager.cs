@@ -80,7 +80,7 @@ public class CadaverGutsManager : MonoBehaviour
         }
         else lastCadaverPosition = _gutsOrigin.position;
         DistanceBetweenTwoCadavers = hitpoint - lastCadaverPosition;
-        lastCurve.Tangent1 = Vector3ToTangent(DistanceBetweenTwoCadavers.normalized);
+        lastCurve.Tangent1 = Vector3ToFloat3(DistanceBetweenTwoCadavers.normalized);
         _splineContainer.Spline.SetTangentModeNoNotify(lastCurveIndex, TangentMode.AutoSmooth);
         //Add intermediate knots with random number between 1-2, then place them with raycast with sin function to add variation
         int randomNumberOfKnots = UnityEngine.Random.Range(1, _data.maxNumberOfKnotsBetweenCadavers);
@@ -94,7 +94,7 @@ public class CadaverGutsManager : MonoBehaviour
             Physics.Raycast(randomIterativePosition + Vector3.up * _data.basicDetectionHeightDifferential, -Vector3.up, out _hit, Mathf.Infinity, _data.layerToPutCadaver);
 #if UNITY_EDITOR
             Debug.DrawRay(randomIterativePosition + Vector3.up * _data.basicDetectionHeightDifferential, -Vector3.up * 10f, Color.magenta);
-            Debug.Log("random number of knots: " + randomNumberOfKnots + " i+1 = " + (i + 1) + " current distance between knots: " + ((float)(i + 1) / (float)(randomNumberOfKnots+1)));
+            //Debug.Log("random number of knots: " + randomNumberOfKnots + " i+1 = " + (i + 1) + " current distance between knots: " + ((float)(i + 1) / (float)(randomNumberOfKnots+1)));
             
 #endif
             positionToPut = _hit.point + Vector3.up * _data.cadaverDepositExtraHeight;
@@ -104,7 +104,7 @@ public class CadaverGutsManager : MonoBehaviour
             _splineContainer.Spline.SetTangentModeNoNotify(lastCurveIndex, TangentMode.AutoSmooth);//Autosmooth it
         }
         //Add ending knot and make sure that in Tangent corresponds to the normal 
-        Unity.Mathematics.float3 endTangent = Vector3ToTangent(hitnormal * _data.autoBezierCurveAmplitude);
+        Unity.Mathematics.float3 endTangent = Vector3ToFloat3(hitnormal * _data.autoBezierCurveAmplitude);
 
         _splineContainer.Spline.Add(new BezierKnot(_splineContainer.transform.InverseTransformPoint(newCadaverTransform.position + Vector3.up * _data.cadaverDepositExtraHeight), endTangent, endTangent));
         _splineContainer.Spline.SetTangentModeNoNotify(_splineContainer.Spline.Count - 1, TangentMode.AutoSmooth);
@@ -116,7 +116,7 @@ public class CadaverGutsManager : MonoBehaviour
     /// </summary>
     /// <param name="v"></param>
     /// <returns></returns>
-    Unity.Mathematics.float3 Vector3ToTangent(Vector3 v)
+    public static Unity.Mathematics.float3 Vector3ToFloat3(Vector3 v)
     {
         Unity.Mathematics.float3 tan = new float3();
         tan.x = v.x;
@@ -125,7 +125,7 @@ public class CadaverGutsManager : MonoBehaviour
         return tan;
     }
 
-    Vector3 Float3ToVector3(float3 f)
+    public static Vector3 Float3ToVector3(float3 f)
     {
         Vector3 v = new Vector3();
         v.x = f.x;
