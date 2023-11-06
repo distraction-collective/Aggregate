@@ -3,7 +3,13 @@ Shader "Unlit/mandelbulb" {
         _MainTex ("Texture", 2D) = "white" {}
     }
     SubShader {
+        Tags {
+            "RenderType"="Transparent"
+            "Queue"="Transparent"
+        }
         Pass {
+            Blend SrcAlpha OneMinusSrcAlpha
+            
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -148,9 +154,10 @@ Shader "Unlit/mandelbulb" {
                     if(maxV(absorption) < 1.0-MaxTransparency) break;
                 }
                 
-                float4 col = float4(log(color + float3(1,1,1)), 1.0);
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+                float3 calibrated = log(color + float3(1,1,1));
+                float4 rgba = float4(calibrated, calibrated.r);
+                UNITY_APPLY_FOG(i.fogCoord, rgba);
+                return rgba;
             }
 
             ENDCG
