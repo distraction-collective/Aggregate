@@ -119,8 +119,7 @@ Shader "Unlit/mandelbulb" {
                 Power = abs(cos(_Time.y/5.0)) * 7.0 + 1.0;
                 LightPos = float3(cos(_Time.y/2.0),-sin(_Time.y/2.0),cos(_Time.y/1.0)) * 1.25;
                 
-                float2 uv = (i.uv.xy - _ScreenParams.xy/2.0)/_ScreenParams.y;
-                
+                float2 uv = -1+2*i.uv;
                 float3 camX = float3(-DirCam.y, DirCam.x, 0);
                 float3 camY = cross(camX, DirCam);
                 float3 sensorX = camX * (uv.x/length(camX));
