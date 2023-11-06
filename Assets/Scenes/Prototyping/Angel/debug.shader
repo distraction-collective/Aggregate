@@ -1,16 +1,12 @@
-Shader "Unlit/debug"
-{
-    Properties
-    {
+Shader "Unlit/debug" {
+    Properties {
         _MainTex ("Texture", 2D) = "white" {}
     }
-    SubShader
-    {
+    SubShader {
         Tags { "RenderType"="Opaque" }
         LOD 100
 
-        Pass
-        {
+        Pass {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -19,14 +15,12 @@ Shader "Unlit/debug"
 
             #include "UnityCG.cginc"
 
-            struct appdata
-            {
+            struct appdata {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
             };
 
-            struct v2f
-            {
+            struct v2f {
                 float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
@@ -35,8 +29,7 @@ Shader "Unlit/debug"
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
-            v2f vert (appdata v)
-            {
+            v2f vert (appdata v) {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -44,9 +37,15 @@ Shader "Unlit/debug"
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
-            {
-                return fixed4(i.uv.xy,0,1);
+            float3 dir = float3(1,0,0);
+
+            float3 get_dir() {
+                return dir;
+            }
+
+            fixed4 frag (v2f i) : SV_Target {
+                dir = float3(1,0,0);
+                return fixed4(0.5 + 0.5 * dir, 0);
 
                 fixed4 col = fixed4(fmod(_Time.y, 1),0,0,1);
                 UNITY_APPLY_FOG(i.fogCoord, col);

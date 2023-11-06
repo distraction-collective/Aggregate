@@ -36,25 +36,17 @@ Shader "Unlit/mandelbulb" {
             #define ViewStart 1.6
             #define ViewEnd 4.4
             
-            // #define HQ
-            #ifdef HQ
-                int CameraRaySteps = 255;
-                int ShadowRaySteps = 64;
-                float MaxTransparency = .95;
-            #else
-                int CameraRaySteps = 128;
-                int ShadowRaySteps = 16;
-                float MaxTransparency = .7;
-            #endif
-
-            float3 DirCam = normalize(float3(-1, 0, 0));
-            float3 PosCam = float3(3.0, 0, .0);
-            float FocalLength = 1.0;
-            float3 LightColor = float3(1.5, 1.5, 1.5);
+            int CameraRaySteps;
+            int ShadowRaySteps;
+            float MaxTransparency;
+            float FocalLength;
+            float Density;
+            float Anisotropy;
+            float3 DirCam;
+            float3 PosCam;
+            float3 LightColor;
             float3 LightPos;
-            float Density = 25.0;
-            float Anisotropy = .25;
-            float3 VolumeColor = float3(.1, .15, .2);
+            float3 VolumeColor;
             float Power;
 
             float3 powV(float3 v, float p){
@@ -113,10 +105,17 @@ Shader "Unlit/mandelbulb" {
             }
             
             fixed4 frag (v2f i) : SV_Target {
-                return fixed4(i.uv.xy,0,1);
+                LightColor = float3(1.5, 1.5, 1.5);
+                VolumeColor = float3(.1, .15, .2);
+                FocalLength = 1.0;
+                Density = 25.0;
+                Anisotropy = .25;
+                CameraRaySteps = 128;
+                ShadowRaySteps = 16;
+                MaxTransparency = .7;
 
-                DirCam = rotateZ(DirCam, -_Time.y/3.0);
-                PosCam = rotateZ(PosCam, -_Time.y/3.0);
+                DirCam = rotateZ(normalize(float3(-1, 0, 0)), -_Time.y/3.0);
+                PosCam = rotateZ(float3(3.0, 0, .0), -_Time.y/3.0);
                 Power = abs(cos(_Time.y/5.0)) * 7.0 + 1.0;
                 LightPos = float3(cos(_Time.y/2.0),-sin(_Time.y/2.0),cos(_Time.y/1.0)) * 1.25;
                 
