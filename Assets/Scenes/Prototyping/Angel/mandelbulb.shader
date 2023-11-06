@@ -135,18 +135,13 @@ Shader "Unlit/mandelbulb" {
                 float stepSize = (ViewEnd-ViewStart) / float(CameraRaySteps);
                 float3 absorption = float3(1,1,1);
                 
-                // float headStart = texture(iChannel0, i.uv/float2(1024)).a;
-                float headStart = frac(sin(dot(i.uv.xy/1024, float2(12.9898, 4.1414))) * 43758.5453);
-                
-                pos += headStart * dir * stepSize;
-                
                 for(int i = 0; i < CameraRaySteps; i++){
                     if(length(LightPos-pos) <.05){
                         color += 10.0*absorption*LightColor;
                         break;
                     }
                     if(insideShape(pos)){
-                        color += VolumeColor*absorption*lightReceived(pos, headStart)*hg*stepSize*Density;
+                        color += VolumeColor*absorption*lightReceived(pos, 0)*hg*stepSize*Density;
                         absorption *= powV(float3(1,1,1)-VolumeColor, stepSize*Density);
                     }
                     pos += dir * stepSize;
