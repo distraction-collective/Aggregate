@@ -8,7 +8,9 @@ using System;
 public class GutsProximity : MonoBehaviour
 {
     [Header("Renderers")]
-    public LineRenderer lineRenderer;
+    public SplineContainer _splineContainer;
+    public SplineExtrude _splineGeometry;
+    public MeshRenderer _splineRenderer;
     public ParticleSystem hookedParticle;
     [Header("Detection Parameters")]
     public Transform playerTransform;
@@ -27,6 +29,7 @@ public class GutsProximity : MonoBehaviour
     {
         chosenSpline = m_splineObject.Spline;
         isAttached = false;
+        
     }
 
     // Update is called once per frame
@@ -58,11 +61,18 @@ public class GutsProximity : MonoBehaviour
     {
         if (isAttached)
         {
-            lineRenderer.SetPosition(0, worldSpaceNearestPoint);
-            lineRenderer.SetPosition(1, (worldSpaceNearestPoint + playerTransform.position)/2 - Vector3.up*0.2f); //Example for it to sag
-            lineRenderer.SetPosition(2, playerTransform.position);
-            lineRenderer.enabled = true;
             followerTransform.position = worldSpaceNearestPoint;
+            _splineContainer.Spline.Clear();
+            _splineRenderer.enabled = true;
+            _splineContainer.Spline.Add(new BezierKnot(_splineContainer.transform.InverseTransformPoint(followerTransform.position)));
+            
+            var newTangent = CadaverGutsManager.Vector3ToFloat3(((playerTransform.position - followerTransform.position).normalized -   Vector3.up).normalized);
+            var newTangent2 = CadaverGutsManager.Vector3ToFloat3(((playerTransform.position - followerTransform.position).normalized +   Vector3.up).normalized);
+            _splineContainer.Spline.Add(new BezierKnot(_splineContainer.transform.InverseTransformPoint(playerTransform.position), newTangent, newTangent2));
+            _splineContainer.Spline.SetTangentModeNoNotify(0, TangentMode.AutoSmooth);
+            _splineContainer.Spline.SetTangentModeNoNotify(1, TangentMode.Mirrored);
+            _splineGeometry.Rebuild();
+            
 #if UNITY_EDITOR
             Debug.DrawRay(playerTransform.position, worldSpaceNearestPoint - playerTransform.position, Color.green);
             //Debug.Log("nearestPoint: " + nearestPoint + " " + (worldSpaceNearestPoint - playerTransform.position).magnitude + " " + nearestInterpolation);
@@ -70,7 +80,7 @@ public class GutsProximity : MonoBehaviour
         }
         else
         {
-            lineRenderer.enabled = false;
+            _splineRenderer.enabled = false;
 #if UNITY_EDITOR
             Debug.DrawRay(playerTransform.position, worldSpaceNearestPoint - playerTransform.position, Color.red);
 #endif
