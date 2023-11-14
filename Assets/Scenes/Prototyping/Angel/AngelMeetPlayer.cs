@@ -17,5 +17,8 @@ public class AngelMeetPlayer : MonoBehaviour {
     animator.SetLayerWeight(1, factor);
     transform.position =
         new Vector3(-40.7f, Mathf.Lerp(-13, 5, factor), -84.95f);
+    transform.LookAt(new Vector3(player.position.x, transform.position.y,
+                                 player.position.z));
+    transform.Rotate(new Vector3(-90, 0, 0));
   }
 }
