@@ -32,6 +32,11 @@ public class GutsProximity : MonoBehaviour
         
     }
 
+    public bool GetSafe()
+    {
+        return isAttached;
+    }
+
     // Update is called once per frame
     void Update()
     {

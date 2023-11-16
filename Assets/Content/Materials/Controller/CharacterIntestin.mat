@@ -58,7 +58,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Distortion: 0.5
+    - _Distortion: 1.85
     - _Intensity: 1
     - _Metallic: 0.509
     - _NormalInfluence: 1
@@ -70,7 +70,7 @@ Material:
     - _Speed: 10
     - _Strength: 2
     - _Wave_GlobalSpeed: 1
-    - _Wave_Intensity: 0.03
+    - _Wave_Intensity: 0.41
     - _Wave_Shape: 2.52
     m_Colors:
     - _EmissionColor: {r: 119.42823, g: 119.42823, b: 119.42823, a: 0}

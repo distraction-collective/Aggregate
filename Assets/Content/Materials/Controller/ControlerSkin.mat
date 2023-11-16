@@ -218,7 +218,7 @@ Material:
     - _SSS_Intensity: 1
     - _SSS_Power: 1
     - _Size: 1
-    - _Smoothness: 0.152
+    - _Smoothness: 0.34
     - _SmoothnessTextureChannel: 0
     - _SnowAmount: 1
     - _SnowCoverage: 0.46
@@ -244,8 +244,8 @@ Material:
     - __dirty: 1
     m_Colors:
     - _BASE_COLOR: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.79607844}
-    - _Color: {r: 1, g: 1, b: 1, a: 0.79607844}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.8666667}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.8666667}
     - _DecakEmissionColor: {r: 1, g: 0.9248579, b: 0, a: 0}
     - _DecalsColor: {r: 0, g: 0, b: 0, a: 0}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}

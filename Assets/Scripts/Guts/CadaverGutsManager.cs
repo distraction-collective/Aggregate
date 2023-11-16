@@ -46,7 +46,7 @@ public class CadaverGutsManager : MonoBehaviour
     /// we get the exact position and normal offset where we should put the body
     /// </summary>
 
-    public void DepositeCadaverOnPosition()
+    public void DepositCadaverOnPosition()
     {
         GameObject newCadaver;
         int randPrefabIndex = UnityEngine.Random.Range(0, _data.randomCadaverPrefabs.Length); //Lets choose a random prefab
