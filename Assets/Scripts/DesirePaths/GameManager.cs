@@ -15,11 +15,13 @@ namespace DesirePaths
 
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private PlayerSpawner _playerSpawner;
+        [Header("Player components")]        
         [SerializeField] private PlayerHealth _playerHealth;
-        [SerializeField] private CadaverGutsManager _cadaverManager;
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private StarterAssets.ThirdPersonController _playerThirdPersonController;
+        [Header("Gameplay components")]
+        [SerializeField] private PlayerSpawner _playerSpawner;
+        [SerializeField] private CadaverGutsManager _cadaverManager;       
 
         PlayerDeathEvent PlayerDeathEvent => _playerHealth.PlayerDeathEvent;
 
