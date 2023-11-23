@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1522599985}
-  m_IndirectSpecularColor: {r: 0.6066874, g: 0.723997, b: 0.756801, a: 1}
+  m_IndirectSpecularColor: {r: 0.35324743, g: 0.42241162, b: 0.44179177, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 21431441}
   - component: {fileID: 21431442}
+  - component: {fileID: 21431443}
   m_Layer: 0
   m_Name: Point Light (1)
   m_TagString: Untagged
@@ -217,6 +218,29 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &21431443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21431440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &56287538
 GameObject:
   m_ObjectHideFlags: 0
@@ -16260,7 +16284,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 4ce240c7205830642b8ec1ca91bc8670, type: 3}
 --- !u!4 &683643218 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 480316, guid: 4ce240c7205830642b8ec1ca91bc8670, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470036, guid: 4ce240c7205830642b8ec1ca91bc8670, type: 3}
   m_PrefabInstance: {fileID: 683643217}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &691723174
@@ -17027,6 +17051,7 @@ GameObject:
   - component: {fileID: 952702166}
   - component: {fileID: 952702171}
   - component: {fileID: 952702172}
+  - component: {fileID: 952702173}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -17120,257 +17145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3d446f7ff644b70a8daaa5525fcf56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDirty: 0
-  _preset: 1000
-  _profile: {fileID: 0}
-  _profileSync: 0
-  _useFogVolumes: 0
-  _debugPass: 0
-  _showInSceneView: 1
-  _transparencyBlendMode: 0
-  _transparencyBlendPower: 1
-  _transparencyLayerMask:
-    serializedVersion: 2
-    m_Bits: 51
-  _visibilityScope: 0
-  _visibilityVolume:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 500, y: 500, z: 500}
-  _lightingModel: 0
-  _enableMultipleCameras: 0
-  _computeDepth: 1
-  _computeDepthScope: 0
-  _transparencyCutOff: 0.1
-  _renderBeforeTransparent: 0
-  _sun: {fileID: 1522599984}
-  _timeBetweenTextureUpdates: 0.2
-  _sunCopyColor: 1
-  _density: 0.127
-  _noiseStrength: 0.438
-  _noiseFinalMultiplier: 1.098
-  _noiseSparse: 0.032
-  _distance: 23
-  _maxFogLength: 500
-  _maxFogLengthFallOff: 0
-  _distanceFallOff: 0.35
-  _height: 53
-  _heightFallOff: 0.6
-  _deepObscurance: 0.69
-  _baselineHeight: -5
-  _baselineRelativeToCamera: 0
-  _baselineRelativeToCameraDelay: 0
-  _noiseScale: 2.57
-  _alpha: 1.033
-  _color: {r: 0.89, g: 0.89, b: 0.89, a: 1}
-  _specularColor: {r: 1, g: 1, b: 0.8, a: 1}
-  _specularThreshold: 0.6
-  _specularIntensity: 0
-  _lightDirection: {x: -0.8366166, y: -0.31949785, z: -0.4449653}
-  _lightIntensity: 0
-  _lightColor: {r: 0.8537736, g: 0.959354, b: 1, a: 1}
-  _updateTextureSpread: 1
-  _speed: 0.102
-  _windDirection: {x: 1, y: 0.5, z: 0}
-  _useRealTime: 0
-  _skyColor: {r: 0.89, g: 0.89, b: 0.89, a: 0.706}
-  _skyHaze: 79.55
-  _skyNoiseScale: 1.5
-  _skySpeed: 0.3
-  _skyNoiseStrength: 0.7
-  _skyAlpha: 0.706
-  _skyDepth: 0.564
-  _character: {fileID: 0}
-  _fogVoidTopology: 0
-  _fogVoidFallOff: 1
-  _fogVoidRadius: 0
-  _fogVoidPosition: {x: 0, y: 0, z: 0}
-  _fogVoidDepth: 0
-  _fogVoidHeight: 0
-  _fogVoidInverted: 0
-  _fogVoidShowGizmos: 0
-  _fogAreaShowGizmos: 1
-  _fogAreaCenter: {fileID: 0}
-  _fogAreaFallOff: 1
-  _fogAreaFollowMode: 0
-  _fogAreaTopology: 1
-  _fogAreaRadius: 0
-  _fogAreaPosition: {x: 0, y: 0, z: 0}
-  _fogAreaDepth: 0
-  _fogAreaHeight: 0
-  _fogAreaSortingMode: 0
-  _fogAreaRenderOrder: 1
-  pointLightParams:
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  pointLightDataMigrated: 1
-  _pointLights:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _pointLightRanges:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _pointLightIntensities:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  _pointLightIntensitiesMultiplier:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  _pointLightPositions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  _pointLightColors:
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  _pointLightTrackingAuto: 0
-  _pointLightTrackingPivot: {fileID: 952702168}
-  _pointLightTrackingCount: 6
-  _pointLightTrackingCheckInterval: 1
-  _pointLightTrackingNewLightsCheckInterval: 3
-  _pointLightInscattering: 1
-  _pointLightIntensity: 1
-  _pointLightInsideAtten: 0
-  _downsampling: 1
-  _forceComposition: 0
-  _blurComposition: 0
-  _blurEdgeThreshold: 0.002
-  _edgeImprove: 0
-  _edgeThreshold: 0.0005
-  _stepping: 10.03
-  _steppingNear: 0
-  _dithering: 0
-  _ditherStrength: 0.1
-  _jitterStrength: 0.5
-  _lightScatteringEnabled: 1
-  _lightScatteringDiffusion: 0.709
-  _lightScatteringSpread: 0.709
-  _lightScatteringTint: {r: 1, g: 1, b: 1, a: 0}
-  _lightScatteringSamples: 19
-  _lightScatteringWeight: 1.9
-  _lightScatteringIllumination: 15.3
-  _lightScatteringDecay: 0.9151
-  _lightScatteringExposure: 0.0108
-  _lightScatteringJittering: 0.5
-  _lightScatteringBlurDownscale: 1
-  _fogBlur: 1
-  _fogBlurDepth: 0.363
-  _sunShadows: 1
-  _sunShadowsLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _sunShadowsStrength: 0.5
-  _sunShadowsBias: 0.1
-  _sunShadowsJitterStrength: 0.345
-  _sunShadowsResolution: 3
-  _sunShadowsMaxDistance: 300
-  _sunShadowsBakeMode: 1
-  _sunShadowsRefreshInterval: 0
-  _sunShadowsCancellation: 0.74
-  _turbulenceStrength: 3.06
-  _useXYPlane: 0
-  _useSinglePassStereoRenderingMatrix: 0
-  _spsrBehaviour: 0
-  _reduceFlickerBigWorlds: 0
-  _enableMask: 0
-  _maskLayer:
-    serializedVersion: 2
-    m_Bits: 8388608
-  _maskDownsampling: 1
-  isRendering: 1
-  fogRenderer: {fileID: 952702171}
-  _fogOfWarEnabled: 0
-  _fogOfWarCenter: {x: 0, y: 0, z: 0}
-  _fogOfWarSize: {x: 1024, y: 0, z: 1024}
-  _fogOfWarTextureSize: 256
-  _fogOfWarRestoreDelay: 0
-  _fogOfWarRestoreDuration: 2
-  _fogOfWarSmoothness: 1
-  _fogOfWarBlur: 0
-  _fogOfWarReuseOther: 0
-  _fogOfWarOther: {fileID: 0}
-  _maskEditorEnabled: 0
-  _maskBrushMode: 1
-  _maskBrushWidth: 20
-  _maskBrushFuzziness: 0.5
-  _maskBrushOpacity: 0.15
-  _fogOfWarTexture: {fileID: 0}
-  _terrainFit: 0
-  _terrainFitResolution: 128
-  _terrainLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _terrainFogHeight: 25
-  _terrainFogMinAltitude: 0
-  _terrainFogMaxAltitude: 150
 --- !u!114 &952702172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17383,6 +17157,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2838e0cbd5a124a0ab52bbe6b14c5ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &952702173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952702165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1 &985302079
 GameObject:
   m_ObjectHideFlags: 0
@@ -17430,257 +17248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3d446f7ff644b70a8daaa5525fcf56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDirty: 0
-  _preset: 1000
-  _profile: {fileID: 0}
-  _profileSync: 1
-  _useFogVolumes: 0
-  _debugPass: 0
-  _showInSceneView: 1
-  _transparencyBlendMode: 0
-  _transparencyBlendPower: 1
-  _transparencyLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _visibilityScope: 0
-  _visibilityVolume:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 500, y: 500, z: 500}
-  _lightingModel: 0
-  _enableMultipleCameras: 0
-  _computeDepth: 0
-  _computeDepthScope: 0
-  _transparencyCutOff: 0.1
-  _renderBeforeTransparent: 0
-  _sun: {fileID: 0}
-  _timeBetweenTextureUpdates: 0.2
-  _sunCopyColor: 1
-  _density: 1.034
-  _noiseStrength: 1
-  _noiseFinalMultiplier: 1.051
-  _noiseSparse: 0.327
-  _distance: 698
-  _maxFogLength: 1000
-  _maxFogLengthFallOff: 0
-  _distanceFallOff: 0.35
-  _height: 50
-  _heightFallOff: 0.6
-  _deepObscurance: 1
-  _baselineHeight: 30
-  _baselineRelativeToCamera: 0
-  _baselineRelativeToCameraDelay: 0
-  _noiseScale: 16.1
-  _alpha: 1.05
-  _color: {r: 0.8820755, g: 0.9930788, b: 1, a: 1}
-  _specularColor: {r: 1, g: 1, b: 0.8, a: 1}
-  _specularThreshold: 0.6
-  _specularIntensity: 0.259
-  _lightDirection: {x: -0.8366166, y: -0.31949785, z: -0.4449653}
-  _lightIntensity: -0.069
-  _lightColor: {r: 0.8537736, g: 0.959354, b: 1, a: 1}
-  _updateTextureSpread: 1
-  _speed: 0.00025
-  _windDirection: {x: -1, y: 0, z: 0}
-  _useRealTime: 0
-  _skyColor: {r: 0.89, g: 0.89, b: 0.89, a: 0.96}
-  _skyHaze: 0
-  _skyNoiseScale: 1.5
-  _skySpeed: 0.3
-  _skyNoiseStrength: 1
-  _skyAlpha: 0.96
-  _skyDepth: 0.999
-  _character: {fileID: 0}
-  _fogVoidTopology: 0
-  _fogVoidFallOff: 1
-  _fogVoidRadius: 0
-  _fogVoidPosition: {x: 0, y: 0, z: 0}
-  _fogVoidDepth: 0
-  _fogVoidHeight: 0
-  _fogVoidInverted: 0
-  _fogVoidShowGizmos: 0
-  _fogAreaShowGizmos: 1
-  _fogAreaCenter: {fileID: 0}
-  _fogAreaFallOff: 1
-  _fogAreaFollowMode: 0
-  _fogAreaTopology: 1
-  _fogAreaRadius: 1000
-  _fogAreaPosition: {x: 77, y: 222.05046, z: 0}
-  _fogAreaDepth: 0
-  _fogAreaHeight: 16
-  _fogAreaSortingMode: 2
-  _fogAreaRenderOrder: 2
-  pointLightParams:
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - light: {fileID: 0}
-    lightParams: {fileID: 0}
-    range: 0
-    rangeMultiplier: 1
-    intensity: 1
-    intensityMultiplier: 1
-    position: {x: 0, y: 0, z: 0}
-    color: {r: 1, g: 1, b: 0, a: 1}
-  pointLightDataMigrated: 1
-  _pointLights:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _pointLightRanges:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _pointLightIntensities:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  _pointLightIntensitiesMultiplier:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  _pointLightPositions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  _pointLightColors:
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  _pointLightTrackingAuto: 0
-  _pointLightTrackingPivot: {fileID: 985302080}
-  _pointLightTrackingCount: 0
-  _pointLightTrackingCheckInterval: 1
-  _pointLightTrackingNewLightsCheckInterval: 3
-  _pointLightInscattering: 1
-  _pointLightIntensity: 1
-  _pointLightInsideAtten: 0
-  _downsampling: 2
-  _forceComposition: 0
-  _blurComposition: 0
-  _blurEdgeThreshold: 0.002
-  _edgeImprove: 1
-  _edgeThreshold: 0.00001
-  _stepping: 6
-  _steppingNear: 1
-  _dithering: 0
-  _ditherStrength: 0.75
-  _jitterStrength: 0.5
-  _lightScatteringEnabled: 0
-  _lightScatteringDiffusion: 0.7
-  _lightScatteringSpread: 0.686
-  _lightScatteringTint: {r: 1, g: 1, b: 1, a: 0}
-  _lightScatteringSamples: 16
-  _lightScatteringWeight: 1.9
-  _lightScatteringIllumination: 18
-  _lightScatteringDecay: 0.986
-  _lightScatteringExposure: 0
-  _lightScatteringJittering: 0.5
-  _lightScatteringBlurDownscale: 1
-  _fogBlur: 0
-  _fogBlurDepth: 0.05
-  _sunShadows: 0
-  _sunShadowsLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _sunShadowsStrength: 0.5
-  _sunShadowsBias: 0.1
-  _sunShadowsJitterStrength: 0.1
-  _sunShadowsResolution: 2
-  _sunShadowsMaxDistance: 300
-  _sunShadowsBakeMode: 1
-  _sunShadowsRefreshInterval: 0
-  _sunShadowsCancellation: 0
-  _turbulenceStrength: 0.08
-  _useXYPlane: 0
-  _useSinglePassStereoRenderingMatrix: 0
-  _spsrBehaviour: 0
-  _reduceFlickerBigWorlds: 0
-  _enableMask: 0
-  _maskLayer:
-    serializedVersion: 2
-    m_Bits: 8388608
-  _maskDownsampling: 1
-  isRendering: 1
-  fogRenderer: {fileID: 952702171}
-  _fogOfWarEnabled: 0
-  _fogOfWarCenter: {x: 0, y: 0, z: 0}
-  _fogOfWarSize: {x: 1024, y: 0, z: 1024}
-  _fogOfWarTextureSize: 256
-  _fogOfWarRestoreDelay: 0
-  _fogOfWarRestoreDuration: 2
-  _fogOfWarSmoothness: 1
-  _fogOfWarBlur: 0
-  _fogOfWarReuseOther: 0
-  _fogOfWarOther: {fileID: 0}
-  _maskEditorEnabled: 0
-  _maskBrushMode: 1
-  _maskBrushWidth: 20
-  _maskBrushFuzziness: 0.5
-  _maskBrushOpacity: 0.15
-  _fogOfWarTexture: {fileID: 0}
-  _terrainFit: 0
-  _terrainFitResolution: 128
-  _terrainLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _terrainFogHeight: 25
-  _terrainFogMinAltitude: 0
-  _terrainFogMaxAltitude: 150
 --- !u!114 &985302082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17693,7 +17260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d89e0c7860354d678db24a31da6dd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fog: {fileID: 0}
 --- !u!23 &985302083
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18522,6 +18088,7 @@ GameObject:
   - component: {fileID: 1522599986}
   - component: {fileID: 1522599985}
   - component: {fileID: 1522599987}
+  - component: {fileID: 1522599988}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -18618,6 +18185,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a93e646d90e44214b7668c0f8091dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1522599988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522599984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1569069105
 GameObject:
   m_ObjectHideFlags: 0
@@ -28959,6 +28549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2005605227}
   - component: {fileID: 2005605228}
+  - component: {fileID: 2005605229}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -29043,6 +28634,29 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &2005605229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005605226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!4 &2021382373 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 910fa72cfd808ff418453b612bab4a7a, type: 3}
