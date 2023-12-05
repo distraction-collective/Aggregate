@@ -106,9 +106,15 @@ namespace DesirePaths
             }            
         }
 
+        /// <summary>
+        /// TODO : yield until game state allows for execution
+        /// 
+        /// </summary>
+        /// <param name="safe"></param>
+        /// <param name="position"></param>
         void RespawnPlayer(bool safe, Vector3 position)
-        {          
-            _playerSpawner.RespawnPlayer();
+        {
+            //du coup dans ta note rajoute le fait que je dois deposer les viscères avant de faire le respawn, et le deposite cadaver - si on veut faire une animation qui backtrack tout notre chemin
             _playerSpawner.OnPlayerRespawnComplete.AddListener(delegate
             {
                 _playerSpawner.OnPlayerRespawnComplete.RemoveAllListeners();
@@ -119,6 +125,7 @@ namespace DesirePaths
                 } //We place only when we're sure camera is not looking, so when resuscitate is call                
                 _playerHealth.Resuscitate();
             });
+            _playerSpawner.RespawnPlayer();            
         }
         #endregion
     }

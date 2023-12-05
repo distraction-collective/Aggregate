@@ -25,13 +25,13 @@ namespace DesirePaths.Landmarks
         public LandmarkEvent OnLandmarkCompletion;
 
         private bool _pillarsCompleted = false;
-        private string _playerTag = "";
+        [SerializeField] private string _playerTag = "Player_Collider"; // the collider used is under puppet master / pelvis
 
         private void Awake()
         {
             _landmarks.ForEach(x =>
             {
-                x.SetPlayerTag = _playerTag;
+                x.SetPlayerTag(_playerTag);
                 if (x.GetType() == typeof(Pillar)) _pillarCount += 1;
             });
             SubscribeToLandmarkTriggers(true);
