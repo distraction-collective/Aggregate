@@ -20,6 +20,13 @@ namespace DesirePaths
     public class LandmarkEvent : UnityEvent<Landmarks.LandmarkManager.LandmarkEvents>
     {
     }
+    
+    /// <summary>
+    /// Used for callbacks responding to game state changes
+    /// </summary>
+    public class GameStateEvent : UnityEvent<GameManager.GameState>
+    {
+    }
 
     public class GameManager : MonoBehaviour
     {
@@ -31,6 +38,16 @@ namespace DesirePaths
         [SerializeField] private PlayerSpawner _playerSpawner;
         [SerializeField] private CadaverGutsManager _cadaverManager;
         [SerializeField] private Landmarks.LandmarkManager _landmarkManager;
+
+        public static GameStateEvent OnGameStateChanged;
+
+        public enum GameState
+        {
+            Play,
+            Pause, 
+            Init
+        }
+        private GameState _currentState = GameState.Init;
 
         PlayerDeathEvent PlayerDeathEvent => _playerHealth.PlayerDeathEvent;
         LandmarkEvent LandmarkTriggerEvent => _landmarkManager.OnLandmarkTriggered;
@@ -47,6 +64,22 @@ namespace DesirePaths
         {
             SubscribeToPlayerDeathEvents(false);
             SubscribeToLandmarkEvents(false);
+        }
+
+        void SetState(GameState newState)
+        {
+            if (newState == _currentState) return;
+            _currentState = newState;
+            if (OnGameStateChanged != null) OnGameStateChanged.Invoke(newState);
+            switch(newState)
+            {
+                case GameState.Play:
+                    return;
+                case GameState.Pause:
+                    return;
+                case GameState.Init:
+                    return;
+            }
         }
 
         #region Landmarks
