@@ -28,6 +28,13 @@ namespace DesirePaths
     {
     }
 
+    /// <summary>
+    /// Used for callbacks responding to narration update changes
+    /// </summary>
+    public class NarrationUpdateEvent : UnityEvent<string>
+    {
+    }
+
     public class GameManager : MonoBehaviour
     {
         [Header("Player components")]        
@@ -38,6 +45,9 @@ namespace DesirePaths
         [SerializeField] private PlayerSpawner _playerSpawner;
         [SerializeField] private CadaverGutsManager _cadaverManager;
         [SerializeField] private Landmarks.LandmarkManager _landmarkManager;
+        [Header("UX components")]
+        [SerializeField] private UI.UIManager _uiManager;
+        [SerializeField] private Narration.NarrationManager _narrationManager;
 
         public static GameStateEvent OnGameStateChanged;
 
@@ -52,18 +62,25 @@ namespace DesirePaths
         PlayerDeathEvent PlayerDeathEvent => _playerHealth.PlayerDeathEvent;
         LandmarkEvent LandmarkTriggerEvent => _landmarkManager.OnLandmarkTriggered;
         LandmarkEvent LandmarksCompleted => _landmarkManager.OnLandmarkCompletion;
+        UnityAction UpdateNarration => _narrationManager.UpdateNarrationAction;
+        private UnityEvent NarrationTrigger = new UnityEvent(); // sends a message to the narration manager
+                                                                // to fetch the next line and trigger a narration
+                                                                // event if next line is found
 
         private void Awake()
         {
             _playerSpawner.SetThirdPersonController = _playerThirdPersonController;
             SubscribeToPlayerDeathEvents(true);
             SubscribeToLandmarkEvents(true);
+            BindNarrationCallbacks(true);
+            SetState(GameState.Play);
         }
 
         private void OnDisable()
         {
             SubscribeToPlayerDeathEvents(false);
             SubscribeToLandmarkEvents(false);
+            BindNarrationCallbacks(false);
         }
 
         void SetState(GameState newState)
@@ -81,6 +98,21 @@ namespace DesirePaths
                     return;
             }
         }
+
+        #region Narration 
+        void BindNarrationCallbacks(bool bind)
+        {
+            if(bind)
+            {
+                NarrationTrigger.AddListener(UpdateNarration);
+                _narrationManager.NarrationUpdated.AddListener(_uiManager.DisplaySubs);
+            } else
+            {
+                NarrationTrigger.RemoveAllListeners();
+                _narrationManager.NarrationUpdated.RemoveAllListeners();
+            }            
+        }
+        #endregion
 
         #region Landmarks
         void SubscribeToLandmarkEvents(bool subscribe)
@@ -113,6 +145,7 @@ namespace DesirePaths
         }
 
         void LandmarkTriggered(Landmarks.LandmarkManager.LandmarkEvents e) {
+            UpdateNarration();
             switch(e)
             {
                 case Landmarks.LandmarkManager.LandmarkEvents.PILLAR_ACTIVATED:
