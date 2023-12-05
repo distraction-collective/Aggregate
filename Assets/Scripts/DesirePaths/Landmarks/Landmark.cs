@@ -47,7 +47,7 @@ namespace DesirePaths.Landmarks
 
         public virtual void OnEnter()
         {
-            Debug.Log("landmark entered - " + gameObject.name);
+            //Debug.Log("landmark entered - " + gameObject.name);
             OnTrigger();
         }
 
@@ -64,7 +64,7 @@ namespace DesirePaths.Landmarks
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = _triggered ? Color.green : Color.red;
+            Gizmos.color = _triggered ? Color.green : (this.GetType() == typeof(Pillar) ? Color.red : Color.yellow);
             Gizmos.DrawCube(this.transform.position, new Vector3(_collider.size.x, _collider.size.y, _collider.size.z));
         }
     }
