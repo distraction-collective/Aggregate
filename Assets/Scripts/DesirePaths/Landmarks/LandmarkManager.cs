@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using System.Text;
 
 namespace DesirePaths.Landmarks
 {
@@ -12,6 +12,8 @@ namespace DesirePaths.Landmarks
         /// </summary>
         private int _pillarCount = 0;
         private int _completedPillarsCount = 0;
+        private int _landmarkCount = 0;
+        private int _visitedLandmarksCount = 0;
 
         [SerializeField] private List<Landmark> _landmarks;
         public enum LandmarkEvents
@@ -33,6 +35,7 @@ namespace DesirePaths.Landmarks
             {
                 x.SetPlayerTag(_playerTag);
                 if (x.GetType() == typeof(Pillar)) _pillarCount += 1;
+                _landmarkCount += 1;
             });
             SubscribeToLandmarkTriggers(true);
         }
@@ -58,7 +61,8 @@ namespace DesirePaths.Landmarks
 
         void LandmarkTriggered(Landmark l)
         {
-            if(l.GetType() == typeof(Pillar))
+            _visitedLandmarksCount += 1;
+            if (l.GetType() == typeof(Pillar))
             {
                 if (_pillarsCompleted) return;
                 OnLandmarkTriggered.Invoke(LandmarkEvents.PILLAR_ACTIVATED);
@@ -69,8 +73,16 @@ namespace DesirePaths.Landmarks
                     OnLandmarkCompletion.Invoke(LandmarkEvents.ALL_PILLARS_ACTIVATED);
                 }
             } else {
-                OnLandmarkTriggered.Invoke(LandmarkEvents.LANDMARK_ENTERED);
+                OnLandmarkTriggered.Invoke(LandmarkEvents.LANDMARK_ENTERED);                
             }
+        }
+
+        private void OnGUI()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Completed pillars : " + _completedPillarsCount + " / " + _pillarCount);
+            sb.AppendLine("Visited landmarks : " + _visitedLandmarksCount + " / " + _landmarkCount);
+            GUI.Box(new Rect(0, 0, 200, 100), sb.ToString());
         }
     }
 }

@@ -10,7 +10,8 @@ namespace DesirePaths.Landmarks
     {
         private BoxCollider _collider => GetComponent<BoxCollider>();
         public UnityEvent OnLandmarkTriggered;
-        [SerializeField] private string _playerTag = "Player_Collider";
+        private string _playerTag = "Player_Collider";
+        private bool _triggered = false;
         public void SetPlayerTag(string tag)
         {
             if (string.IsNullOrEmpty(tag)) return;
@@ -25,11 +26,12 @@ namespace DesirePaths.Landmarks
         #region COLLISIONS
         private void OnTriggerEnter(Collider col)
         {
-            Debug.Log("Something entered trigger");
+            //Debug.Log("Something entered trigger");
             if (col.gameObject.CompareTag(_playerTag))
             {
-                Debug.Log("Player entered trigger");
+                //Debug.Log("Player entered trigger");
                 _collider.enabled = false;
+                _triggered = true;
                 OnEnter();
             }            
         }
@@ -58,6 +60,12 @@ namespace DesirePaths.Landmarks
         {
             Debug.Log("landmark triggered - " + gameObject.name);
             OnLandmarkTriggered.Invoke();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = _triggered ? Color.green : Color.red;
+            Gizmos.DrawCube(this.transform.position, new Vector3(_collider.size.x, _collider.size.y, _collider.size.z));
         }
     }
 }
