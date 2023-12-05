@@ -1,3 +1,7 @@
+# A Place No One Would Die For
+
+A poetic view of the desire paths concept in the shape of a 3D game
+
 ## Guidelines générales pour l'import d'assets
 - Les plugins qui sont des outils vont dans Assets/ThirdParty
 - Les plugins qui sont du contenu vont dans Assets/Content/AssetPacks
