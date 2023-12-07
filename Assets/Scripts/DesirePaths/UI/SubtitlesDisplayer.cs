@@ -10,20 +10,26 @@ namespace DesirePaths.UI
     {
         [SerializeField] private TMP_Text _subtitlesDisplay;
         [SerializeField] private float _displayDuration = 3f;
+        [SerializeField] private float _textFadeDuration = 2f;
         [SerializeField] private int maxChars = 105;
 
         private void Awake()
         {
-            Clear();
+            SetTextAlpha(0);
+            //Clear();
         }
 
         public void Set(string text)
         {
+            StopAllCoroutines(); //Gucci Addition: to avoir two dialogue subtitles updating at the same time
+            SetTextAlpha(0f);
+            StartCoroutine(FadeInOutText(0f, 1f));
             StartCoroutine(ShowSubs(text));
         }
 
         private IEnumerator ShowSubs(string text)
         {
+            
             List<string> lines = SplitSubs(text);
             for(int i = 0; i < lines.Count; i ++)
             {
@@ -59,7 +65,27 @@ namespace DesirePaths.UI
 
         public void Clear()
         {
-            _subtitlesDisplay.text = "";
+            StartCoroutine(FadeInOutText(1f, 0f, true));
+            
+        }
+
+        private IEnumerator FadeInOutText(float start, float destination, bool clearText = false)
+        {
+            float _currentFadeDuration = 0f;
+            while (_currentFadeDuration < _textFadeDuration)
+            {
+                SetTextAlpha(Mathf.Lerp(start, destination, _currentFadeDuration / _textFadeDuration));
+                _currentFadeDuration += Time.deltaTime;
+                yield return null;
+            }
+            SetTextAlpha(destination); //Because lerp never actually reaches destination value
+            if(clearText) _subtitlesDisplay.text = ""; //We put clear text here because we want to fade out before changing the string
+            yield return null;
+        }
+
+        private void SetTextAlpha(float a)
+        {
+            _subtitlesDisplay.alpha = a;
         }
     }
 }

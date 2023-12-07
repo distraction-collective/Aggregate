@@ -40,15 +40,21 @@ public class CadaverGutsManager : MonoBehaviour
         return currentCadaverArray.Count;
     }
 
-
+    public void DepositCadaverOnPosition(Vector3 playerPosition)
+    {
+        StartCoroutine(DepositCadaverCoroutine(playerPosition));
+    }
     /// <summary>
     /// Deposits cadaver at playerTransform Position, using a raycast above player and pointing downwards,
     /// we get the exact position and normal offset where we should put the body
     /// </summary>
 
-    public void DepositCadaverOnPosition(Vector3 playerPosition)
+    public IEnumerator DepositCadaverCoroutine(Vector3 playerPosition)
     {
+        yield return new WaitForSeconds(1.5f);
+
         GameObject newCadaver;
+        Debug.Log("depositing new cadaver");
         int randPrefabIndex = UnityEngine.Random.Range(0, _data.randomCadaverPrefabs.Length); //Lets choose a random prefab
         if (Physics.Raycast(playerPosition + Vector3.up * _data.basicDetectionHeightDifferential, -Vector3.up, out _hit, Mathf.Infinity, _data.layerToPutCadaver)){
             var randPrefab = _data.randomCadaverPrefabs[randPrefabIndex];
