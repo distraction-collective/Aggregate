@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.Splines;
 using Unity.Mathematics;
 using Cinemachine;
+using UnityEngine.Rendering.Universal;
 
 namespace DesirePaths
 {
@@ -27,6 +28,10 @@ namespace DesirePaths
         private float3 _backTrackUp;
         private float3 _backTrackTangent;
         private StarterAssets.ThirdPersonController _thirdPersonController;
+
+        [SerializeField] private Camera _camera;
+        private UniversalAdditionalCameraData _camData;
+
         public StarterAssets.ThirdPersonController SetThirdPersonController
         {
             set
@@ -44,7 +49,10 @@ namespace DesirePaths
 
         private IEnumerator RespawnRoutine()
         {
-            yield return new WaitForSeconds(_respawnDelay); //Before we start backtrack
+            yield return new WaitForSeconds(_respawnDelay / 2); //Before we start backtrack
+            var _camData = _camera.GetUniversalAdditionalCameraData(); 
+            _camData.SetRenderer(2); // switch to renderer with render feature. while black screen fade
+            yield return new WaitForSeconds(_respawnDelay/2);
 
             float _currentDuration = 0f;
             _spline.Evaluate(1, out _backTrackPosition, out _backTrackTangent, out _backTrackUp); //Reposition for first frame
@@ -53,6 +61,8 @@ namespace DesirePaths
 
             _backTrackElement.gameObject.SetActive(true);
             _vcam.enabled = true;
+            
+            
             while (_currentDuration < _backTrackDuration)
             {
                 _spline.Evaluate(Mathf.Lerp(1, 0, _currentDuration / _backTrackDuration), out _backTrackPosition, out _backTrackTangent, out _backTrackUp);
@@ -62,7 +72,7 @@ namespace DesirePaths
                 _currentDuration += Time.deltaTime;
                 yield return null;
             }
-            
+            _camData.SetRenderer(0);
             _vcam.enabled = false;
             _backTrackElement.gameObject.SetActive(false);
            
