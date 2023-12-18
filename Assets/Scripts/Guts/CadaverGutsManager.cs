@@ -9,7 +9,7 @@ public class CadaverGutsManager : MonoBehaviour
 {
     [Header("Player Info")]
     public Transform _gutsOrigin;
-    public Transform playerTransform;
+    //public Transform playerTransform;
     [Header("Cadavers and splines")]
     public List<GameObject> currentCadaverArray = new List<GameObject>();
     public SplineContainer _splineContainer;
@@ -40,17 +40,23 @@ public class CadaverGutsManager : MonoBehaviour
         return currentCadaverArray.Count;
     }
 
-
+    public void DepositCadaverOnPosition(Vector3 playerPosition)
+    {
+        StartCoroutine(DepositCadaverCoroutine(playerPosition));
+    }
     /// <summary>
     /// Deposits cadaver at playerTransform Position, using a raycast above player and pointing downwards,
     /// we get the exact position and normal offset where we should put the body
     /// </summary>
 
-    public void DepositCadaverOnPosition()
+    public IEnumerator DepositCadaverCoroutine(Vector3 playerPosition)
     {
+        yield return new WaitForSeconds(1.5f);
+
         GameObject newCadaver;
+        Debug.Log("depositing new cadaver");
         int randPrefabIndex = UnityEngine.Random.Range(0, _data.randomCadaverPrefabs.Length); //Lets choose a random prefab
-        if (Physics.Raycast(playerTransform.position + Vector3.up * _data.basicDetectionHeightDifferential, -Vector3.up, out _hit, Mathf.Infinity, _data.layerToPutCadaver)){
+        if (Physics.Raycast(playerPosition + Vector3.up * _data.basicDetectionHeightDifferential, -Vector3.up, out _hit, Mathf.Infinity, _data.layerToPutCadaver)){
             var randPrefab = _data.randomCadaverPrefabs[randPrefabIndex];
             newCadaver = cadaverPool.spawnObject(randPrefab, _hit.point, Quaternion.identity);
             currentCadaverArray.Add(newCadaver);
@@ -59,7 +65,7 @@ public class CadaverGutsManager : MonoBehaviour
         else //We failed to hit, proceed to just put it where playerTransform is - itll be ugly but it still works
         {
             var randPrefab = _data.randomCadaverPrefabs[randPrefabIndex];
-            newCadaver = cadaverPool.spawnObject(randPrefab, playerTransform.position + Vector3.up * _data.cadaverDepositExtraHeight, Quaternion.identity);
+            newCadaver = cadaverPool.spawnObject(randPrefab, playerPosition + Vector3.up * _data.cadaverDepositExtraHeight, Quaternion.identity);
             currentCadaverArray.Add(newCadaver);
         }
         ConnectSplineToNewCadaver(newCadaver.transform, _hit.point, _hit.normal);

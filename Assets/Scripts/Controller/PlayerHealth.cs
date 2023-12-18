@@ -11,6 +11,8 @@ namespace DesirePaths
 {
     public class PlayerHealth : MonoBehaviour
     {
+        public PlayerDeathEvent PlayerDeathEvent;
+
         [Header("Events")]
         public UnityEvent m_OnCharacterDeath;
 
@@ -49,7 +51,7 @@ namespace DesirePaths
         public float maxHealthValue = 10f; //Max 10 seconds currently
         public LayerMask _safeMask;
         [SerializeField] private float _currentHealthValue;
-        [SerializeField] private Transform _originSpawnPoint;
+        //[SerializeField] private Transform _originSpawnPoint;
 
         private float currentOscillationModifier;
         private float currentOscillationDuration;
@@ -142,26 +144,16 @@ namespace DesirePaths
             _characterController.enabled = false; //character controller has own definition of position, so we cant change position unless deactivated
             _thirdPersonController.enabled = false;
             _puppetMaster.Kill();
-            
-            Invoke("Resuscitate", 3f); //Temporary, normally this is done in game manager
+
+            PlayerDeathEvent.Invoke(safe, _thirdPersonController.transform.position);
+            //Invoke("Resuscitate", 3f); //Temporary, normally this is done in game manager
         }
 
         public void Resuscitate()
         {
-            if (!onSafeSpace)
-            {
-                //Deposite cadaver if not on safe space
-                _cadaverManager.DepositCadaverOnPosition();
-            } //We place only when we're sure camera is not looking, so when resuscitate is called
-
             dead = false;
-            
-            _thirdPersonController.transform.position = _originSpawnPoint.transform.position;
-
-            _puppetMaster.Teleport(_originSpawnPoint.transform.position, Quaternion.identity, true);
             _puppetMaster.Resurrect();
             _currentHealthValue = maxHealthValue;
-
             _characterController.enabled = true;
             _thirdPersonController.enabled = true;
             _controllerAnimator.SetTrigger("KneelUp"); //RespawnAnim
@@ -206,11 +198,12 @@ namespace DesirePaths
         }
 
         //Utility
-
+        /*
         public void SetOriginSpawnPoint(Transform t)
         {
             _originSpawnPoint = t;
         }
+        */
 
         private void UpdateAnimator()
         {
