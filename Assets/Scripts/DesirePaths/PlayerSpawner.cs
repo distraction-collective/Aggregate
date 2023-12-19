@@ -7,6 +7,8 @@ using UnityEngine.Splines;
 using Unity.Mathematics;
 using Cinemachine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace DesirePaths
 {
@@ -29,7 +31,12 @@ namespace DesirePaths
         private float3 _backTrackTangent;
         private StarterAssets.ThirdPersonController _thirdPersonController;
 
+        [Header("Rendering")]
+
         [SerializeField] private Camera _camera;
+        [SerializeField] private Volume _mainPPVolume;
+        [SerializeField] private VolumeProfile _backtrackPPProfile;
+        [SerializeField] private VolumeProfile _defaultPPProfile;
         private UniversalAdditionalCameraData _camData;
 
         public StarterAssets.ThirdPersonController SetThirdPersonController
@@ -52,6 +59,7 @@ namespace DesirePaths
             yield return new WaitForSeconds(_respawnDelay / 2); //Before we start backtrack
             var _camData = _camera.GetUniversalAdditionalCameraData(); 
             _camData.SetRenderer(2); // switch to renderer with render feature. while black screen fade
+            _mainPPVolume.profile = _backtrackPPProfile;
             yield return new WaitForSeconds(_respawnDelay/2);
 
             float _currentDuration = 0f;
@@ -73,6 +81,7 @@ namespace DesirePaths
                 yield return null;
             }
             _camData.SetRenderer(0);
+            _mainPPVolume.profile = _defaultPPProfile;
             _vcam.enabled = false;
             _backTrackElement.gameObject.SetActive(false);
            

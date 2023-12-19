@@ -6,6 +6,7 @@ using RootMotion.Dynamics;
 using RootMotion;
 using StarterAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 namespace DesirePaths
 {
@@ -36,6 +37,8 @@ namespace DesirePaths
         public SkinnedMeshRenderer _organsRenderer;
         public SkinnedMeshRenderer _bodyRenderer;
         public Light _light;
+        public Volume _dangerVolume;
+        public AnimationCurve _dangerAnimationCurve;
         //Character materials add here
 
         [Header("Options")]
@@ -138,7 +141,7 @@ namespace DesirePaths
         public void KillPlayer()
         {
             dead = true;
-            
+            _dangerVolume.weight = 0f;
             _playerInputs.DeactivateInput();
             _playerInputs.enabled = false;
             _characterController.enabled = false; //character controller has own definition of position, so we cant change position unless deactivated
@@ -195,6 +198,8 @@ namespace DesirePaths
 
             //Organs
             UpdateOrganMaterial(currentColor, _bodyGradient.Evaluate(currentValue));
+            //Post Processing
+            _dangerVolume.weight = _dangerAnimationCurve.Evaluate(currentValue);
         }
 
         //Utility
