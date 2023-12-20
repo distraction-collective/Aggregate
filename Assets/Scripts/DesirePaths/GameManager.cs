@@ -148,8 +148,15 @@ namespace DesirePaths
             UpdateNarration();
             switch(e)
             {
+                case Landmarks.LandmarkManager.LandmarkEvents.PILLAR_ACTIVATION_START:
+                    // suspend player controls 
+                    Debug.Log("[Game manager / pillar] pillar activation started");
+                    _playerHealth.EnableControls(false);
+                    break;
                 case Landmarks.LandmarkManager.LandmarkEvents.PILLAR_ACTIVATED:
-                    Debug.Log("[Game manager / landmarks] pillar activated");
+                    // kill player
+                    _playerHealth.KillPlayer();
+                    Debug.Log("[Game manager / pillar] pillar activated");
                     break;
                 case Landmarks.LandmarkManager.LandmarkEvents.LANDMARK_ENTERED:
                     Debug.Log("[Game manager / landmarks] generic landmark entered");

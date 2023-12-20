@@ -18,6 +18,7 @@ namespace DesirePaths.Landmarks
         [SerializeField] private List<Landmark> _landmarks;
         public enum LandmarkEvents
         {
+            PILLAR_ACTIVATION_START,
             PILLAR_ACTIVATED,
             LANDMARK_ENTERED,
             ALL_PILLARS_ACTIVATED,
@@ -52,9 +53,11 @@ namespace DesirePaths.Landmarks
                 if(subscribe)
                 {
                     x.OnLandmarkTriggered.AddListener(delegate { LandmarkTriggered(x); });
+                    x.OnLandmarkActivationStart.AddListener(delegate { LandmarkActivationStart(x); });
                 } else
                 {
                     x.OnLandmarkTriggered.RemoveAllListeners();
+                    x.OnLandmarkActivationStart.RemoveAllListeners();
                 }                
             });
         }
@@ -75,6 +78,12 @@ namespace DesirePaths.Landmarks
             } else {
                 OnLandmarkTriggered.Invoke(LandmarkEvents.LANDMARK_ENTERED);                
             }
+        }
+
+        void LandmarkActivationStart(Landmark l)
+        {
+            if (!(l.GetType() == typeof(Pillar))) return;
+            OnLandmarkTriggered.Invoke(LandmarkEvents.PILLAR_ACTIVATION_START);
         }
 
         private void OnGUI()
