@@ -218,7 +218,7 @@ Material:
     - _SSS_Intensity: 1
     - _SSS_Power: 1
     - _Size: 1
-    - _Smoothness: 0.34
+    - _Smoothness: 0.459
     - _SmoothnessTextureChannel: 0
     - _SnowAmount: 1
     - _SnowCoverage: 0.46
