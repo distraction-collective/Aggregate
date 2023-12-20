@@ -154,6 +154,8 @@ namespace DesirePaths
                     _playerHealth.EnableControls(false);
                     break;
                 case Landmarks.LandmarkManager.LandmarkEvents.PILLAR_ACTIVATED:
+                    // update respawn point
+                    _playerSpawner.UpdateSpawnPoint(_landmarkManager.GetLastLandmark.gameObject.transform);
                     // kill player
                     _playerHealth.KillPlayer();
                     Debug.Log("[Game manager / pillar] pillar activated");

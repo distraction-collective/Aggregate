@@ -29,6 +29,8 @@ namespace DesirePaths.Landmarks
 
         private bool _pillarsCompleted = false;
         [SerializeField] private string _playerTag = "Player_Collider"; // the collider used is under puppet master / pelvis
+        private Landmark _lastLandmark;
+        public Landmark GetLastLandmark => _lastLandmark;
 
         private void Awake()
         {
@@ -65,6 +67,7 @@ namespace DesirePaths.Landmarks
         void LandmarkTriggered(Landmark l)
         {
             _visitedLandmarksCount += 1;
+            _lastLandmark = l;
             if (l.GetType() == typeof(Pillar))
             {
                 if (_pillarsCompleted) return;
