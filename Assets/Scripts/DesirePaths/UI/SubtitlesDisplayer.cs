@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace DesirePaths.UI
     public class SubtitlesDisplayer : MonoBehaviour
     {
         [SerializeField] private TMP_Text _subtitlesDisplay;
+        [SerializeField] private Image _gradientPanelDisplay;
         [SerializeField] private float _displayDuration = 3f;
         [SerializeField] private float _textFadeDuration = 2f;
         [SerializeField] private int maxChars = 105;
@@ -16,6 +18,7 @@ namespace DesirePaths.UI
         private void Awake()
         {
             SetTextAlpha(0);
+            SetPanelAlpha(0);
             //Clear();
         }
 
@@ -72,9 +75,11 @@ namespace DesirePaths.UI
         private IEnumerator FadeInOutText(float start, float destination, bool clearText = false)
         {
             float _currentFadeDuration = 0f;
+            float gradientDestination = destination == 1f ? 0.5f : 0f;
             while (_currentFadeDuration < _textFadeDuration)
             {
                 SetTextAlpha(Mathf.Lerp(start, destination, _currentFadeDuration / _textFadeDuration));
+                SetPanelAlpha(Mathf.Lerp(start, gradientDestination, _currentFadeDuration / _textFadeDuration));
                 _currentFadeDuration += Time.deltaTime;
                 yield return null;
             }
@@ -86,6 +91,12 @@ namespace DesirePaths.UI
         private void SetTextAlpha(float a)
         {
             _subtitlesDisplay.alpha = a;
+        }
+        private void SetPanelAlpha(float a)
+        {
+            var col = _gradientPanelDisplay.color;
+            col.a = a;
+            _gradientPanelDisplay.color = col;
         }
     }
 }
