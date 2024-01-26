@@ -4,6 +4,7 @@ using MonsterLove.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
+using System.Linq;
 
 public class CadaverGutsManager : MonoBehaviour {
   [Header("Player Info")]
