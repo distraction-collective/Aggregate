@@ -8,16 +8,21 @@ namespace DesirePaths.Landmarks {
 
   public class CinematicTrigger : MonoBehaviour {
     public GameObject player;
+    private bool played;
     private PlayableDirector playableDirector =>
         GetComponent<PlayableDirector>();
 
     private void OnTriggerEnter(Collider other) {
-      if (other.gameObject.CompareTag("Player_Collider")) {
-        Debug.Log("start cinematic");
-        player.SetActive(false);
-        playableDirector.Play();
-        playableDirector.stopped += OnAnimationEnd;
-      }
+      if (played)
+        return;
+      if (!other.gameObject.CompareTag("Player_Collider"))
+        return;
+
+      Debug.Log("start cinematic");
+      played = true;
+      player.SetActive(false);
+      playableDirector.Play();
+      playableDirector.stopped += OnAnimationEnd;
     }
 
     private void OnAnimationEnd(PlayableDirector _) {
