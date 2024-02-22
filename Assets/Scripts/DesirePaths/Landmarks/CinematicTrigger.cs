@@ -1,3 +1,4 @@
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -8,6 +9,7 @@ namespace DesirePaths.Landmarks {
 
   public class CinematicTrigger : MonoBehaviour {
     public GameObject player;
+    private SkinnedMeshRenderer[] renderers;
     private bool played;
     private PlayableDirector playableDirector =>
         GetComponent<PlayableDirector>();
@@ -18,16 +20,25 @@ namespace DesirePaths.Landmarks {
       if (!other.gameObject.CompareTag("Player_Collider"))
         return;
 
-      Debug.Log("start cinematic");
+      // play the cinematic once
       played = true;
-      player.SetActive(false);
       playableDirector.Play();
       playableDirector.stopped += OnAnimationEnd;
+
+      // hide the player
+      player.GetComponent<ThirdPersonController>().enabled = false;
+      renderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
+      foreach (SkinnedMeshRenderer renderer in renderers) {
+        renderer.enabled = false;
+      }
     }
 
     private void OnAnimationEnd(PlayableDirector _) {
-      Debug.Log("end cinematic");
-      player.SetActive(true);
+      // restore the player
+      player.GetComponent<ThirdPersonController>().enabled = true;
+      foreach (SkinnedMeshRenderer renderer in renderers) {
+        renderer.enabled = true;
+      }
     }
   }
 }
