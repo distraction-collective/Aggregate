@@ -9,10 +9,19 @@ namespace DesirePaths.Landmarks {
 
   public class CinematicTrigger : MonoBehaviour {
     public GameObject player;
-    private SkinnedMeshRenderer[] renderers;
+    private SkinnedMeshRenderer[] skinnedMeshRenderers;
+    private ParticleSystemRenderer[] particleSystemRenderers;
+    private ThirdPersonController controller;
     private bool played;
     private PlayableDirector playableDirector =>
         GetComponent<PlayableDirector>();
+
+    void Awake() {
+      controller = player.GetComponent<ThirdPersonController>();
+      if (controller == null) {
+        Debug.LogError("player should have a ThirdPersonController component");
+      }
+    }
 
     private void OnTriggerEnter(Collider other) {
       if (played)
@@ -26,18 +35,27 @@ namespace DesirePaths.Landmarks {
       playableDirector.stopped += OnAnimationEnd;
 
       // hide the player
-      player.GetComponent<ThirdPersonController>().enabled = false;
-      renderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
-      foreach (SkinnedMeshRenderer renderer in renderers) {
-        renderer.enabled = false;
+      controller.enabled = false;
+      skinnedMeshRenderers =
+          player.GetComponentsInChildren<SkinnedMeshRenderer>();
+      foreach (var r in skinnedMeshRenderers) {
+        r.enabled = false;
+      }
+      particleSystemRenderers =
+          player.GetComponentsInChildren<ParticleSystemRenderer>();
+      foreach (var r in particleSystemRenderers) {
+        r.enabled = false;
       }
     }
 
     private void OnAnimationEnd(PlayableDirector _) {
       // restore the player
-      player.GetComponent<ThirdPersonController>().enabled = true;
-      foreach (SkinnedMeshRenderer renderer in renderers) {
-        renderer.enabled = true;
+      controller.enabled = true;
+      foreach (var r in skinnedMeshRenderers) {
+        r.enabled = true;
+      }
+      foreach (var r in particleSystemRenderers) {
+        r.enabled = true;
       }
     }
   }
