@@ -3,7 +3,7 @@ using UnityEngine;
 // TODO add tooltips
 // TODO encode data into RGBA
 
-public class Sruggle : MonoBehaviour {
+public class Struggle : MonoBehaviour {
 
   public GameObject player;
   public Texture2D struggle_map;
