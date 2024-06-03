@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// ce script va probablement ne plus être utile une fois qu'on a notre terrain importé, je le mets dans _unused pour le moment
-/// - alpha
-/// </summary>
 [RequireComponent(typeof(SkinnedMeshRenderer))]
 public class MountainGenerator : MonoBehaviour
 {
