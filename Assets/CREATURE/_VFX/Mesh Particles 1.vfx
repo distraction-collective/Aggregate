@@ -71,6 +71,20 @@ MonoBehaviour:
   m_UISuperCollapsed: 0
   m_UIInfos: {fileID: 114340500867371532}
   m_ParameterInfo:
+  - name: SkinnedMeshRenderer
+    path: SkinnedMeshRenderer
+    tooltip: 
+    sheetType: m_NamedObject
+    realType: SkinnedMeshRenderer
+    defaultValue:
+      m_Type:
+        m_SerializableType: UnityEngine.SkinnedMeshRenderer, UnityEngine.CoreModule,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: 
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
   - name: Transform
     path: 
     tooltip: 
@@ -163,20 +177,6 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"obj":{"fileID":10208,"guid":"0000000000000000e000000000000000","type":0}}'
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
-  - name: New SkinnedMeshRenderer
-    path: New SkinnedMeshRenderer
-    tooltip: 
-    sheetType: m_NamedObject
-    realType: SkinnedMeshRenderer
-    defaultValue:
-      m_Type:
-        m_SerializableType: UnityEngine.SkinnedMeshRenderer, UnityEngine.CoreModule,
-          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: 
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -3941,7 +3941,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614710}
   m_ExposedName: Transform
   m_Exposed: 1
-  m_Order: 0
+  m_Order: 1
   m_Category: 
   m_Min:
     m_Type:
@@ -6540,7 +6540,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614790}
   m_ExposedName: Force
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 2
   m_Category: 
   m_Min:
     m_Type:
@@ -9767,7 +9767,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614933}
   m_ExposedName: Mesh
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 3
   m_Category: 
   m_Min:
     m_Type:
@@ -10999,9 +10999,9 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661614976}
-  m_ExposedName: New SkinnedMeshRenderer
+  m_ExposedName: SkinnedMeshRenderer
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 0
   m_Category: 
   m_Min:
     m_Type:
@@ -11020,7 +11020,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614976}
       inputSlot: {fileID: 8926484042661614942}
-    position: {x: -98.819954, y: -96.02997}
+    position: {x: -124, y: -134.4}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614976
