@@ -171,7 +171,9 @@ Shader "Terrain_Gneh"
 		#endif //ASE_TESS_FUNCS
 		ENDHLSL
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -189,7 +191,6 @@ Shader "Terrain_Gneh"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
@@ -246,6 +247,10 @@ Shader "Terrain_Gneh"
 				#define ENABLE_TERRAIN_PERPIXEL_NORMAL
 			#endif
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -339,9 +344,42 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapOffset0;
 			sampler2D _circular_place_Colormap_0_0;
 			sampler2D _ground_0034_normal_opengl_2k;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.texcoord.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -349,6 +387,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				v = ApplyMeshModification(v);
 				o.ase_texcoord8.xy = v.texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
@@ -799,7 +838,9 @@ Shader "Terrain_Gneh"
 			ENDHLSL
 		}
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -814,7 +855,6 @@ Shader "Terrain_Gneh"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
@@ -841,6 +881,10 @@ Shader "Terrain_Gneh"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
             #endif
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -857,7 +901,7 @@ Shader "Terrain_Gneh"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -871,7 +915,7 @@ Shader "Terrain_Gneh"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					float4 shadowCoord : TEXCOORD2;
 				#endif				
-				
+				float4 ase_texcoord3 : TEXCOORD3;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -923,9 +967,42 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapScale3;
 			float4 _MaskMapRemapOffset3;
 			float4 _MaskMapRemapOffset0;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.ase_texcoord.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			float3 _LightDirection;
 			float3 _LightPosition;
 
@@ -936,7 +1013,8 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
 
-				
+				v = ApplyMeshModification(v);
+				o.ase_texcoord3 = v.ase_texcoord;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -992,7 +1070,8 @@ Shader "Terrain_Gneh"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -1009,7 +1088,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.vertex;
 				o.ase_normal = v.ase_normal;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -1048,7 +1127,7 @@ Shader "Terrain_Gneh"
 				VertexInput o = (VertexInput) 0;
 				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -1122,7 +1201,9 @@ Shader "Terrain_Gneh"
 			ENDHLSL
 		}
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -1136,7 +1217,6 @@ Shader "Terrain_Gneh"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
@@ -1161,6 +1241,10 @@ Shader "Terrain_Gneh"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
             #endif
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -1177,7 +1261,7 @@ Shader "Terrain_Gneh"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -1191,7 +1275,7 @@ Shader "Terrain_Gneh"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 				float4 shadowCoord : TEXCOORD2;
 				#endif
-				
+				float4 ase_texcoord3 : TEXCOORD3;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -1243,9 +1327,42 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapScale3;
 			float4 _MaskMapRemapOffset3;
 			float4 _MaskMapRemapOffset0;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.ase_texcoord.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -1253,7 +1370,8 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				
+				v = ApplyMeshModification(v);
+				o.ase_texcoord3 = v.ase_texcoord;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -1294,7 +1412,8 @@ Shader "Terrain_Gneh"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -1311,7 +1430,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.vertex;
 				o.ase_normal = v.ase_normal;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -1350,7 +1469,7 @@ Shader "Terrain_Gneh"
 				VertexInput o = (VertexInput) 0;
 				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -1418,7 +1537,9 @@ Shader "Terrain_Gneh"
 			ENDHLSL
 		}
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -1452,6 +1573,10 @@ Shader "Terrain_Gneh"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/MetaInput.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -1533,9 +1658,42 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapOffset3;
 			float4 _MaskMapRemapOffset0;
 			sampler2D _circular_place_Colormap_0_0;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.texcoord0.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -1543,6 +1701,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				v = ApplyMeshModification(v);
 				o.ase_texcoord4.xy = v.texcoord0.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
@@ -1723,7 +1882,9 @@ Shader "Terrain_Gneh"
 			ENDHLSL
 		}
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -1758,6 +1919,10 @@ Shader "Terrain_Gneh"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -1832,9 +1997,42 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapOffset3;
 			float4 _MaskMapRemapOffset0;
 			sampler2D _circular_place_Colormap_0_0;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.ase_texcoord.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -1842,6 +2040,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID( v, o );
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
 
+				v = ApplyMeshModification(v);
 				o.ase_texcoord2.xy = v.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
@@ -2000,7 +2199,9 @@ Shader "Terrain_Gneh"
 			ENDHLSL
 		}
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -2015,7 +2216,6 @@ Shader "Terrain_Gneh"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
@@ -2042,6 +2242,10 @@ Shader "Terrain_Gneh"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
             #endif
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -2128,9 +2332,42 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapOffset3;
 			float4 _MaskMapRemapOffset0;
 			sampler2D _ground_0034_normal_opengl_2k;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.ase_texcoord.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -2138,6 +2375,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				v = ApplyMeshModification(v);
 				o.ase_texcoord5.xy = v.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
@@ -2349,7 +2587,9 @@ Shader "Terrain_Gneh"
 			ENDHLSL
 		}
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -2366,7 +2606,6 @@ Shader "Terrain_Gneh"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
@@ -2418,6 +2657,10 @@ Shader "Terrain_Gneh"
 				#define ENABLE_TERRAIN_PERPIXEL_NORMAL
 			#endif
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -2511,11 +2754,44 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapOffset0;
 			sampler2D _circular_place_Colormap_0_0;
 			sampler2D _ground_0034_normal_opengl_2k;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/UnityGBuffer.hlsl"
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.texcoord.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -2523,6 +2799,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				v = ApplyMeshModification(v);
 				o.ase_texcoord8.xy = v.texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
@@ -2837,7 +3114,9 @@ Shader "Terrain_Gneh"
 			ENDHLSL
 		}
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -2873,6 +3152,10 @@ Shader "Terrain_Gneh"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -2881,14 +3164,14 @@ Shader "Terrain_Gneh"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
 				float4 clipPos : SV_POSITION;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2940,9 +3223,42 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapScale3;
 			float4 _MaskMapRemapOffset3;
 			float4 _MaskMapRemapOffset0;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.ase_texcoord.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			struct SurfaceDescription
 			{
 				float Alpha;
@@ -2958,7 +3274,8 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				
+				v = ApplyMeshModification(v);
+				o.ase_texcoord = v.ase_texcoord;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -2988,7 +3305,8 @@ Shader "Terrain_Gneh"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3005,7 +3323,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.vertex;
 				o.ase_normal = v.ase_normal;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -3044,7 +3362,7 @@ Shader "Terrain_Gneh"
 				VertexInput o = (VertexInput) 0;
 				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -3093,7 +3411,9 @@ Shader "Terrain_Gneh"
 			ENDHLSL
 		}
 
-		
+		UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+	UsePass "Hidden/Nature/Terrain/Utilities/SELECTION"
+
 		Pass
 		{
 			
@@ -3128,6 +3448,10 @@ Shader "Terrain_Gneh"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_POSITION
+			#pragma multi_compile_instancing
+			#pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap forwardadd
 			#pragma multi_compile_local __ _ALPHATEST_ON
 			#pragma shader_feature_local _MASKMAP
 
@@ -3136,14 +3460,14 @@ Shader "Terrain_Gneh"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
 				float4 clipPos : SV_POSITION;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -3195,9 +3519,42 @@ Shader "Terrain_Gneh"
 			float4 _MaskMapRemapScale3;
 			float4 _MaskMapRemapOffset3;
 			float4 _MaskMapRemapOffset0;
+			#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+				TEXTURE2D(_TerrainHeightmapTexture);//ASE Terrain Instancing
+				TEXTURE2D( _TerrainNormalmapTexture);//ASE Terrain Instancing
+				SAMPLER(sampler_TerrainNormalmapTexture);//ASE Terrain Instancing
+			#endif//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_START( Terrain )//ASE Terrain Instancing
+				UNITY_DEFINE_INSTANCED_PROP( float4, _TerrainPatchInstanceData )//ASE Terrain Instancing
+			UNITY_INSTANCING_BUFFER_END( Terrain)//ASE Terrain Instancing
+			CBUFFER_START( UnityTerrain)//ASE Terrain Instancing
+				#ifdef UNITY_INSTANCING_ENABLED//ASE Terrain Instancing
+					float4 _TerrainHeightmapRecipSize;//ASE Terrain Instancing
+					float4 _TerrainHeightmapScale;//ASE Terrain Instancing
+				#endif//ASE Terrain Instancing
+			CBUFFER_END//ASE Terrain Instancing
 
 
+			VertexInput ApplyMeshModification( VertexInput v )
+			{
+			#ifdef UNITY_INSTANCING_ENABLED
+				float2 patchVertex = v.vertex.xy;
+				float4 instanceData = UNITY_ACCESS_INSTANCED_PROP( Terrain, _TerrainPatchInstanceData );
+				float2 sampleCoords = ( patchVertex.xy + instanceData.xy ) * instanceData.z;
+				float height = UnpackHeightmap( _TerrainHeightmapTexture.Load( int3( sampleCoords, 0 ) ) );
+				v.vertex.xz = sampleCoords* _TerrainHeightmapScale.xz;
+				v.vertex.y = height* _TerrainHeightmapScale.y;
+				#ifdef ENABLE_TERRAIN_PERPIXEL_NORMAL
+					v.ase_normal = float3(0, 1, 0);
+				#else
+					v.ase_normal = _TerrainNormalmapTexture.Load(int3(sampleCoords, 0)).rgb* 2 - 1;
+				#endif
+				v.ase_texcoord.xy = sampleCoords* _TerrainHeightmapRecipSize.zw;
+			#endif
+				return v;
+			}
 			
+
 			struct SurfaceDescription
 			{
 				float Alpha;
@@ -3213,7 +3570,8 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				
+				v = ApplyMeshModification(v);
+				o.ase_texcoord = v.ase_texcoord;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -3242,7 +3600,8 @@ Shader "Terrain_Gneh"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3259,7 +3618,7 @@ Shader "Terrain_Gneh"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.vertex;
 				o.ase_normal = v.ase_normal;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -3298,7 +3657,7 @@ Shader "Terrain_Gneh"
 				VertexInput o = (VertexInput) 0;
 				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -3368,12 +3727,12 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;9;0,0;Float;False;False;-1;
 Node;AmplifyShaderEditor.SamplerNode;11;-644.7673,340.4269;Inherit;True;Property;_circular_place_NormalMap_0_0;circular_place_Normal Map_0_0;26;0;Create;True;0;0;0;False;0;False;-1;44e1fe621f37ffb499be01422ac4df39;44e1fe621f37ffb499be01422ac4df39;True;0;True;bump;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.NormalizeNode;15;-234.3225,338.7441;Inherit;False;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode;13;-432.0601,220.4495;Inherit;False;Property;_Smoothness;Smoothness;27;0;Create;True;0;0;0;False;0;False;0;0.08757218;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;12;-406.7673,154.4269;Inherit;False;Property;_Float0;Float 0;28;0;Create;True;0;0;0;False;0;False;4.8;0.1822165;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;12;-406.7673,154.4269;Inherit;False;Property;_Float0;Float 0;28;0;Create;True;0;0;0;False;0;False;4.8;0.274;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;18;-1271.003,553.9554;Inherit;False;Property;_Float1;Float 1;30;0;Create;True;0;0;0;False;0;False;14.46;1000;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;16;-82.4289,434.329;Inherit;True;Property;_ground_0034_normal_opengl_2k;ground_0034_normal_opengl_2k;29;0;Create;True;0;0;0;False;0;False;-1;15543d892b0e0ec44a6a09b3b8627adf;15543d892b0e0ec44a6a09b3b8627adf;True;0;True;bump;Auto;True;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SamplerNode;20;-650.0034,-47.04462;Inherit;True;Property;_ground_0034_color_2k;ground_0034_color_2k;31;0;Create;True;0;0;0;False;0;False;-1;a4e2685472cd65e439719aa05ee0de50;a4e2685472cd65e439719aa05ee0de50;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleAddOpNode;22;-251.0034,-75.04462;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;1407.246,-22.29763;Float;False;True;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;Terrain_Gneh;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;20;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;;0;0;Standard;41;Workflow;1;0;Surface;0;0;  Refraction Model;0;0;  Blend;0;0;Two Sided;1;0;Fragment Normal Space,InvertActionOnDeselection;0;0;Forward Only;0;0;Transmission;0;0;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;0;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;DOTS Instancing;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;0;  Early Z;0;0;Vertex Position,InvertActionOnDeselection;1;0;Debug Display;0;0;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;True;True;True;False;;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;1407.246,-22.29763;Float;False;True;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;Terrain_Gneh;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;20;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;;0;0;Standard;41;Workflow;1;0;Surface;0;0;  Refraction Model;0;0;  Blend;0;0;Two Sided;1;0;Fragment Normal Space,InvertActionOnDeselection;0;0;Forward Only;0;0;Transmission;0;0;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;0;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;DOTS Instancing;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;0;  Early Z;0;0;Vertex Position,InvertActionOnDeselection;1;0;Debug Display;0;0;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;True;True;True;True;;False;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;17;-1036.003,522.9554;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SamplerNode;27;-376.4589,1157.86;Inherit;True;Property;_Vert;Vert;33;0;Create;True;0;0;0;False;0;False;-1;a4e2685472cd65e439719aa05ee0de50;7ac3df05a42d08c48b675393e06c57b4;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SamplerNode;28;144.5411,1112.86;Inherit;True;Property;_Bleu;Bleu;34;0;Create;True;0;0;0;False;0;False;-1;a4e2685472cd65e439719aa05ee0de50;0faed044bd9bcf54abbcef602b69a4c3;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -3408,4 +3767,4 @@ WireConnection;25;0;28;0
 WireConnection;25;1;24;0
 WireConnection;25;2;11;3
 ASEEND*/
-//CHKSM=5082712EE2F3C6827E377D6B991A50F5BA00EB91
+//CHKSM=E298061D20F0FBEFB2C34331288D077D70232793
