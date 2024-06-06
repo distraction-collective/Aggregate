@@ -1606,6 +1606,7 @@ GameObject:
   - component: {fileID: 115077718}
   - component: {fileID: 115077719}
   - component: {fileID: 115077720}
+  - component: {fileID: 115077721}
   m_Layer: 0
   m_Name: Behaviours
   m_TagString: Untagged
@@ -1924,6 +1925,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _currentHealthValue: 0
+--- !u!114 &115077721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115077717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ba7de9fb07e3a4f9c42d54ec0a4d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 976392966}
+  struggle_map: {fileID: 2800000, guid: 1e87092c2ac90d746a3cf0c08f76acf2, type: 3}
 --- !u!1 &116423677
 GameObject:
   m_ObjectHideFlags: 0
@@ -13941,7 +13956,7 @@ Transform:
   m_GameObject: {fileID: 1393827636}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -18.75, y: 0, z: -179.10156}
+  m_LocalPosition: {x: -27.148438, y: 0, z: -185.74219}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15665,11 +15680,11 @@ MonoBehaviour:
     Repeat: {x: 1, y: 1}
     MaskTexture: {fileID: 0}
   VegetationSettings:
-    PlantDistance: 150
+    PlantDistance: 121
     AdditionalTreeMeshDistance: 100
     AdditionalBillboardDistance: 3000
     Seed: 0
-    LODDistanceFactor: 1
+    LODDistanceFactor: 0.1
     GrassShadows: 0
     PlantShadows: 0
     TreeShadows: 1
@@ -19223,8 +19238,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889102337}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06683339, y: 0.7420828, z: 0.074830405, w: -0.6627571}
-  m_LocalPosition: {x: -18.763725, y: 42.71469, z: -179.10999}
+  m_LocalRotation: {x: 0.24706651, y: 0.35843688, z: -0.098968096, w: 0.8948109}
+  m_LocalPosition: {x: -27.215773, y: 48.740757, z: -185.77983}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

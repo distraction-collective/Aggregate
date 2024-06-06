@@ -3,7 +3,6 @@ guid: 13c0a2dbeec401a40b5dccc0079f687b
 ShaderImporter:
   externalObjects: {}
   defaultTextures:
-  - _circular_place_Colormap_0_0: {fileID: 2800000, guid: f9e2a0ca5ddb35d4b8565db818a7733a, type: 3}
   - _ground_0034_normal_opengl_2k: {fileID: 2800000, guid: 15543d892b0e0ec44a6a09b3b8627adf, type: 3}
   nonModifiableTextures: []
   userData: 
