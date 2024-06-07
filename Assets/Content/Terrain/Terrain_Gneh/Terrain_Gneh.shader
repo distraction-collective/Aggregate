@@ -621,9 +621,9 @@ Shader "Terrain_Gneh"
 				WorldViewDirection = SafeNormalize( WorldViewDirection );
 
 				float4 color41 = IsGammaSpace() ? float4(0.05104129,0.1294118,0.05309429,0) : float4(0.00403027,0.01520852,0.00422008,0);
-				float4 color42 = IsGammaSpace() ? float4(0.2777234,0.5494134,0.745283,1) : float4(0.06268941,0.2626612,0.5152035,1);
+				float4 color42 = IsGammaSpace() ? float4(0.8301887,0.7009867,0.4346743,1) : float4(0.6562665,0.4493948,0.158479,1);
 				float2 uv_TextureSample0 = IN.ase_texcoord8.xy * _TextureSample0_ST.xy + _TextureSample0_ST.zw;
-				float simplePerlin2D36 = snoise( ( IN.ase_texcoord8.xy * 1000 ) );
+				float simplePerlin2D36 = snoise( ( IN.ase_texcoord8.xy * 2000 ) );
 				simplePerlin2D36 = simplePerlin2D36*0.5 + 0.5;
 				float4 lerpResult40 = lerp( color41 , color42 , ( tex2D( _TextureSample0, uv_TextureSample0 ).r * simplePerlin2D36 ));
 				
@@ -1917,9 +1917,9 @@ Shader "Terrain_Gneh"
 				#endif
 
 				float4 color41 = IsGammaSpace() ? float4(0.05104129,0.1294118,0.05309429,0) : float4(0.00403027,0.01520852,0.00422008,0);
-				float4 color42 = IsGammaSpace() ? float4(0.2777234,0.5494134,0.745283,1) : float4(0.06268941,0.2626612,0.5152035,1);
+				float4 color42 = IsGammaSpace() ? float4(0.8301887,0.7009867,0.4346743,1) : float4(0.6562665,0.4493948,0.158479,1);
 				float2 uv_TextureSample0 = IN.ase_texcoord4.xy * _TextureSample0_ST.xy + _TextureSample0_ST.zw;
-				float simplePerlin2D36 = snoise( ( IN.ase_texcoord4.xy * 1000 ) );
+				float simplePerlin2D36 = snoise( ( IN.ase_texcoord4.xy * 2000 ) );
 				simplePerlin2D36 = simplePerlin2D36*0.5 + 0.5;
 				float4 lerpResult40 = lerp( color41 , color42 , ( tex2D( _TextureSample0, uv_TextureSample0 ).r * simplePerlin2D36 ));
 				
@@ -2273,9 +2273,9 @@ Shader "Terrain_Gneh"
 				#endif
 
 				float4 color41 = IsGammaSpace() ? float4(0.05104129,0.1294118,0.05309429,0) : float4(0.00403027,0.01520852,0.00422008,0);
-				float4 color42 = IsGammaSpace() ? float4(0.2777234,0.5494134,0.745283,1) : float4(0.06268941,0.2626612,0.5152035,1);
+				float4 color42 = IsGammaSpace() ? float4(0.8301887,0.7009867,0.4346743,1) : float4(0.6562665,0.4493948,0.158479,1);
 				float2 uv_TextureSample0 = IN.ase_texcoord2.xy * _TextureSample0_ST.xy + _TextureSample0_ST.zw;
-				float simplePerlin2D36 = snoise( ( IN.ase_texcoord2.xy * 1000 ) );
+				float simplePerlin2D36 = snoise( ( IN.ase_texcoord2.xy * 2000 ) );
 				simplePerlin2D36 = simplePerlin2D36*0.5 + 0.5;
 				float4 lerpResult40 = lerp( color41 , color42 , ( tex2D( _TextureSample0, uv_TextureSample0 ).r * simplePerlin2D36 ));
 				
@@ -3122,9 +3122,9 @@ Shader "Terrain_Gneh"
 				WorldViewDirection = SafeNormalize( WorldViewDirection );
 
 				float4 color41 = IsGammaSpace() ? float4(0.05104129,0.1294118,0.05309429,0) : float4(0.00403027,0.01520852,0.00422008,0);
-				float4 color42 = IsGammaSpace() ? float4(0.2777234,0.5494134,0.745283,1) : float4(0.06268941,0.2626612,0.5152035,1);
+				float4 color42 = IsGammaSpace() ? float4(0.8301887,0.7009867,0.4346743,1) : float4(0.6562665,0.4493948,0.158479,1);
 				float2 uv_TextureSample0 = IN.ase_texcoord8.xy * _TextureSample0_ST.xy + _TextureSample0_ST.zw;
-				float simplePerlin2D36 = snoise( ( IN.ase_texcoord8.xy * 1000 ) );
+				float simplePerlin2D36 = snoise( ( IN.ase_texcoord8.xy * 2000 ) );
 				simplePerlin2D36 = simplePerlin2D36*0.5 + 0.5;
 				float4 lerpResult40 = lerp( color41 , color42 , ( tex2D( _TextureSample0, uv_TextureSample0 ).r * simplePerlin2D36 ));
 				
@@ -3874,9 +3874,9 @@ Node;AmplifyShaderEditor.SamplerNode;10;-660.6347,-286.1784;Inherit;True;Propert
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;2353.286,-44.5574;Float;False;True;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;Terrain_Gneh;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;20;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;;0;0;Standard;41;Workflow;1;0;Surface;0;0;  Refraction Model;0;0;  Blend;0;0;Two Sided;1;0;Fragment Normal Space,InvertActionOnDeselection;0;0;Forward Only;0;0;Transmission;0;0;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;0;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;DOTS Instancing;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;0;  Early Z;0;0;Vertex Position,InvertActionOnDeselection;1;0;Debug Display;0;0;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;True;True;True;True;;False;0
 Node;AmplifyShaderEditor.LerpOp;40;2108.151,-546.3673;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ColorNode;41;1791.297,-599.9508;Inherit;False;Constant;_Color0;Color 0;13;0;Create;True;0;0;0;False;0;False;0.05104129,0.1294118,0.05309429,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.ColorNode;42;1814.297,-425.9509;Inherit;False;Constant;_Color1;Color 1;13;0;Create;True;0;0;0;False;0;False;0.2777234,0.5494134,0.745283,1;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SamplerNode;33;1411.89,-356.5942;Inherit;True;Property;_TextureSample0;Texture Sample 0;25;0;Create;True;0;0;0;False;0;False;-1;None;1e87092c2ac90d746a3cf0c08f76acf2;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.ScaleNode;38;1287.709,-23.57332;Inherit;False;1000;1;0;FLOAT2;0,0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.ColorNode;42;1814.297,-425.9509;Inherit;False;Constant;_Color1;Color 1;13;0;Create;True;0;0;0;False;0;False;0.8301887,0.7009867,0.4346743,1;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;33;1411.89,-356.5942;Inherit;True;Property;_TextureSample0;Texture Sample 0;25;0;Create;True;0;0;0;False;0;False;-1;None;3654a761a141e7b418559a041ad907f5;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ScaleNode;38;1287.709,-23.57332;Inherit;False;2000;1;0;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.TexCoordVertexDataNode;35;1042.418,-32.66665;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.FunctionNode;32;494.3072,-148.2938;Inherit;False;Four Splats First Pass Terrain;1;;1;37452fdfb732e1443b7e39720d05b708;2,102,1,85,0;7;59;FLOAT4;0,0,0,0;False;60;FLOAT4;0,0,0,0;False;61;FLOAT3;0,0,0;False;57;FLOAT;0;False;58;FLOAT;0;False;201;FLOAT;0;False;62;FLOAT;0;False;7;FLOAT4;0;FLOAT3;14;FLOAT;56;FLOAT;45;FLOAT;200;FLOAT;19;FLOAT3;17
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;58;1851.244,-228.5278;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
@@ -3910,4 +3910,4 @@ WireConnection;58;0;33;1
 WireConnection;58;1;36;0
 WireConnection;36;0;38;0
 ASEEND*/
-//CHKSM=BAB27E09A15F04D75AE6D21908DBDE8A74150A83
+//CHKSM=18C28F2870962EA62A67A0F98715D15B8AB50F5C
