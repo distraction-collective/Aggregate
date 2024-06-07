@@ -97,7 +97,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSample0:
-        m_Texture: {fileID: 2800000, guid: 1e87092c2ac90d746a3cf0c08f76acf2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3654a761a141e7b418559a041ad907f5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _circular_place_Colormap_0_0:

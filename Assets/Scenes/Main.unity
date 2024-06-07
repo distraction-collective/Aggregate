@@ -1653,7 +1653,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115077717}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdf4425ef2998f14891657af8355627f, type: 3}
   m_Name: 
@@ -1925,6 +1925,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _currentHealthValue: 0
+  player: {fileID: 976392966}
+  struggle_map: {fileID: 2800000, guid: 3654a761a141e7b418559a041ad907f5, type: 3}
 --- !u!114 &115077721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1938,7 +1940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 976392966}
-  struggle_map: {fileID: 2800000, guid: 1e87092c2ac90d746a3cf0c08f76acf2, type: 3}
+  struggle_map: {fileID: 2800000, guid: 3654a761a141e7b418559a041ad907f5, type: 3}
+  clear_force: 0.1355
 --- !u!1 &116423677
 GameObject:
   m_ObjectHideFlags: 0
@@ -13956,7 +13959,7 @@ Transform:
   m_GameObject: {fileID: 1393827636}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -27.148438, y: 0, z: -185.74219}
+  m_LocalPosition: {x: -28.320312, y: 0, z: -186.23047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19239,7 +19242,7 @@ Transform:
   m_GameObject: {fileID: 1889102337}
   serializedVersion: 2
   m_LocalRotation: {x: 0.24706651, y: 0.35843688, z: -0.098968096, w: 0.8948109}
-  m_LocalPosition: {x: -27.215773, y: 48.740757, z: -185.77983}
+  m_LocalPosition: {x: -28.415873, y: 48.210495, z: -186.2791}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
