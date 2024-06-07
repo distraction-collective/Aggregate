@@ -9,14 +9,14 @@ TerrainLayer:
   m_Name: TerrainLayer_0_rocky
   m_DiffuseTexture: {fileID: 2800000, guid: 8d0a822f609bf8340beb1f36ff9457d6, type: 3}
   m_NormalMapTexture: {fileID: 2800000, guid: 918dd7f2ff7f809488ae9146288f962f, type: 3}
-  m_MaskMapTexture: {fileID: 2800000, guid: d1b2399eda50b2a449d8f69cade7bb45, type: 3}
+  m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 10, y: 10}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0.198
-  m_Smoothness: 0.397
-  m_NormalScale: 1
+  m_Smoothness: 0.279
+  m_NormalScale: 0.5
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_DiffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
   m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
-  m_MaskMapRemapMax: {x: 0.5, y: 1, z: 0.5, w: 0.2}
+  m_MaskMapRemapMax: {x: 0.4836267, y: 1, z: 0.5, w: 1}

@@ -63,6 +63,12 @@ public class PlayerHealth : MonoBehaviour {
   private float currentOscillationModifier;
   private float currentOscillationDuration;
   private float _originalLightRange;
+  [Tooltip("Player game object, should probably be MediumRetopoRigged")]
+  public GameObject player;
+
+  [Tooltip(
+      "Struggle map writable texture used elsewhere, for example in the terrain shader to change ground color based on walked paths")]
+  public Texture2D struggle_map;
 
   // Start is called before the first frame update
   void Awake() { InitializeValues(); }
@@ -97,12 +103,15 @@ public class PlayerHealth : MonoBehaviour {
   private void CheckSafe() {
     safe = _proximityDetector.GetAttached();
 
+    bool walking_on_safe_layer = Physics.Raycast(
+        t_checkLayerTransform.position, -Vector3.up, out _hit, Mathf.Infinity,
+        _safeMask, QueryTriggerInteraction.Collide);
+    (int u, int v) = GetStruggleUV();
+    Color pixel = struggle_map.GetPixel(u, v);
+    bool walking_on_walked = pixel.r > .9;
+
     // Check if in safe space
-    if (Physics.Raycast(
-            t_checkLayerTransform.position, -Vector3.up, out _hit,
-            Mathf.Infinity, _safeMask,
-            QueryTriggerInteraction.Collide)) // Also report trigger hits?
-    {
+    if (walking_on_safe_layer || walking_on_walked) {
       onSafeSpace = true;
       // Place particle system
       var particleTransform = _groundHealPS.transform;
@@ -247,6 +256,15 @@ public class PlayerHealth : MonoBehaviour {
     bodyColor.a = 221f / 255f;
     mat2.SetColor("_BaseColor", bodyColor);
     _organsRenderer.materials[0] = mat;
+  }
+
+  private(int, int) GetStruggleUV() {
+    Terrain terrain = Terrain.activeTerrain;
+    float dx = player.transform.position.x - terrain.transform.position.x;
+    float dz = player.transform.position.z - terrain.transform.position.z;
+    int u = (int)(dx / terrain.terrainData.size.x * struggle_map.width);
+    int v = (int)(dz / terrain.terrainData.size.z * struggle_map.height);
+    return (u, v);
   }
 }
 
