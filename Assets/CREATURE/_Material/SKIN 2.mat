@@ -125,7 +125,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.47
+    - _Alpha: 0.55
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -141,45 +141,45 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fresnel: 0.2
+    - _Fresnel: 0.1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Mask_Power: 0.04
     - _Metallic: 0
-    - _Normal_Strength: 2
+    - _Normal_Strength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _Power: 2
     - _QueueControl: 0
     - _QueueOffset: 3
     - _ReceiveShadows: 1
-    - _Smoothness: 0.189
+    - _Smoothness: 0.802
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _Time_Variation: 100
-    - _Time_Variation_1: 0.1
+    - _Time_Variation_1: 0.5
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 1
     - _emission: 1
     - _power: 20
-    - _speed: -9
-    - _speed_1: -10
+    - _speed: -4
+    - _speed_1: -8
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _Color_1: {r: 1, g: 1, b: 1, a: 0}
-    - _Color_2: {r: 0.042370558, g: 0.2735849, b: 0, a: 0}
+    - _Color_1: {r: 0, g: 0, b: 0, a: 0}
+    - _Color_2: {r: 0.38679248, g: 0.28972948, b: 0.2957959, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emission_Color: {r: 0.13955142, g: 0.18867922, b: 0.17179811, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tile: {r: 7, g: 13, b: 0, a: 0}
-    - _Tile_1: {r: 3, g: 5, b: 0, a: 0}
+    - _Tile: {r: 5, g: 7, b: 0, a: 0}
+    - _Tile_1: {r: 1, g: 3, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7599540067580369028
 MonoBehaviour:

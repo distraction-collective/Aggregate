@@ -198,15 +198,15 @@ public class FieldOfView : MonoBehaviour {
 
 
 	void Idle(){
-		animator.Play("Base Layer.Idle 1", 0, 0f);
+		animator.Play("Base Layer.Idle 0", 0, 0f);
 		if (chanceNumber > 90){
-			animator.Play("Base Layer.Idle Stand", 0, 0f);
+			animator.Play("Base Layer.Idle 0", 0, 0f);
 		}
 
 		state = BehaviourState.Idle;
 	}
 	void Pursuit(Transform pursuitTarget){
-		animator.Play("Base Layer.Idle 2", 0, 0f);
+		animator.Play("Base Layer.Idle 0", 0, 0f);
 		isInPursuit = true;
 		agent.speed = speedNumber * 2;
 		agent.SetDestination(pursuitTarget.position);
@@ -214,7 +214,7 @@ public class FieldOfView : MonoBehaviour {
 	}
 
 	void Wander(){
-		animator.Play("Base Layer.Idle 2", 0, 0f);
+		animator.Play("Base Layer.Idle 0", 0, 0f);
 		Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
 
 		randomDirection += transform.position;
@@ -228,7 +228,7 @@ public class FieldOfView : MonoBehaviour {
 	}
 
 	void Stand(){
-		animator.Play("Base Layer.Idle Stand", 0, 0f);
+		animator.Play("Base Layer.Idle 0", 0, 0f);
 		state = BehaviourState.Stand;
 	}
 

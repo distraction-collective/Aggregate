@@ -2,20 +2,28 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Underwater Surface Light Clear
   m_Shader: {fileID: 4800000, guid: bb70cb1c832b61443af69c7150c0d7ad, type: 3}
-  m_ShaderKeywords: _EDGEMASKSHIFT_ON _FIXUNDERWATEREDGES_ON _SPECULARHIGHLIGHTS_OFF
-    _ZWRITE1_ON
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _SPECULARHIGHLIGHTS_OFF
+  m_InvalidKeywords:
+  - _EDGEMASKSHIFT_ON
+  - _FIXUNDERWATEREDGES_ON
+  - _ZWRITE1_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -59,8 +67,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _1stto2ndBlend: 1
+    - _AlphaCutoff: 0.5
     - _AmbientOcclusionPower: 0
     - _ColorContrast1: 1.25
     - _ColorSaturation1: 1.0714
@@ -79,6 +101,7 @@ Material:
     - _Distortion: 0.2
     - _EdgeMaskShiftpx: 2
     - _Edgemaskshift: 1
+    - _EnvironmentReflections: 1
     - _FixUnderwaterEdges: 1
     - _Float0: 1.1
     - _Float1: 1
@@ -105,6 +128,9 @@ Material:
     - _NormalScale: 0.3
     - _OpacityViewDistanceClose: 1
     - _OpacityViewDistanceFar: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _Refraction: 0.256
     - _RefractionDistortion: 0.019
     - _RipplesSpeed: 1.15
@@ -144,12 +170,14 @@ Material:
     - _DeepColor: {r: 0, g: 0.04310166, b: 0.24999821, a: 0}
     - _DepthColorClose: {r: 0, g: 0.2196079, b: 0.2627451, a: 0}
     - _DepthColorFar: {r: 0.1058824, g: 0.5686275, b: 0.7568628, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FogColorClose: {r: 0.19607845, g: 0.6, b: 0.83921576, a: 0}
     - _FogColorFar: {r: 0.07206965, g: 0.26083848, b: 0.334, a: 0}
     - _ShalowColor: {r: 0, g: 0.80882317, b: 0.8088235, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Tint: {r: 0, g: 0, b: 0, a: 0}
+    - _Tint: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 0}
     - _UnderwaterColorClose: {r: 0, g: 0.553117, b: 0.66176474, a: 0}
     - _UnderwaterColorFar: {r: 0, g: 0.26133937, b: 0.36764705, a: 0}
     - _WaterColorClose: {r: 0, g: 0.2196079, b: 0.2627451, a: 0}
     - _WaterColorFar: {r: 0.1058824, g: 0.5686275, b: 0.7568628, a: 0}
+  m_BuildTextureStacks: []

@@ -10,7 +10,7 @@ Material:
   m_Name: ArenaConcrete Variant
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 2100000, guid: 6b74dc4b779d7ed4eb3dab1575fe0e50, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords:
   - _DETAIL_MULX2
   - _NORMALMAP
@@ -19,7 +19,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -33,11 +33,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Smoothness: 0.848
+    - _BumpScale: 1
+    - _DetailNormalMapScale: 1
+    - _EnvironmentReflections: 1
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _Smoothness: 0.943
+    - _SpecularHighlights: 1
+    - _WorkflowMode: 0
     m_Colors:
-    - _BaseColor: {r: 0.36279812, g: 0.8113208, b: 0.6926593, a: 1}
-    - _Color: {r: 0.36279812, g: 0.8113208, b: 0.6926593, a: 1}
-    - _SpecColor: {r: 0.31132078, g: 0.08085656, b: 0.06285155, a: 1}
+    - _BaseColor: {r: 0.6610182, g: 0.8301887, b: 0.78567016, a: 1}
+    - _Color: {r: 0.6610182, g: 0.8301887, b: 0.78567016, a: 1}
+    - _SpecColor: {r: 0.26415092, g: 0.003488772, b: 0.013325103, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3562151652518771185
 MonoBehaviour:
