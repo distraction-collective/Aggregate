@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 92adf3efe489c8647bd0ca7533f24f26
+guid: 5a13f2fcf2e92ca4cbf9825d7778db3d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,97 +7,37 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ConcBunker
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
+      name: Amber
+    second: {fileID: 2100000, guid: fc753f38032788f44a804896e9be1e72, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ConcBunker.003
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
+      name: BlackMaterial
+    second: {fileID: 2100000, guid: d32c2eefa0e5d8e48a4cfa90e9b549e7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ConcFloorTiles
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
+      name: Concrete1
+    second: {fileID: 2100000, guid: 0349269fb0d78c54e809a4ed45a7a0dc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ConcFormHoles
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
+      name: Concrete2
+    second: {fileID: 2100000, guid: 0349269fb0d78c54e809a4ed45a7a0dc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ConcFormHoles.003
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
+      name: Roots
+    second: {fileID: 2100000, guid: 28f6b18ced585f347b9e541f48c452ac, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ConcFormNoHoles
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
+      name: Spikes
+    second: {fileID: 2100000, guid: 28f6b18ced585f347b9e541f48c452ac, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ConcFormNoHoles.006
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ConcGeneral
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ConcGeneral.003
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ConcGrime
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ConcGrime.003
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ConcHorizontal
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MullionDark
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MullionDark.003
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: StoneFloor
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Water
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Water.003
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Window
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Window.003
+      name: WallsInterior
     second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
   materials:
     materialImportMode: 2
@@ -125,15 +65,14 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties:
-    - '#BAKERY{"meshName":["Plane.004","Grid.002","L_Bldg_E_Support_Top.002","M_Bldg_F_Bldg_Main.001","SM_Bldg_A_Main_Bldg.002","LG_Suppoprt_Rib_LG_Supp_Side1.003","LG_Suppoprt_Rib_LG_Supp_Side1.002","LG_Suppoprt_Rib_LG_Supp_Side1.001","LG_Suppoprt_Rib_LG_Supp_Side1"],"padding":[1,1,1,1,1,1,1,1,1],"unwrapper":[0,0,0,0,0,0,0,0,0]}'
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.4
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
@@ -186,7 +125,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.4
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
