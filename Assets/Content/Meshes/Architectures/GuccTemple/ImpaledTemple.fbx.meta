@@ -3,42 +3,7 @@ guid: 5a13f2fcf2e92ca4cbf9825d7778db3d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Amber
-    second: {fileID: 2100000, guid: fc753f38032788f44a804896e9be1e72, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BlackMaterial
-    second: {fileID: 2100000, guid: d32c2eefa0e5d8e48a4cfa90e9b549e7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Concrete1
-    second: {fileID: 2100000, guid: 0349269fb0d78c54e809a4ed45a7a0dc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Concrete2
-    second: {fileID: 2100000, guid: 0349269fb0d78c54e809a4ed45a7a0dc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Roots
-    second: {fileID: 2100000, guid: 28f6b18ced585f347b9e541f48c452ac, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Spikes
-    second: {fileID: 2100000, guid: 28f6b18ced585f347b9e541f48c452ac, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: WallsInterior
-    second: {fileID: 2100000, guid: dc1dfa7075514124dacbc38d1037a765, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
