@@ -113,11 +113,14 @@ public class PlayerHealth : MonoBehaviour {
     // Check if in safe space
     if (walking_on_safe_layer || walking_on_walked) {
       onSafeSpace = true;
-      // Place particle system
-      var particleTransform = _groundHealPS.transform;
-      particleTransform.localPosition = particleTransform.InverseTransformPoint(
-          _hit.point); // To get correct height
-      particleTransform.localRotation.SetLookRotation(_hit.normal);
+      if (walking_on_safe_layer) {
+        // Place particle system
+        var particleTransform = _groundHealPS.transform;
+        particleTransform.localPosition =
+            particleTransform.InverseTransformPoint(
+                _hit.point); // To get correct height
+        particleTransform.localRotation.SetLookRotation(_hit.normal);
+      }
       if (!_groundHealPS.isPlaying)
         _groundHealPS.Play();
     } else {
