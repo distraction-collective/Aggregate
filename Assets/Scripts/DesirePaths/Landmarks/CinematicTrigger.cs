@@ -9,6 +9,7 @@ namespace DesirePaths.Landmarks {
 
   public class CinematicTrigger : MonoBehaviour {
     public GameObject player;
+    public GameObject corpses;
     private SkinnedMeshRenderer[] skinnedMeshRenderers;
     private ParticleSystemRenderer[] particleSystemRenderers;
     private ThirdPersonController controller;
@@ -57,6 +58,9 @@ namespace DesirePaths.Landmarks {
       foreach (var r in particleSystemRenderers) {
         r.enabled = true;
       }
+
+      // keep corpses from the animation
+      corpses.SetActive(true);
     }
   }
 }
