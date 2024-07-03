@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Splines;
 
 namespace DesirePaths {
 /// <summary>
@@ -94,7 +91,6 @@ public class GameManager : MonoBehaviour {
     }
   }
 
-#region Narration
   void BindNarrationCallbacks(bool bind) {
     if (bind) {
       NarrationTrigger.AddListener(UpdateNarration);
@@ -104,9 +100,6 @@ public class GameManager : MonoBehaviour {
       _narrationManager.NarrationUpdated.RemoveAllListeners();
     }
   }
-#endregion
-
-#region Landmarks
   void SubscribeToLandmarkEvents(bool subscribe) {
     if (subscribe) {
       LandmarkTriggerEvent.AddListener(LandmarkTriggered);
@@ -143,9 +136,7 @@ public class GameManager : MonoBehaviour {
       return;
     }
   }
-#endregion
 
-#region Player Death / Respawn
   private void SubscribeToPlayerDeathEvents(bool subscribe) {
     if (subscribe) {
       PlayerDeathEvent.AddListener(RespawnPlayer);
@@ -154,28 +145,7 @@ public class GameManager : MonoBehaviour {
     }
   }
 
-  void CallHideNShow() { _uiManager.HideNShow(); }
-
-  /// <summary>
-  /// TODO : yield until game state allows for execution (for cinematics)
-  ///
-  /// </summary>
-  /// <param name="safe"></param>
-  /// <param name="position"></param>
   void RespawnPlayer(bool safe, Vector3 position) {
-    // du coup dans ta note rajoute le fait que je dois deposer les visc�res
-    // avant de faire le respawn, et le deposite cadaver - si on veut faire une
-    // animation qui backtrack tout notre chemin
-    /*_playerSpawner.OnPlayerRespawnComplete.AddListener(delegate
-    {
-        _playerSpawner.OnPlayerRespawnComplete.RemoveAllListeners();
-        if (!safe)
-        {
-            //Deposite cadaver if not on safe space
-            _cadaverManager.DepositCadaverOnPosition(position);
-        } //We place only when we're sure camera is not looking, so when
-    resuscitate is call _playerHealth.Resuscitate();
-    });*/
 
     _uiManager.HideNShow(); // Fade
     if (!safe) {
@@ -191,7 +161,6 @@ public class GameManager : MonoBehaviour {
     });
     _playerSpawner.RespawnPlayer();
   }
-#endregion
 }
 
 }
