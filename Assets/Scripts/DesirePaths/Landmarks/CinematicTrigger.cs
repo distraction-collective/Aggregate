@@ -2,6 +2,9 @@ using StarterAssets;
 using UnityEngine;
 using UnityEngine.Playables;
 
+// TODO make it inherit from SimpleCinematicTrigger
+// TODO rename it to StairquadCinematicTrigger
+
 namespace DesirePaths.Landmarks {
 
   [RequireComponent(typeof(BoxCollider))]
