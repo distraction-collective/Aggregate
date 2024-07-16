@@ -22,8 +22,9 @@ public class PlayerSpawner : MonoBehaviour {
   [Header("Backtrack cam")]
 
   [SerializeField]
-  private float _backTrackDuration = 10f; // No matter how long the guts are,
-                                          // its always the same duration by lerp
+  private float _backTrackDuration =
+      10f; // No matter how long the guts are,
+           // its always the same duration by lerp
   [SerializeField]
   private Transform _backTrackElement;
   [SerializeField]
@@ -60,45 +61,12 @@ public class PlayerSpawner : MonoBehaviour {
   }
 
   private IEnumerator RespawnRoutine() {
-    yield return new WaitForSeconds(_respawnDelay /
-                                    2); // Before we start backtrack
-    var _camData = _camera.GetUniversalAdditionalCameraData();
-    _camData.SetRenderer(
-        2); // switch to renderer with render feature. while black screen fade
-    _mainPPVolume.profile = _backtrackPPProfile;
     yield return new WaitForSeconds(_respawnDelay / 2);
 
-    float _currentDuration = 0f;
-    _spline.Evaluate(1, out _backTrackPosition, out _backTrackTangent,
-                     out _backTrackUp); // Reposition for first frame
-    _backTrackElement.position = (Vector3)_backTrackPosition;
-    _backTrackElement.rotation = Quaternion.LookRotation(
-        -(Vector3)_backTrackTangent, (Vector3)_backTrackUp);
-
-    _backTrackElement.gameObject.SetActive(true);
-    _vcam.enabled = true;
-
-    while (_currentDuration < _backTrackDuration) {
-      _spline.Evaluate(Mathf.Lerp(1, 0, _currentDuration / _backTrackDuration),
-                       out _backTrackPosition, out _backTrackTangent,
-                       out _backTrackUp);
-
-      _backTrackElement.position = (Vector3)_backTrackPosition;
-      _backTrackElement.rotation = Quaternion.LookRotation(
-          -(Vector3)_backTrackTangent, (Vector3)_backTrackUp);
-      _currentDuration += Time.deltaTime;
-      yield return null;
-    }
-    _camData.SetRenderer(0);
-    _mainPPVolume.profile = _defaultPPProfile;
-    _vcam.enabled = false;
-    _backTrackElement.gameObject.SetActive(false);
-
     // Respawn
-    _thirdPersonController.transform.position =
-        _originSpawnPoint.transform.position;
-    _puppetMaster.Teleport(_originSpawnPoint.transform.position,
-                           Quaternion.identity, true);
+    // TODO restore this
+    // _thirdPersonController.transform.position = spawnAt.position;
+    // _puppetMaster.Teleport(spawnAt.position, Quaternion.identity, true);
     if (OnPlayerRespawnComplete != null)
       OnPlayerRespawnComplete.Invoke();
   }

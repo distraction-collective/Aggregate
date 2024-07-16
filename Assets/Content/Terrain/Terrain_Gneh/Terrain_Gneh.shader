@@ -212,6 +212,7 @@ Shader "Terrain_Gneh"
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -741,7 +742,8 @@ Shader "Terrain_Gneh"
 				float2 uv_Colormaphehe = IN.ase_texcoord8.xy * _Colormaphehe_ST.xy + _Colormaphehe_ST.zw;
 				float4 temp_output_52_0 = ( ( float4( desaturateVar49 , 0.0 ) * SAMPLE_TEXTURE2D( _Colormaphehe, sampler_Colormaphehe, uv_Colormaphehe ) ) * 3.0 );
 				float2 uv_struggle_map = IN.ase_texcoord8.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
-				float temp_output_165_0 = saturate( ( 1.0 - ( SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).r * _Float1 ) ) );
+				float4 tex2DNode154 = SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map );
+				float temp_output_165_0 = saturate( ( 1.0 - ( tex2DNode154.r * _Float1 ) ) );
 				float4 lerpResult162 = lerp( ( temp_output_52_0 * _Float2 ) , temp_output_52_0 , temp_output_165_0);
 				
 				float localStochasticTiling2_g19 = ( 0.0 );
@@ -820,7 +822,7 @@ Shader "Terrain_Gneh"
 
 				float3 BaseColor = lerpResult162.rgb;
 				float3 Normal = ( lerpResult100 + temp_output_165_0 );
-				float3 Emission = 0;
+				float3 Emission = tex2DNode154.rgb;
 				float3 Specular = 0.5;
 				float Metallic = lerpResult133;
 				float Smoothness = lerpResult124;
@@ -1076,6 +1078,7 @@ Shader "Terrain_Gneh"
 			#define _NORMAL_DROPOFF_TS 1
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -1444,6 +1447,7 @@ Shader "Terrain_Gneh"
 			#define _NORMAL_DROPOFF_TS 1
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -1783,6 +1787,7 @@ Shader "Terrain_Gneh"
 
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -2212,12 +2217,13 @@ Shader "Terrain_Gneh"
 				float2 uv_Colormaphehe = IN.ase_texcoord4.xy * _Colormaphehe_ST.xy + _Colormaphehe_ST.zw;
 				float4 temp_output_52_0 = ( ( float4( desaturateVar49 , 0.0 ) * SAMPLE_TEXTURE2D( _Colormaphehe, sampler_Colormaphehe, uv_Colormaphehe ) ) * 3.0 );
 				float2 uv_struggle_map = IN.ase_texcoord4.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
-				float temp_output_165_0 = saturate( ( 1.0 - ( SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).r * _Float1 ) ) );
+				float4 tex2DNode154 = SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map );
+				float temp_output_165_0 = saturate( ( 1.0 - ( tex2DNode154.r * _Float1 ) ) );
 				float4 lerpResult162 = lerp( ( temp_output_52_0 * _Float2 ) , temp_output_52_0 , temp_output_165_0);
 				
 
 				float3 BaseColor = lerpResult162.rgb;
-				float3 Emission = 0;
+				float3 Emission = tex2DNode154.rgb;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 
@@ -2257,6 +2263,7 @@ Shader "Terrain_Gneh"
 
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -2661,7 +2668,8 @@ Shader "Terrain_Gneh"
 				float2 uv_Colormaphehe = IN.ase_texcoord2.xy * _Colormaphehe_ST.xy + _Colormaphehe_ST.zw;
 				float4 temp_output_52_0 = ( ( float4( desaturateVar49 , 0.0 ) * SAMPLE_TEXTURE2D( _Colormaphehe, sampler_Colormaphehe, uv_Colormaphehe ) ) * 3.0 );
 				float2 uv_struggle_map = IN.ase_texcoord2.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
-				float temp_output_165_0 = saturate( ( 1.0 - ( SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).r * _Float1 ) ) );
+				float4 tex2DNode154 = SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map );
+				float temp_output_165_0 = saturate( ( 1.0 - ( tex2DNode154.r * _Float1 ) ) );
 				float4 lerpResult162 = lerp( ( temp_output_52_0 * _Float2 ) , temp_output_52_0 , temp_output_165_0);
 				
 
@@ -2699,6 +2707,7 @@ Shader "Terrain_Gneh"
 			#define _NORMAL_DROPOFF_TS 1
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -3144,7 +3153,8 @@ Shader "Terrain_Gneh"
 				float Splat_B85 = tex2DNode33.b;
 				float3 lerpResult100 = lerp( lerpResult99 , unpack152 , Splat_B85);
 				float2 uv_struggle_map = IN.ase_texcoord5.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
-				float temp_output_165_0 = saturate( ( 1.0 - ( SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).r * _Float1 ) ) );
+				float4 tex2DNode154 = SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map );
+				float temp_output_165_0 = saturate( ( 1.0 - ( tex2DNode154.r * _Float1 ) ) );
 				
 
 				float3 Normal = ( lerpResult100 + temp_output_165_0 );
@@ -3219,6 +3229,7 @@ Shader "Terrain_Gneh"
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -3738,7 +3749,8 @@ Shader "Terrain_Gneh"
 				float2 uv_Colormaphehe = IN.ase_texcoord8.xy * _Colormaphehe_ST.xy + _Colormaphehe_ST.zw;
 				float4 temp_output_52_0 = ( ( float4( desaturateVar49 , 0.0 ) * SAMPLE_TEXTURE2D( _Colormaphehe, sampler_Colormaphehe, uv_Colormaphehe ) ) * 3.0 );
 				float2 uv_struggle_map = IN.ase_texcoord8.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
-				float temp_output_165_0 = saturate( ( 1.0 - ( SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).r * _Float1 ) ) );
+				float4 tex2DNode154 = SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map );
+				float temp_output_165_0 = saturate( ( 1.0 - ( tex2DNode154.r * _Float1 ) ) );
 				float4 lerpResult162 = lerp( ( temp_output_52_0 * _Float2 ) , temp_output_52_0 , temp_output_165_0);
 				
 				float localStochasticTiling2_g19 = ( 0.0 );
@@ -3817,7 +3829,7 @@ Shader "Terrain_Gneh"
 
 				float3 BaseColor = lerpResult162.rgb;
 				float3 Normal = ( lerpResult100 + temp_output_165_0 );
-				float3 Emission = 0;
+				float3 Emission = tex2DNode154.rgb;
 				float3 Specular = 0.5;
 				float Metallic = lerpResult133;
 				float Smoothness = lerpResult124;
@@ -3941,6 +3953,7 @@ Shader "Terrain_Gneh"
 
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -4243,6 +4256,7 @@ Shader "Terrain_Gneh"
 
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
+			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
 			#define ASE_USING_SAMPLING_MACROS 1
@@ -4716,8 +4730,9 @@ WireConnection;166;0;146;0
 WireConnection;166;1;165;0
 WireConnection;1;0;162;0
 WireConnection;1;1;166;0
+WireConnection;1;2;154;0
 WireConnection;1;3;133;0
 WireConnection;1;4;124;0
 WireConnection;1;5;153;0
 ASEEND*/
-//CHKSM=17F918C1D553A6B2E8ADD88D1E8C2BD98731A7BB
+//CHKSM=A96353A73FE9C9BC9E428316E8C77824FD5AC3FD

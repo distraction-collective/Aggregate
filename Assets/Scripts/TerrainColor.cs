@@ -9,8 +9,8 @@ public class TerrainColor : MonoBehaviour {
   public Texture2D struggle_map;
 
   [Tooltip("How strong does walking on brambles clears them out")]
-  [Range(0f, 0.2f)]
-  public float clear_force = 0.05f;
+  [Range(0f, 1f)]
+  public float clear_force = 1f;
 
   void Start() {
     Color[] pixels = new Color[struggle_map.width * struggle_map.height];
