@@ -66,14 +66,5 @@ namespace DesirePaths.Landmarks {
         OnLandmarkTriggered.Invoke(LandmarkEvents.LANDMARK_ENTERED);
       }
     }
-
-    private void OnGUI() {
-      StringBuilder sb = new StringBuilder();
-      sb.AppendLine("Completed pillars : " + _completedPillarsCount + " / " +
-                    _pillarCount);
-      sb.AppendLine("Visited landmarks : " + _visitedLandmarksCount + " / " +
-                    _landmarkCount);
-      GUI.Box(new Rect(0, 0, 200, 100), sb.ToString());
-    }
   }
 }
