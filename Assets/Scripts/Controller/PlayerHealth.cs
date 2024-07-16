@@ -108,7 +108,7 @@ public class PlayerHealth : MonoBehaviour {
         _safeMask, QueryTriggerInteraction.Collide);
     (int u, int v) = GetStruggleUV();
     Color pixel = struggle_map.GetPixel(u, v);
-    bool walking_on_walked = pixel.r > .9;
+    bool walking_on_walked = pixel.g > .5f;
 
     // Check if in safe space
     if (walking_on_safe_layer || walking_on_walked) {
@@ -167,6 +167,12 @@ public class PlayerHealth : MonoBehaviour {
     PlayerDeathEvent.Invoke(safe, _thirdPersonController.transform.position);
     // Invoke("Resuscitate", 3f); //Temporary, normally this is done in game
     // manager
+
+    Color[] pixels = struggle_map.GetPixels();
+    for (int i = 0; i < pixels.Length; i++) {
+      pixels[i].g = pixels[i].r;
+    }
+    struggle_map.SetPixels(pixels);
   }
 
   public void Resuscitate() {
