@@ -10,13 +10,6 @@ namespace DesirePaths {
 public class PlayerDeathEvent : UnityEvent<bool, Vector3> {}
 
 /// <summary>
-/// Used by landmarks. Has a landmark event enum as argument.
-/// </summary>
-[System.Serializable]
-public class LandmarkEvent
-    : UnityEvent<Landmarks.LandmarkManager.LandmarkEvents> {}
-
-/// <summary>
 /// Used for callbacks responding to game state changes
 /// </summary>
 public class GameStateEvent : UnityEvent<GameManager.GameState> {}
@@ -39,8 +32,6 @@ public class GameManager : MonoBehaviour {
   private PlayerSpawner _playerSpawner;
   [SerializeField]
   private CadaverGutsManager _cadaverManager;
-  [SerializeField]
-  private Landmarks.LandmarkManager _landmarkManager;
   [Header("UX components")]
   [SerializeField]
   private UI.UIManager _uiManager;
@@ -53,8 +44,6 @@ public class GameManager : MonoBehaviour {
   private GameState _currentState = GameState.Init;
 
   PlayerDeathEvent PlayerDeathEvent => _playerHealth.PlayerDeathEvent;
-  LandmarkEvent LandmarkTriggerEvent => _landmarkManager.OnLandmarkTriggered;
-  LandmarkEvent LandmarksCompleted => _landmarkManager.OnLandmarkCompletion;
   UnityAction UpdateNarration => _narrationManager.UpdateNarrationAction;
   private UnityEvent NarrationTrigger =
       new UnityEvent(); // sends a message to the narration manager
@@ -64,14 +53,12 @@ public class GameManager : MonoBehaviour {
   private void Awake() {
     _playerSpawner.SetThirdPersonController = _playerThirdPersonController;
     SubscribeToPlayerDeathEvents(true);
-    SubscribeToLandmarkEvents(true);
     BindNarrationCallbacks(true);
     SetState(GameState.Play);
   }
 
   private void OnDisable() {
     SubscribeToPlayerDeathEvents(false);
-    SubscribeToLandmarkEvents(false);
     BindNarrationCallbacks(false);
   }
 
@@ -98,42 +85,6 @@ public class GameManager : MonoBehaviour {
     } else {
       NarrationTrigger.RemoveAllListeners();
       _narrationManager.NarrationUpdated.RemoveAllListeners();
-    }
-  }
-  void SubscribeToLandmarkEvents(bool subscribe) {
-    if (subscribe) {
-      LandmarkTriggerEvent.AddListener(LandmarkTriggered);
-      LandmarksCompleted.AddListener(LandmarksComplete);
-    } else {
-      LandmarkTriggerEvent.RemoveAllListeners();
-      LandmarksCompleted.RemoveAllListeners();
-    }
-  }
-
-  void LandmarksComplete(Landmarks.LandmarkManager.LandmarkEvents e) {
-    switch (e) {
-    case Landmarks.LandmarkManager.LandmarkEvents.ALL_PILLARS_ACTIVATED:
-      Debug.Log("[Game manager / landmarks] ALL PILLARS COMPLETE");
-      break;
-    case Landmarks.LandmarkManager.LandmarkEvents.ALL_LANDMARKS_ENTERED:
-      Debug.Log("[Game manager / landmarks] ALL GENERIC LANDMARKS VISITED");
-      break;
-    default:
-      return;
-    }
-  }
-
-  void LandmarkTriggered(Landmarks.LandmarkManager.LandmarkEvents e) {
-    UpdateNarration();
-    switch (e) {
-    case Landmarks.LandmarkManager.LandmarkEvents.PILLAR_ACTIVATED:
-      Debug.Log("[Game manager / landmarks] pillar activated");
-      break;
-    case Landmarks.LandmarkManager.LandmarkEvents.LANDMARK_ENTERED:
-      Debug.Log("[Game manager / landmarks] generic landmark entered");
-      break;
-    default:
-      return;
     }
   }
 
