@@ -100,9 +100,8 @@ public class GameManager : MonoBehaviour {
 
     _uiManager.HideNShow(); // Fade
     if (!safe) {
-      // TODO restore this
-      // Deposite cadaver if not on safe space
-      // _cadaverManager.DepositCadaverOnPosition(position);
+      Cadavers cadavers = GetComponent<Cadavers>();
+      cadavers.DepositCadaver();
     }
 
     _playerSpawner.OnPlayerRespawnComplete.AddListener(delegate {

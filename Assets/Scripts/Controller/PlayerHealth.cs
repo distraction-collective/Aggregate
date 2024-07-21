@@ -1,38 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
 using RootMotion.Dynamics;
-using RootMotion;
 using StarterAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
-using HighlightPlus.Demos;
 using System.Linq;
-using Unity.VisualScripting;
 
 namespace DesirePaths {
 public class PlayerHealth : MonoBehaviour {
   public PlayerDeathEvent PlayerDeathEvent;
-
-  [Header("Events")]
   public UnityEvent m_OnCharacterDeath;
-
-  [Header("Current parameters")]
-  [SerializeField]
   private bool dead;
-  [SerializeField]
   private bool safe;
-  [SerializeField]
-  private bool onSafeSpace;
   public ThirdPersonController _thirdPersonController;
   public CharacterController _characterController;
   public PlayerInput _playerInputs;
   public Transform t_checkLayerTransform;
-  public GutsProximity _proximityDetector;
-  public CadaverGutsManager _cadaverManager;
-
-  private RaycastHit _hit;
   [Header("UI/UX Feedbacks")]
   public bool allowColorChange = true;
   public ParticleSystem _groundHealPS;
@@ -43,7 +26,6 @@ public class PlayerHealth : MonoBehaviour {
   public Light _light;
   public Volume _dangerVolume;
   public AnimationCurve _dangerAnimationCurve;
-  // Character materials add here
 
   [Header("Options")]
   public AnimationCurve _healthLossCurve;
@@ -58,10 +40,8 @@ public class PlayerHealth : MonoBehaviour {
                                       // x evolves by Time.deltaTime
   [Header("Duration & Mask")]
   public float maxHealthValue = 10f; // Max 10 seconds currently
-  public LayerMask _safeMask;
   [SerializeField]
   private float _currentHealthValue;
-  //[SerializeField] private Transform _originSpawnPoint;
 
   private float currentOscillationModifier;
   private float currentOscillationDuration;
@@ -73,7 +53,6 @@ public class PlayerHealth : MonoBehaviour {
       "Struggle map writable texture used elsewhere, for example in the terrain shader to change ground color based on walked paths")]
   public Texture2D struggle_map;
 
-  // Start is called before the first frame update
   void Awake() { InitializeValues(); }
 
   private void InitializeValues() {
@@ -82,13 +61,10 @@ public class PlayerHealth : MonoBehaviour {
     safe = true;
     dead = false;
     _currentHealthValue = maxHealthValue;
-
-    // Feedbacks
     _groundHealPS.Stop();
     _originalLightRange = _light.range;
   }
 
-  // Update is called once per frame
   void Update() { CheckSafe(); }
 
   private void LateUpdate() {
@@ -96,29 +72,25 @@ public class PlayerHealth : MonoBehaviour {
     UpdateOscillation();
   }
 
-  // If safe, top up health, else lower it by value
-  /// <summary>
-  /// Checksafe: checks if were on a landmark safespace, if we are then
-  /// onSafeSpace true and thus we will not position a cadaver if we die,
-  /// that'll be done pillar-side Also if on a landmark safespace, its the same
-  /// as being safe so we get healing + we get particle effect
-  /// </summary>
   private void CheckSafe() {
-    safe = _proximityDetector.GetAttached();
 
     RaycastHit[] hits =
         Physics.RaycastAll(player.transform.position + 3 * Vector3.up,
                            Vector3.down, Mathf.Infinity);
     bool walking_over_safe_object =
         hits.Any(hit => hit.collider.CompareTag("Safe"));
-
     (int u, int v) = GetStruggleUV();
     Color pixel = struggle_map.GetPixel(u, v);
     bool walking_on_walked = pixel.g > .5f;
+    safe = walking_over_safe_object || walking_on_walked;
 
-    // Check if in safe space
-    if (walking_over_safe_object || walking_on_walked) {
-      onSafeSpace = true;
+    if (safe) {
+      // add health
+      _currentHealthValue += Time.deltaTime;
+      if (_currentHealthValue >= maxHealthValue)
+        _currentHealthValue = maxHealthValue;
+
+      // show safe visuals
       if (walking_over_safe_object) {
         // idk why but this does nothing
         // // Place particle system
@@ -131,33 +103,20 @@ public class PlayerHealth : MonoBehaviour {
       if (!_groundHealPS.isPlaying)
         _groundHealPS.Play();
     } else {
-      onSafeSpace = false;
+      // lose heatlh
+      _currentHealthValue -= Time.deltaTime;
+      if (_currentHealthValue <= 0)
+        _currentHealthValue = 0;
+
+      // show unhealth visuals
       if (_groundHealPS.isPlaying)
         _groundHealPS.Stop();
     }
 
-    if (!safe && onSafeSpace)
-      safe = true; // If you're not near a body but still in a safe space,
-                   // you're considered safe
-    switch (safe) {
-    case true: // Add life
-      _currentHealthValue += Time.deltaTime;
-      if (_currentHealthValue >= maxHealthValue)
-        _currentHealthValue = maxHealthValue; // Clamp
-      break;
-    case false: // Life loss
-      _currentHealthValue -= Time.deltaTime;
-      if (_currentHealthValue <= 0)
-        _currentHealthValue = 0; // Clamp
-
-      break;
-    }
     var currentValue = (float)(_currentHealthValue / maxHealthValue);
     UpdateLifeVisuals(currentValue);
-    if (_currentHealthValue == 0 && !dead) {
+    if (_currentHealthValue == 0 && !dead)
       KillPlayer();
-      return;
-    }
   }
 
   public void KillPlayer() {
@@ -204,7 +163,7 @@ public class PlayerHealth : MonoBehaviour {
   /// </summary>
   private void UpdateLifeVisuals(float currentValue) {
     float legValue;
-    if (safe || onSafeSpace)
+    if (safe)
       currentValue = _healthGainCurve.Evaluate(currentValue);
     else
       currentValue = _healthLossCurve.Evaluate(currentValue);
@@ -236,17 +195,9 @@ public class PlayerHealth : MonoBehaviour {
     _dangerVolume.weight = _dangerAnimationCurve.Evaluate(currentValue);
   }
 
-  // Utility
-  /*
-  public void SetOriginSpawnPoint(Transform t)
-  {
-      _originSpawnPoint = t;
-  }
-  */
-
   private void UpdateAnimator() {
     var healthValue = _currentHealthValue / maxHealthValue;
-    if (safe || onSafeSpace)
+    if (safe)
       healthValue = _healthGainCurve.Evaluate(healthValue);
     else
       healthValue = _healthLossCurve.Evaluate(healthValue);
@@ -257,11 +208,10 @@ public class PlayerHealth : MonoBehaviour {
     currentOscillationDuration += Time.deltaTime;
     if (currentOscillationDuration >= 3f)
       currentOscillationDuration = 0f;
-    _light.range =
-        (0.1f +
-         lightOscillationAmplitudeCurve.Evaluate(
-             (currentOscillationDuration * currentOscillationModifier) / 2f)) *
-        _originalLightRange;
+    _light.range = (0.1f + lightOscillationAmplitudeCurve.Evaluate(
+                               currentOscillationDuration *
+                               currentOscillationModifier / 2f)) *
+                   _originalLightRange;
   }
 
   private void UpdateOrganMaterial(Color c, Color bodyColor) {
