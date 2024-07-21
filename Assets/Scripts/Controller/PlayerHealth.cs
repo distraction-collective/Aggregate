@@ -7,6 +7,9 @@ using RootMotion;
 using StarterAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using HighlightPlus.Demos;
+using System.Linq;
+using Unity.VisualScripting;
 
 namespace DesirePaths {
 public class PlayerHealth : MonoBehaviour {
@@ -103,23 +106,27 @@ public class PlayerHealth : MonoBehaviour {
   private void CheckSafe() {
     safe = _proximityDetector.GetAttached();
 
-    bool walking_on_safe_layer = Physics.Raycast(
-        t_checkLayerTransform.position, -Vector3.up, out _hit, Mathf.Infinity,
-        _safeMask, QueryTriggerInteraction.Collide);
+    RaycastHit[] hits =
+        Physics.RaycastAll(player.transform.position + 3 * Vector3.up,
+                           Vector3.down, Mathf.Infinity);
+    bool walking_over_safe_object =
+        hits.Any(hit => hit.collider.CompareTag("Safe"));
+
     (int u, int v) = GetStruggleUV();
     Color pixel = struggle_map.GetPixel(u, v);
     bool walking_on_walked = pixel.g > .5f;
 
     // Check if in safe space
-    if (walking_on_safe_layer || walking_on_walked) {
+    if (walking_over_safe_object || walking_on_walked) {
       onSafeSpace = true;
-      if (walking_on_safe_layer) {
-        // Place particle system
-        var particleTransform = _groundHealPS.transform;
-        particleTransform.localPosition =
-            particleTransform.InverseTransformPoint(
-                _hit.point); // To get correct height
-        particleTransform.localRotation.SetLookRotation(_hit.normal);
+      if (walking_over_safe_object) {
+        // idk why but this does nothing
+        // // Place particle system
+        // var particleTransform = _groundHealPS.transform;
+        // particleTransform.localPosition =
+        //     particleTransform.InverseTransformPoint(
+        //         _hit.point); // To get correct height
+        // particleTransform.localRotation.SetLookRotation(_hit.normal);
       }
       if (!_groundHealPS.isPlaying)
         _groundHealPS.Play();
