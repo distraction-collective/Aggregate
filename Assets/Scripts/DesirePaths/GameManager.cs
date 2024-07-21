@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour {
   [Header("Gameplay components")]
   [SerializeField]
   private PlayerSpawner _playerSpawner;
-  [SerializeField]
-  private CadaverGutsManager _cadaverManager;
   [Header("UX components")]
   [SerializeField]
   private UI.UIManager _uiManager;
