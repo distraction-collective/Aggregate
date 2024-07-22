@@ -27,9 +27,6 @@ public class GameManager : MonoBehaviour {
   private Transform _playerTransform;
   [SerializeField]
   private StarterAssets.ThirdPersonController _playerThirdPersonController;
-  [Header("Gameplay components")]
-  [SerializeField]
-  private PlayerSpawner _playerSpawner;
   [Header("UX components")]
   [SerializeField]
   private UI.UIManager _uiManager;
@@ -49,7 +46,6 @@ public class GameManager : MonoBehaviour {
                         // event if next line is found
 
   private void Awake() {
-    _playerSpawner.SetThirdPersonController = _playerThirdPersonController;
     SubscribeToPlayerDeathEvents(true);
     BindNarrationCallbacks(true);
     SetState(GameState.Play);
@@ -101,14 +97,6 @@ public class GameManager : MonoBehaviour {
       Cadavers cadavers = GetComponent<Cadavers>();
       cadavers.DepositCadaver();
     }
-
-    _playerSpawner.OnPlayerRespawnComplete.AddListener(delegate {
-      _playerSpawner.OnPlayerRespawnComplete.RemoveAllListeners();
-      // We place only when we're sure camera is not looking, so when
-      // resuscitate is call
-      _playerHealth.Resuscitate();
-    });
-    _playerSpawner.RespawnPlayer();
   }
 }
 

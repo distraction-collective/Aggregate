@@ -135,14 +135,13 @@ public class PlayerHealth : MonoBehaviour {
     _puppetMaster.Kill();
 
     PlayerDeathEvent.Invoke(safe, _thirdPersonController.transform.position);
-    // Invoke("Resuscitate", 3f); //Temporary, normally this is done in game
-    // manager
 
     Color[] pixels = struggle_map.GetPixels();
     for (int i = 0; i < pixels.Length; i++) {
       pixels[i].g = pixels[i].r;
     }
     struggle_map.SetPixels(pixels);
+    Invoke("Resuscitate", 3f);
   }
 
   public void Resuscitate() {
