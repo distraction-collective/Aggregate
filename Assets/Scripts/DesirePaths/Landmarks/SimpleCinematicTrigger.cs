@@ -1,3 +1,4 @@
+using DesirePaths;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -6,19 +7,14 @@ using UnityEngine.Playables;
 [RequireComponent(typeof(PlayableDirector))]
 
 public class SimpleCinematicTrigger : MonoBehaviour {
-  public GameObject player;
-  private SkinnedMeshRenderer[] skinnedMeshRenderers;
-  private ParticleSystemRenderer[] particleSystemRenderers;
-  private ThirdPersonController controller;
-  private bool played;
+  public ThirdPersonController player;
+  public PlayerHealth health;
+  private SkinnedMeshRenderer[] skinnedMeshRenderers =>
+      player.GetComponentsInChildren<SkinnedMeshRenderer>();
+  private ParticleSystemRenderer[] particleSystemRenderers =>
+      player.GetComponentsInChildren<ParticleSystemRenderer>();
   private PlayableDirector playableDirector => GetComponent<PlayableDirector>();
-
-  void Awake() {
-    controller = player.GetComponent<ThirdPersonController>();
-    if (controller == null) {
-      Debug.LogError("player should have a ThirdPersonController component");
-    }
-  }
+  private bool played;
 
   private void OnTriggerEnter(Collider other) {
     if (played)
@@ -32,14 +28,10 @@ public class SimpleCinematicTrigger : MonoBehaviour {
     playableDirector.stopped += OnAnimationEnd;
 
     // hide the player
-    controller.enabled = false;
-    skinnedMeshRenderers =
-        player.GetComponentsInChildren<SkinnedMeshRenderer>();
+    player.enabled = false;
     foreach (var r in skinnedMeshRenderers) {
       r.enabled = false;
     }
-    particleSystemRenderers =
-        player.GetComponentsInChildren<ParticleSystemRenderer>();
     foreach (var r in particleSystemRenderers) {
       r.enabled = false;
     }
@@ -47,12 +39,14 @@ public class SimpleCinematicTrigger : MonoBehaviour {
 
   private void OnAnimationEnd(PlayableDirector _) {
     // restore the player
-    controller.enabled = true;
+    player.enabled = true;
     foreach (var r in skinnedMeshRenderers) {
       r.enabled = true;
     }
     foreach (var r in particleSystemRenderers) {
       r.enabled = true;
     }
+    health.respawn_position = player.transform.position;
+    health.respawn_rotation = player.transform.rotation;
   }
 }
