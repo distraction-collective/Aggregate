@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(PlayableDirector))]
 
-public class SimpleCinematicTrigger : MonoBehaviour {
+public class Cinematic : MonoBehaviour {
   public ThirdPersonController player;
   public PlayerHealth health;
   private SkinnedMeshRenderer[] skinnedMeshRenderers =>
