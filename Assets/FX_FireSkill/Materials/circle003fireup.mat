@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: circle003fireup
+  m_Shader: {fileID: 4800000, guid: e9b84af98fd76fe4dbd18ab4432e9ad4, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: bb7921820dd8ad444a16f22bbe68658b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _mask:
+        m_Texture: {fileID: 2800000, guid: bb7921820dd8ad444a16f22bbe68658b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex:
+        m_Texture: {fileID: 2800000, guid: 0989ddb305efc794d8f5e33ef044ad63, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _InvFade: 1
+    - _U: 1
+    - _UVrotator: 5
+    - _UVrotator_mask: 0
+    - _U_mask: 0
+    - _duibi: 1
+    - _jiaodujiaodu: 45
+    - _jiaodujiaodu_mask: 0
+    - _liangdu: 10
+    - _v: -1
+    - _v_mask: 0
+    m_Colors:
+    - _TintColor: {r: 0.4852941, g: 0.4852941, b: 0.4852941, a: 0.603}
+    - _glowcolor: {r: 1.482, g: 1.0118481, b: 0, a: 1}
