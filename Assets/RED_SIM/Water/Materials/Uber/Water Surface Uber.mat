@@ -139,7 +139,7 @@ Material:
     - _GradientRadiusFar: 0.782
     - _IntrsectionSmoothing: 0
     - _MaskClipValue: 0.5
-    - _NormalPower: 0.118
+    - _NormalPower: 0.166
     - _NormalPower2nd: 0.218
     - _NormalScale: 0.3
     - _OpacityViewDistanceClose: 1
@@ -158,7 +158,7 @@ Material:
     - _RoatationAnimationRadius: 0
     - _RotationAnimationSpeed: 1
     - _Saturation: 1.074
-    - _Smoothness: 0.354
+    - _Smoothness: 0.069
     - _Specular: 0.1
     - _SpecularHighlights: 1
     - _SpeedX: 0
