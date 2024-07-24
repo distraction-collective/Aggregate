@@ -663,20 +663,20 @@ Shader "Terrain_Gneh"
 
 				WorldViewDirection = SafeNormalize( WorldViewDirection );
 
-				float localStochasticTiling2_g4 = ( 0.0 );
+				float localStochasticTiling2_g17 = ( 0.0 );
 				float2 uv_Splat0 = IN.ase_texcoord8.xy * _Splat0_ST.xy + _Splat0_ST.zw;
-				float2 Input_UV145_g4 = uv_Splat0;
-				float2 UV2_g4 = Input_UV145_g4;
-				float2 UV12_g4 = float2( 0,0 );
-				float2 UV22_g4 = float2( 0,0 );
-				float2 UV32_g4 = float2( 0,0 );
-				float W12_g4 = 0.0;
-				float W22_g4 = 0.0;
-				float W32_g4 = 0.0;
-				StochasticTiling( UV2_g4 , UV12_g4 , UV22_g4 , UV32_g4 , W12_g4 , W22_g4 , W32_g4 );
-				float2 temp_output_10_0_g4 = ddx( Input_UV145_g4 );
-				float2 temp_output_12_0_g4 = ddy( Input_UV145_g4 );
-				float4 Output_2D293_g4 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV12_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W12_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV22_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W22_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV32_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W32_g4 ) );
+				float2 Input_UV145_g17 = uv_Splat0;
+				float2 UV2_g17 = Input_UV145_g17;
+				float2 UV12_g17 = float2( 0,0 );
+				float2 UV22_g17 = float2( 0,0 );
+				float2 UV32_g17 = float2( 0,0 );
+				float W12_g17 = 0.0;
+				float W22_g17 = 0.0;
+				float W32_g17 = 0.0;
+				StochasticTiling( UV2_g17 , UV12_g17 , UV22_g17 , UV32_g17 , W12_g17 , W22_g17 , W32_g17 );
+				float2 temp_output_10_0_g17 = ddx( Input_UV145_g17 );
+				float2 temp_output_12_0_g17 = ddy( Input_UV145_g17 );
+				float4 Output_2D293_g17 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV12_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W12_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV22_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W22_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV32_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W32_g17 ) );
 				float localStochasticTiling2_g2 = ( 0.0 );
 				float2 uv_Splat1 = IN.ase_texcoord8.xy * _Splat1_ST.xy + _Splat1_ST.zw;
 				float2 Input_UV145_g2 = uv_Splat1;
@@ -694,7 +694,7 @@ Shader "Terrain_Gneh"
 				float2 uv_Splatmaphehe = IN.ase_texcoord8.xy * _Splatmaphehe_ST.xy + _Splatmaphehe_ST.zw;
 				float4 tex2DNode33 = SAMPLE_TEXTURE2D( _Splatmaphehe, sampler_Splatmaphehe, uv_Splatmaphehe );
 				float Splat_R83 = tex2DNode33.r;
-				float4 lerpResult45 = lerp( Output_2D293_g4 , Output_2D293_g2 , Splat_R83);
+				float4 lerpResult45 = lerp( Output_2D293_g17 , Output_2D293_g2 , Splat_R83);
 				float localStochasticTiling2_g3 = ( 0.0 );
 				float2 uv_Splat2 = IN.ase_texcoord8.xy * _Splat2_ST.xy + _Splat2_ST.zw;
 				float2 Input_UV145_g3 = uv_Splat2;
@@ -711,41 +711,41 @@ Shader "Terrain_Gneh"
 				float4 Output_2D293_g3 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV12_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W12_g3 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV22_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W22_g3 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV32_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W32_g3 ) );
 				float Splat_G84 = tex2DNode33.g;
 				float4 lerpResult46 = lerp( lerpResult45 , Output_2D293_g3 , Splat_G84);
-				float localStochasticTiling2_g1 = ( 0.0 );
+				float localStochasticTiling2_g4 = ( 0.0 );
 				float2 uv_Splat3 = IN.ase_texcoord8.xy * _Splat3_ST.xy + _Splat3_ST.zw;
-				float2 Input_UV145_g1 = uv_Splat3;
-				float2 UV2_g1 = Input_UV145_g1;
-				float2 UV12_g1 = float2( 0,0 );
-				float2 UV22_g1 = float2( 0,0 );
-				float2 UV32_g1 = float2( 0,0 );
-				float W12_g1 = 0.0;
-				float W22_g1 = 0.0;
-				float W32_g1 = 0.0;
-				StochasticTiling( UV2_g1 , UV12_g1 , UV22_g1 , UV32_g1 , W12_g1 , W22_g1 , W32_g1 );
-				float2 temp_output_10_0_g1 = ddx( Input_UV145_g1 );
-				float2 temp_output_12_0_g1 = ddy( Input_UV145_g1 );
-				float4 Output_2D293_g1 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV12_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W12_g1 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV22_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W22_g1 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV32_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W32_g1 ) );
+				float2 Input_UV145_g4 = uv_Splat3;
+				float2 UV2_g4 = Input_UV145_g4;
+				float2 UV12_g4 = float2( 0,0 );
+				float2 UV22_g4 = float2( 0,0 );
+				float2 UV32_g4 = float2( 0,0 );
+				float W12_g4 = 0.0;
+				float W22_g4 = 0.0;
+				float W32_g4 = 0.0;
+				StochasticTiling( UV2_g4 , UV12_g4 , UV22_g4 , UV32_g4 , W12_g4 , W22_g4 , W32_g4 );
+				float2 temp_output_10_0_g4 = ddx( Input_UV145_g4 );
+				float2 temp_output_12_0_g4 = ddy( Input_UV145_g4 );
+				float4 Output_2D293_g4 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV12_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W12_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV22_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W22_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV32_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W32_g4 ) );
 				float Splat_B85 = tex2DNode33.b;
-				float4 lerpResult47 = lerp( lerpResult46 , Output_2D293_g1 , Splat_B85);
+				float4 lerpResult47 = lerp( lerpResult46 , Output_2D293_g4 , Splat_B85);
 				float3 desaturateInitialColor49 = lerpResult47.rgb;
 				float desaturateDot49 = dot( desaturateInitialColor49, float3( 0.299, 0.587, 0.114 ));
 				float3 desaturateVar49 = lerp( desaturateInitialColor49, desaturateDot49.xxx, 1.0 );
 				float2 uv_Colormaphehe = IN.ase_texcoord8.xy * _Colormaphehe_ST.xy + _Colormaphehe_ST.zw;
 				
-				float localStochasticTiling2_g17 = ( 0.0 );
-				float2 Input_UV145_g17 = uv_Splat0;
-				float2 UV2_g17 = Input_UV145_g17;
-				float2 UV12_g17 = float2( 0,0 );
-				float2 UV22_g17 = float2( 0,0 );
-				float2 UV32_g17 = float2( 0,0 );
-				float W12_g17 = 0.0;
-				float W22_g17 = 0.0;
-				float W32_g17 = 0.0;
-				StochasticTiling( UV2_g17 , UV12_g17 , UV22_g17 , UV32_g17 , W12_g17 , W22_g17 , W32_g17 );
-				float2 temp_output_10_0_g17 = ddx( Input_UV145_g17 );
-				float2 temp_output_12_0_g17 = ddy( Input_UV145_g17 );
-				float4 Output_2D293_g17 = ( ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV12_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W12_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV22_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W22_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV32_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W32_g17 ) );
-				float3 unpack144 = UnpackNormalScale( Output_2D293_g17, _NormalScale0 );
+				float localStochasticTiling2_g19 = ( 0.0 );
+				float2 Input_UV145_g19 = uv_Splat0;
+				float2 UV2_g19 = Input_UV145_g19;
+				float2 UV12_g19 = float2( 0,0 );
+				float2 UV22_g19 = float2( 0,0 );
+				float2 UV32_g19 = float2( 0,0 );
+				float W12_g19 = 0.0;
+				float W22_g19 = 0.0;
+				float W32_g19 = 0.0;
+				StochasticTiling( UV2_g19 , UV12_g19 , UV22_g19 , UV32_g19 , W12_g19 , W22_g19 , W32_g19 );
+				float2 temp_output_10_0_g19 = ddx( Input_UV145_g19 );
+				float2 temp_output_12_0_g19 = ddy( Input_UV145_g19 );
+				float4 Output_2D293_g19 = ( ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV12_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W12_g19 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV22_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W22_g19 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV32_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W32_g19 ) );
+				float3 unpack144 = UnpackNormalScale( Output_2D293_g19, _NormalScale0 );
 				unpack144.z = lerp( 1, unpack144.z, saturate(_NormalScale0) );
 				float localStochasticTiling2_g15 = ( 0.0 );
 				float2 Input_UV145_g15 = uv_Splat1;
@@ -2119,20 +2119,20 @@ Shader "Terrain_Gneh"
 					#endif
 				#endif
 
-				float localStochasticTiling2_g4 = ( 0.0 );
+				float localStochasticTiling2_g17 = ( 0.0 );
 				float2 uv_Splat0 = IN.ase_texcoord4.xy * _Splat0_ST.xy + _Splat0_ST.zw;
-				float2 Input_UV145_g4 = uv_Splat0;
-				float2 UV2_g4 = Input_UV145_g4;
-				float2 UV12_g4 = float2( 0,0 );
-				float2 UV22_g4 = float2( 0,0 );
-				float2 UV32_g4 = float2( 0,0 );
-				float W12_g4 = 0.0;
-				float W22_g4 = 0.0;
-				float W32_g4 = 0.0;
-				StochasticTiling( UV2_g4 , UV12_g4 , UV22_g4 , UV32_g4 , W12_g4 , W22_g4 , W32_g4 );
-				float2 temp_output_10_0_g4 = ddx( Input_UV145_g4 );
-				float2 temp_output_12_0_g4 = ddy( Input_UV145_g4 );
-				float4 Output_2D293_g4 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV12_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W12_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV22_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W22_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV32_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W32_g4 ) );
+				float2 Input_UV145_g17 = uv_Splat0;
+				float2 UV2_g17 = Input_UV145_g17;
+				float2 UV12_g17 = float2( 0,0 );
+				float2 UV22_g17 = float2( 0,0 );
+				float2 UV32_g17 = float2( 0,0 );
+				float W12_g17 = 0.0;
+				float W22_g17 = 0.0;
+				float W32_g17 = 0.0;
+				StochasticTiling( UV2_g17 , UV12_g17 , UV22_g17 , UV32_g17 , W12_g17 , W22_g17 , W32_g17 );
+				float2 temp_output_10_0_g17 = ddx( Input_UV145_g17 );
+				float2 temp_output_12_0_g17 = ddy( Input_UV145_g17 );
+				float4 Output_2D293_g17 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV12_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W12_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV22_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W22_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV32_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W32_g17 ) );
 				float localStochasticTiling2_g2 = ( 0.0 );
 				float2 uv_Splat1 = IN.ase_texcoord4.xy * _Splat1_ST.xy + _Splat1_ST.zw;
 				float2 Input_UV145_g2 = uv_Splat1;
@@ -2150,7 +2150,7 @@ Shader "Terrain_Gneh"
 				float2 uv_Splatmaphehe = IN.ase_texcoord4.xy * _Splatmaphehe_ST.xy + _Splatmaphehe_ST.zw;
 				float4 tex2DNode33 = SAMPLE_TEXTURE2D( _Splatmaphehe, sampler_Splatmaphehe, uv_Splatmaphehe );
 				float Splat_R83 = tex2DNode33.r;
-				float4 lerpResult45 = lerp( Output_2D293_g4 , Output_2D293_g2 , Splat_R83);
+				float4 lerpResult45 = lerp( Output_2D293_g17 , Output_2D293_g2 , Splat_R83);
 				float localStochasticTiling2_g3 = ( 0.0 );
 				float2 uv_Splat2 = IN.ase_texcoord4.xy * _Splat2_ST.xy + _Splat2_ST.zw;
 				float2 Input_UV145_g3 = uv_Splat2;
@@ -2167,22 +2167,22 @@ Shader "Terrain_Gneh"
 				float4 Output_2D293_g3 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV12_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W12_g3 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV22_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W22_g3 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV32_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W32_g3 ) );
 				float Splat_G84 = tex2DNode33.g;
 				float4 lerpResult46 = lerp( lerpResult45 , Output_2D293_g3 , Splat_G84);
-				float localStochasticTiling2_g1 = ( 0.0 );
+				float localStochasticTiling2_g4 = ( 0.0 );
 				float2 uv_Splat3 = IN.ase_texcoord4.xy * _Splat3_ST.xy + _Splat3_ST.zw;
-				float2 Input_UV145_g1 = uv_Splat3;
-				float2 UV2_g1 = Input_UV145_g1;
-				float2 UV12_g1 = float2( 0,0 );
-				float2 UV22_g1 = float2( 0,0 );
-				float2 UV32_g1 = float2( 0,0 );
-				float W12_g1 = 0.0;
-				float W22_g1 = 0.0;
-				float W32_g1 = 0.0;
-				StochasticTiling( UV2_g1 , UV12_g1 , UV22_g1 , UV32_g1 , W12_g1 , W22_g1 , W32_g1 );
-				float2 temp_output_10_0_g1 = ddx( Input_UV145_g1 );
-				float2 temp_output_12_0_g1 = ddy( Input_UV145_g1 );
-				float4 Output_2D293_g1 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV12_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W12_g1 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV22_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W22_g1 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV32_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W32_g1 ) );
+				float2 Input_UV145_g4 = uv_Splat3;
+				float2 UV2_g4 = Input_UV145_g4;
+				float2 UV12_g4 = float2( 0,0 );
+				float2 UV22_g4 = float2( 0,0 );
+				float2 UV32_g4 = float2( 0,0 );
+				float W12_g4 = 0.0;
+				float W22_g4 = 0.0;
+				float W32_g4 = 0.0;
+				StochasticTiling( UV2_g4 , UV12_g4 , UV22_g4 , UV32_g4 , W12_g4 , W22_g4 , W32_g4 );
+				float2 temp_output_10_0_g4 = ddx( Input_UV145_g4 );
+				float2 temp_output_12_0_g4 = ddy( Input_UV145_g4 );
+				float4 Output_2D293_g4 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV12_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W12_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV22_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W22_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV32_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W32_g4 ) );
 				float Splat_B85 = tex2DNode33.b;
-				float4 lerpResult47 = lerp( lerpResult46 , Output_2D293_g1 , Splat_B85);
+				float4 lerpResult47 = lerp( lerpResult46 , Output_2D293_g4 , Splat_B85);
 				float3 desaturateInitialColor49 = lerpResult47.rgb;
 				float desaturateDot49 = dot( desaturateInitialColor49, float3( 0.299, 0.587, 0.114 ));
 				float3 desaturateVar49 = lerp( desaturateInitialColor49, desaturateDot49.xxx, 1.0 );
@@ -2559,20 +2559,20 @@ Shader "Terrain_Gneh"
 					#endif
 				#endif
 
-				float localStochasticTiling2_g4 = ( 0.0 );
+				float localStochasticTiling2_g17 = ( 0.0 );
 				float2 uv_Splat0 = IN.ase_texcoord2.xy * _Splat0_ST.xy + _Splat0_ST.zw;
-				float2 Input_UV145_g4 = uv_Splat0;
-				float2 UV2_g4 = Input_UV145_g4;
-				float2 UV12_g4 = float2( 0,0 );
-				float2 UV22_g4 = float2( 0,0 );
-				float2 UV32_g4 = float2( 0,0 );
-				float W12_g4 = 0.0;
-				float W22_g4 = 0.0;
-				float W32_g4 = 0.0;
-				StochasticTiling( UV2_g4 , UV12_g4 , UV22_g4 , UV32_g4 , W12_g4 , W22_g4 , W32_g4 );
-				float2 temp_output_10_0_g4 = ddx( Input_UV145_g4 );
-				float2 temp_output_12_0_g4 = ddy( Input_UV145_g4 );
-				float4 Output_2D293_g4 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV12_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W12_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV22_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W22_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV32_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W32_g4 ) );
+				float2 Input_UV145_g17 = uv_Splat0;
+				float2 UV2_g17 = Input_UV145_g17;
+				float2 UV12_g17 = float2( 0,0 );
+				float2 UV22_g17 = float2( 0,0 );
+				float2 UV32_g17 = float2( 0,0 );
+				float W12_g17 = 0.0;
+				float W22_g17 = 0.0;
+				float W32_g17 = 0.0;
+				StochasticTiling( UV2_g17 , UV12_g17 , UV22_g17 , UV32_g17 , W12_g17 , W22_g17 , W32_g17 );
+				float2 temp_output_10_0_g17 = ddx( Input_UV145_g17 );
+				float2 temp_output_12_0_g17 = ddy( Input_UV145_g17 );
+				float4 Output_2D293_g17 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV12_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W12_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV22_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W22_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV32_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W32_g17 ) );
 				float localStochasticTiling2_g2 = ( 0.0 );
 				float2 uv_Splat1 = IN.ase_texcoord2.xy * _Splat1_ST.xy + _Splat1_ST.zw;
 				float2 Input_UV145_g2 = uv_Splat1;
@@ -2590,7 +2590,7 @@ Shader "Terrain_Gneh"
 				float2 uv_Splatmaphehe = IN.ase_texcoord2.xy * _Splatmaphehe_ST.xy + _Splatmaphehe_ST.zw;
 				float4 tex2DNode33 = SAMPLE_TEXTURE2D( _Splatmaphehe, sampler_Splatmaphehe, uv_Splatmaphehe );
 				float Splat_R83 = tex2DNode33.r;
-				float4 lerpResult45 = lerp( Output_2D293_g4 , Output_2D293_g2 , Splat_R83);
+				float4 lerpResult45 = lerp( Output_2D293_g17 , Output_2D293_g2 , Splat_R83);
 				float localStochasticTiling2_g3 = ( 0.0 );
 				float2 uv_Splat2 = IN.ase_texcoord2.xy * _Splat2_ST.xy + _Splat2_ST.zw;
 				float2 Input_UV145_g3 = uv_Splat2;
@@ -2607,22 +2607,22 @@ Shader "Terrain_Gneh"
 				float4 Output_2D293_g3 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV12_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W12_g3 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV22_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W22_g3 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV32_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W32_g3 ) );
 				float Splat_G84 = tex2DNode33.g;
 				float4 lerpResult46 = lerp( lerpResult45 , Output_2D293_g3 , Splat_G84);
-				float localStochasticTiling2_g1 = ( 0.0 );
+				float localStochasticTiling2_g4 = ( 0.0 );
 				float2 uv_Splat3 = IN.ase_texcoord2.xy * _Splat3_ST.xy + _Splat3_ST.zw;
-				float2 Input_UV145_g1 = uv_Splat3;
-				float2 UV2_g1 = Input_UV145_g1;
-				float2 UV12_g1 = float2( 0,0 );
-				float2 UV22_g1 = float2( 0,0 );
-				float2 UV32_g1 = float2( 0,0 );
-				float W12_g1 = 0.0;
-				float W22_g1 = 0.0;
-				float W32_g1 = 0.0;
-				StochasticTiling( UV2_g1 , UV12_g1 , UV22_g1 , UV32_g1 , W12_g1 , W22_g1 , W32_g1 );
-				float2 temp_output_10_0_g1 = ddx( Input_UV145_g1 );
-				float2 temp_output_12_0_g1 = ddy( Input_UV145_g1 );
-				float4 Output_2D293_g1 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV12_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W12_g1 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV22_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W22_g1 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV32_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W32_g1 ) );
+				float2 Input_UV145_g4 = uv_Splat3;
+				float2 UV2_g4 = Input_UV145_g4;
+				float2 UV12_g4 = float2( 0,0 );
+				float2 UV22_g4 = float2( 0,0 );
+				float2 UV32_g4 = float2( 0,0 );
+				float W12_g4 = 0.0;
+				float W22_g4 = 0.0;
+				float W32_g4 = 0.0;
+				StochasticTiling( UV2_g4 , UV12_g4 , UV22_g4 , UV32_g4 , W12_g4 , W22_g4 , W32_g4 );
+				float2 temp_output_10_0_g4 = ddx( Input_UV145_g4 );
+				float2 temp_output_12_0_g4 = ddy( Input_UV145_g4 );
+				float4 Output_2D293_g4 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV12_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W12_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV22_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W22_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV32_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W32_g4 ) );
 				float Splat_B85 = tex2DNode33.b;
-				float4 lerpResult47 = lerp( lerpResult46 , Output_2D293_g1 , Splat_B85);
+				float4 lerpResult47 = lerp( lerpResult46 , Output_2D293_g4 , Splat_B85);
 				float3 desaturateInitialColor49 = lerpResult47.rgb;
 				float desaturateDot49 = dot( desaturateInitialColor49, float3( 0.299, 0.587, 0.114 ));
 				float3 desaturateVar49 = lerp( desaturateInitialColor49, desaturateDot49.xxx, 1.0 );
@@ -3030,21 +3030,21 @@ Shader "Terrain_Gneh"
 					#endif
 				#endif
 
-				float localStochasticTiling2_g17 = ( 0.0 );
+				float localStochasticTiling2_g19 = ( 0.0 );
 				float2 uv_Splat0 = IN.ase_texcoord5.xy * _Splat0_ST.xy + _Splat0_ST.zw;
-				float2 Input_UV145_g17 = uv_Splat0;
-				float2 UV2_g17 = Input_UV145_g17;
-				float2 UV12_g17 = float2( 0,0 );
-				float2 UV22_g17 = float2( 0,0 );
-				float2 UV32_g17 = float2( 0,0 );
-				float W12_g17 = 0.0;
-				float W22_g17 = 0.0;
-				float W32_g17 = 0.0;
-				StochasticTiling( UV2_g17 , UV12_g17 , UV22_g17 , UV32_g17 , W12_g17 , W22_g17 , W32_g17 );
-				float2 temp_output_10_0_g17 = ddx( Input_UV145_g17 );
-				float2 temp_output_12_0_g17 = ddy( Input_UV145_g17 );
-				float4 Output_2D293_g17 = ( ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV12_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W12_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV22_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W22_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV32_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W32_g17 ) );
-				float3 unpack144 = UnpackNormalScale( Output_2D293_g17, _NormalScale0 );
+				float2 Input_UV145_g19 = uv_Splat0;
+				float2 UV2_g19 = Input_UV145_g19;
+				float2 UV12_g19 = float2( 0,0 );
+				float2 UV22_g19 = float2( 0,0 );
+				float2 UV32_g19 = float2( 0,0 );
+				float W12_g19 = 0.0;
+				float W22_g19 = 0.0;
+				float W32_g19 = 0.0;
+				StochasticTiling( UV2_g19 , UV12_g19 , UV22_g19 , UV32_g19 , W12_g19 , W22_g19 , W32_g19 );
+				float2 temp_output_10_0_g19 = ddx( Input_UV145_g19 );
+				float2 temp_output_12_0_g19 = ddy( Input_UV145_g19 );
+				float4 Output_2D293_g19 = ( ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV12_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W12_g19 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV22_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W22_g19 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV32_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W32_g19 ) );
+				float3 unpack144 = UnpackNormalScale( Output_2D293_g19, _NormalScale0 );
 				unpack144.z = lerp( 1, unpack144.z, saturate(_NormalScale0) );
 				float localStochasticTiling2_g15 = ( 0.0 );
 				float2 uv_Splat1 = IN.ase_texcoord5.xy * _Splat1_ST.xy + _Splat1_ST.zw;
@@ -3620,20 +3620,20 @@ Shader "Terrain_Gneh"
 
 				WorldViewDirection = SafeNormalize( WorldViewDirection );
 
-				float localStochasticTiling2_g4 = ( 0.0 );
+				float localStochasticTiling2_g17 = ( 0.0 );
 				float2 uv_Splat0 = IN.ase_texcoord8.xy * _Splat0_ST.xy + _Splat0_ST.zw;
-				float2 Input_UV145_g4 = uv_Splat0;
-				float2 UV2_g4 = Input_UV145_g4;
-				float2 UV12_g4 = float2( 0,0 );
-				float2 UV22_g4 = float2( 0,0 );
-				float2 UV32_g4 = float2( 0,0 );
-				float W12_g4 = 0.0;
-				float W22_g4 = 0.0;
-				float W32_g4 = 0.0;
-				StochasticTiling( UV2_g4 , UV12_g4 , UV22_g4 , UV32_g4 , W12_g4 , W22_g4 , W32_g4 );
-				float2 temp_output_10_0_g4 = ddx( Input_UV145_g4 );
-				float2 temp_output_12_0_g4 = ddy( Input_UV145_g4 );
-				float4 Output_2D293_g4 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV12_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W12_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV22_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W22_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV32_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W32_g4 ) );
+				float2 Input_UV145_g17 = uv_Splat0;
+				float2 UV2_g17 = Input_UV145_g17;
+				float2 UV12_g17 = float2( 0,0 );
+				float2 UV22_g17 = float2( 0,0 );
+				float2 UV32_g17 = float2( 0,0 );
+				float W12_g17 = 0.0;
+				float W22_g17 = 0.0;
+				float W32_g17 = 0.0;
+				StochasticTiling( UV2_g17 , UV12_g17 , UV22_g17 , UV32_g17 , W12_g17 , W22_g17 , W32_g17 );
+				float2 temp_output_10_0_g17 = ddx( Input_UV145_g17 );
+				float2 temp_output_12_0_g17 = ddy( Input_UV145_g17 );
+				float4 Output_2D293_g17 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV12_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W12_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV22_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W22_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat0, sampler_Splat0, UV32_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W32_g17 ) );
 				float localStochasticTiling2_g2 = ( 0.0 );
 				float2 uv_Splat1 = IN.ase_texcoord8.xy * _Splat1_ST.xy + _Splat1_ST.zw;
 				float2 Input_UV145_g2 = uv_Splat1;
@@ -3651,7 +3651,7 @@ Shader "Terrain_Gneh"
 				float2 uv_Splatmaphehe = IN.ase_texcoord8.xy * _Splatmaphehe_ST.xy + _Splatmaphehe_ST.zw;
 				float4 tex2DNode33 = SAMPLE_TEXTURE2D( _Splatmaphehe, sampler_Splatmaphehe, uv_Splatmaphehe );
 				float Splat_R83 = tex2DNode33.r;
-				float4 lerpResult45 = lerp( Output_2D293_g4 , Output_2D293_g2 , Splat_R83);
+				float4 lerpResult45 = lerp( Output_2D293_g17 , Output_2D293_g2 , Splat_R83);
 				float localStochasticTiling2_g3 = ( 0.0 );
 				float2 uv_Splat2 = IN.ase_texcoord8.xy * _Splat2_ST.xy + _Splat2_ST.zw;
 				float2 Input_UV145_g3 = uv_Splat2;
@@ -3668,41 +3668,41 @@ Shader "Terrain_Gneh"
 				float4 Output_2D293_g3 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV12_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W12_g3 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV22_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W22_g3 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat2, sampler_Splat2, UV32_g3, temp_output_10_0_g3, temp_output_12_0_g3 ) * W32_g3 ) );
 				float Splat_G84 = tex2DNode33.g;
 				float4 lerpResult46 = lerp( lerpResult45 , Output_2D293_g3 , Splat_G84);
-				float localStochasticTiling2_g1 = ( 0.0 );
+				float localStochasticTiling2_g4 = ( 0.0 );
 				float2 uv_Splat3 = IN.ase_texcoord8.xy * _Splat3_ST.xy + _Splat3_ST.zw;
-				float2 Input_UV145_g1 = uv_Splat3;
-				float2 UV2_g1 = Input_UV145_g1;
-				float2 UV12_g1 = float2( 0,0 );
-				float2 UV22_g1 = float2( 0,0 );
-				float2 UV32_g1 = float2( 0,0 );
-				float W12_g1 = 0.0;
-				float W22_g1 = 0.0;
-				float W32_g1 = 0.0;
-				StochasticTiling( UV2_g1 , UV12_g1 , UV22_g1 , UV32_g1 , W12_g1 , W22_g1 , W32_g1 );
-				float2 temp_output_10_0_g1 = ddx( Input_UV145_g1 );
-				float2 temp_output_12_0_g1 = ddy( Input_UV145_g1 );
-				float4 Output_2D293_g1 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV12_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W12_g1 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV22_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W22_g1 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV32_g1, temp_output_10_0_g1, temp_output_12_0_g1 ) * W32_g1 ) );
+				float2 Input_UV145_g4 = uv_Splat3;
+				float2 UV2_g4 = Input_UV145_g4;
+				float2 UV12_g4 = float2( 0,0 );
+				float2 UV22_g4 = float2( 0,0 );
+				float2 UV32_g4 = float2( 0,0 );
+				float W12_g4 = 0.0;
+				float W22_g4 = 0.0;
+				float W32_g4 = 0.0;
+				StochasticTiling( UV2_g4 , UV12_g4 , UV22_g4 , UV32_g4 , W12_g4 , W22_g4 , W32_g4 );
+				float2 temp_output_10_0_g4 = ddx( Input_UV145_g4 );
+				float2 temp_output_12_0_g4 = ddy( Input_UV145_g4 );
+				float4 Output_2D293_g4 = ( ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV12_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W12_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV22_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W22_g4 ) + ( SAMPLE_TEXTURE2D_GRAD( _Splat3, sampler_Splat3, UV32_g4, temp_output_10_0_g4, temp_output_12_0_g4 ) * W32_g4 ) );
 				float Splat_B85 = tex2DNode33.b;
-				float4 lerpResult47 = lerp( lerpResult46 , Output_2D293_g1 , Splat_B85);
+				float4 lerpResult47 = lerp( lerpResult46 , Output_2D293_g4 , Splat_B85);
 				float3 desaturateInitialColor49 = lerpResult47.rgb;
 				float desaturateDot49 = dot( desaturateInitialColor49, float3( 0.299, 0.587, 0.114 ));
 				float3 desaturateVar49 = lerp( desaturateInitialColor49, desaturateDot49.xxx, 1.0 );
 				float2 uv_Colormaphehe = IN.ase_texcoord8.xy * _Colormaphehe_ST.xy + _Colormaphehe_ST.zw;
 				
-				float localStochasticTiling2_g17 = ( 0.0 );
-				float2 Input_UV145_g17 = uv_Splat0;
-				float2 UV2_g17 = Input_UV145_g17;
-				float2 UV12_g17 = float2( 0,0 );
-				float2 UV22_g17 = float2( 0,0 );
-				float2 UV32_g17 = float2( 0,0 );
-				float W12_g17 = 0.0;
-				float W22_g17 = 0.0;
-				float W32_g17 = 0.0;
-				StochasticTiling( UV2_g17 , UV12_g17 , UV22_g17 , UV32_g17 , W12_g17 , W22_g17 , W32_g17 );
-				float2 temp_output_10_0_g17 = ddx( Input_UV145_g17 );
-				float2 temp_output_12_0_g17 = ddy( Input_UV145_g17 );
-				float4 Output_2D293_g17 = ( ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV12_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W12_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV22_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W22_g17 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV32_g17, temp_output_10_0_g17, temp_output_12_0_g17 ) * W32_g17 ) );
-				float3 unpack144 = UnpackNormalScale( Output_2D293_g17, _NormalScale0 );
+				float localStochasticTiling2_g19 = ( 0.0 );
+				float2 Input_UV145_g19 = uv_Splat0;
+				float2 UV2_g19 = Input_UV145_g19;
+				float2 UV12_g19 = float2( 0,0 );
+				float2 UV22_g19 = float2( 0,0 );
+				float2 UV32_g19 = float2( 0,0 );
+				float W12_g19 = 0.0;
+				float W22_g19 = 0.0;
+				float W32_g19 = 0.0;
+				StochasticTiling( UV2_g19 , UV12_g19 , UV22_g19 , UV32_g19 , W12_g19 , W22_g19 , W32_g19 );
+				float2 temp_output_10_0_g19 = ddx( Input_UV145_g19 );
+				float2 temp_output_12_0_g19 = ddy( Input_UV145_g19 );
+				float4 Output_2D293_g19 = ( ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV12_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W12_g19 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV22_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W22_g19 ) + ( SAMPLE_TEXTURE2D_GRAD( _Normal0, sampler_Normal0, UV32_g19, temp_output_10_0_g19, temp_output_12_0_g19 ) * W32_g19 ) );
+				float3 unpack144 = UnpackNormalScale( Output_2D293_g19, _NormalScale0 );
 				unpack144.z = lerp( 1, unpack144.z, saturate(_NormalScale0) );
 				float localStochasticTiling2_g15 = ( 0.0 );
 				float2 Input_UV145_g15 = uv_Splat1;
@@ -4499,7 +4499,7 @@ Node;AmplifyShaderEditor.DynamicAppendNode;92;1060.897,-175.4057;Inherit;False;F
 Node;AmplifyShaderEditor.FunctionNode;59;587.0169,832.5229;Inherit;False;Procedural Sample;-1;;2;f5379ff72769e2b4495e5ce2f004d8d4;2,157,0,315,0;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
 Node;AmplifyShaderEditor.FunctionNode;60;579.8499,1208.467;Inherit;False;Procedural Sample;-1;;3;f5379ff72769e2b4495e5ce2f004d8d4;2,157,0,315,0;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
 Node;AmplifyShaderEditor.TextureCoordinatesNode;37;256.7115,934.6721;Inherit;False;0;57;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.FunctionNode;55;560.1863,1522.867;Inherit;False;Procedural Sample;-1;;1;f5379ff72769e2b4495e5ce2f004d8d4;2,157,0,315,0;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
+Node;AmplifyShaderEditor.FunctionNode;55;560.1863,1522.867;Inherit;False;Procedural Sample;-1;;4;f5379ff72769e2b4495e5ce2f004d8d4;2,157,0,315,0;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
 Node;AmplifyShaderEditor.TextureCoordinatesNode;38;266.084,1676.338;Inherit;False;0;56;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TexturePropertyNode;56;260.8501,1470.467;Inherit;True;Property;_Splat3;Splat3;12;1;[HideInInspector];Create;True;0;0;0;False;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.TexturePropertyNode;54;261.4459,1119.419;Inherit;True;Property;_Splat2;Splat2;6;1;[HideInInspector];Create;True;0;0;0;False;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
@@ -4514,7 +4514,7 @@ Node;AmplifyShaderEditor.TexturePropertyNode;108;285.9565,2341.68;Inherit;True;P
 Node;AmplifyShaderEditor.TexturePropertyNode;107;313.0592,2722.657;Inherit;True;Property;_Normal2;Normal2;7;1;[HideInInspector];Create;True;0;0;0;False;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.TextureCoordinatesNode;114;304.6973,3197.231;Inherit;False;0;56;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TexturePropertyNode;113;298.4634,2990.361;Inherit;True;Property;_Normal3;Normal3;13;1;[HideInInspector];Create;True;0;0;0;False;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
-Node;AmplifyShaderEditor.FunctionNode;61;666.1172,499.8231;Inherit;False;Procedural Sample;-1;;4;f5379ff72769e2b4495e5ce2f004d8d4;2,157,0,315,0;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
+Node;AmplifyShaderEditor.FunctionNode;61;666.1172,499.8231;Inherit;False;Procedural Sample;-1;;17;f5379ff72769e2b4495e5ce2f004d8d4;2,157,0,315,0;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
 Node;AmplifyShaderEditor.TextureCoordinatesNode;41;281.7115,578.6722;Inherit;False;0;58;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SamplerNode;10;1342.04,1349.498;Inherit;True;Property;_Colormaphehe;Colormaphehe;0;0;Create;True;0;0;0;False;0;False;-1;f9e2a0ca5ddb35d4b8565db818a7733a;f9e2a0ca5ddb35d4b8565db818a7733a;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TexturePropertyNode;58;246.9815,394.1943;Inherit;True;Property;_Splat0;Splat0;16;1;[HideInInspector];Create;True;0;0;0;False;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
@@ -4550,7 +4550,7 @@ Node;AmplifyShaderEditor.RangedFloatNode;127;2679.512,3947.256;Inherit;False;Pro
 Node;AmplifyShaderEditor.LerpOp;100;1714.594,2726.512;Inherit;False;3;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.WireNode;146;2284.634,1769.106;Inherit;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.GetLocalVarNode;106;1261.713,3062.148;Inherit;False;85;Splat_B;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;103;643.7306,2017.062;Inherit;False;Procedural Sample;-1;;17;f5379ff72769e2b4495e5ce2f004d8d4;2,157,0,315,0;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
+Node;AmplifyShaderEditor.FunctionNode;103;643.7306,2017.062;Inherit;False;Procedural Sample;-1;;19;f5379ff72769e2b4495e5ce2f004d8d4;2,157,0,315,0;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
 Node;AmplifyShaderEditor.LerpOp;98;1261.088,2259.793;Inherit;False;3;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.UnpackScaleNormalNode;144;984.7026,2027.109;Inherit;False;Tangent;2;0;FLOAT4;0,0,0,0;False;1;FLOAT;1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.UnpackScaleNormalNode;147;1016.185,2301.119;Inherit;False;Tangent;2;0;FLOAT4;0,0,0,0;False;1;FLOAT;1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
@@ -4642,4 +4642,4 @@ WireConnection;51;0;49;0
 WireConnection;51;1;10;0
 WireConnection;49;0;47;0
 ASEEND*/
-//CHKSM=E3437A3CAB878378045E1F40268FDD7C2F4EE5E9
+//CHKSM=3E5EF338051F8349D84A739E75F1DD8DF2E1D333
