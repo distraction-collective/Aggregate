@@ -118,17 +118,17 @@ Material:
     - _GlossyReflections: 0
     - _Intensit: 1
     - _Intensity: 0.792
-    - _Metallic: 0.893
-    - _NormalInfluence: 1
+    - _Metallic: 0.832
+    - _NormalInfluence: -1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _Power: 4.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SSS_Intensity: 2
+    - _SSS_Intensity: 6.52
     - _SSS_Power: 1
-    - _Smoothness: 0.21
+    - _Smoothness: 0.257
     - _SmoothnessTextureChannel: 0
     - _Smoothness_1: 0
     - _Smoothness_2: 0
@@ -149,11 +149,11 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Main_Color_1: {r: 1, g: 0.76792455, b: 0.87940323, a: 0}
-    - _Main_Color_2: {r: 0.33962262, g: 0, b: 0.05859013, a: 1}
+    - _EmissionColor: {r: 1.8583312, g: 0, b: 0, a: 1}
+    - _Main_Color_1: {r: 0.6792453, g: 0.51520115, b: 0.59991467, a: 0}
+    - _Main_Color_2: {r: 0.3584906, g: 0.15298405, b: 0.10619437, a: 1}
     - _Remap: {r: 0.1, g: 0.6, b: 0, a: 0}
-    - _SSS_Color: {r: 0, g: 0, b: 0, a: 0.9882353}
+    - _SSS_Color: {r: 0.9339623, g: 0.4440726, b: 0.4440726, a: 0.9882353}
     - _SSS_Tile: {r: 10, g: 10, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tile: {r: 5, g: 5, b: 0, a: 0}

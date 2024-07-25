@@ -10,7 +10,7 @@
 
 #define MAX_ITERATIONS 500
 
-//#define FOG_BLUE_NOISE
+#define FOG_BLUE_NOISE
 
 //#define WEBGL_COMPATIBILITY_MODE
 
@@ -20,7 +20,7 @@
 
 //#define FOG_ROTATION
 
-//#define FOG_BORDER
+#define FOG_BORDER
 
 //#define FOG_MAX_DISTANCE_XZ
 
