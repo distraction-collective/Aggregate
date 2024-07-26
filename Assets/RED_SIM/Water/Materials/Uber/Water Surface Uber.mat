@@ -136,7 +136,7 @@ Material:
     - _Foamfalloff: -4
     - _GlossyReflections: 1
     - _GradientRadiusClose: 0.578
-    - _GradientRadiusFar: 0.782
+    - _GradientRadiusFar: 1.046
     - _IntrsectionSmoothing: 0
     - _MaskClipValue: 0.5
     - _NormalPower: 0.166
@@ -183,10 +183,10 @@ Material:
     - _ZWrite1: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 0.31132078, g: 0.14032233, b: 0.12746531, a: 0}
+    - _Color: {r: 0.3773585, g: 0.31213337, b: 0.30758277, a: 1}
     - _Color0: {r: 0, g: 0.6749488, b: 0.8088235, a: 0}
     - _Color1: {r: 0, g: 0.048731543, b: 0.22794023, a: 0}
-    - _ColorClose: {r: 0.122641504, g: 0.012665413, b: 0.008561761, a: 0}
+    - _ColorClose: {r: 0, g: 0, b: 0, a: 0}
     - _ColorFar: {r: 0.06808437, g: 0.06792453, b: 0.0754717, a: 0}
     - _DeepColor: {r: 0, g: 0.04310166, b: 0.24999821, a: 0}
     - _DepthColorClose: {r: 0, g: 0.2196079, b: 0.2627451, a: 0}
@@ -195,7 +195,7 @@ Material:
     - _FoamColor: {r: 0.18867922, g: 0.05767176, b: 0.07797782, a: 0.5019608}
     - _ShalowColor: {r: 0, g: 0.80882317, b: 0.8088235, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Tint: {r: 0.254717, g: 0.049020994, b: 0.049020994, a: 0}
+    - _Tint: {r: 0, g: 0, b: 0, a: 0}
     - _UnderwaterColorClose: {r: 0, g: 0.553117, b: 0.66176474, a: 0}
     - _UnderwaterColorFar: {r: 0, g: 0.26133937, b: 0.36764705, a: 0}
     - _WaterColorClose: {r: 0, g: 0.2196079, b: 0.2627451, a: 0}
