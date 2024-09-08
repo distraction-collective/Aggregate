@@ -141,7 +141,7 @@ public class PlayerHealth : MonoBehaviour {
       pixels[i].g = pixels[i].r;
     }
     struggle_map.SetPixels(pixels);
-    Invoke("Resuscitate", 3f);
+    Invoke(nameof(Resuscitate), 3f);
   }
 
   public void Resuscitate() {
@@ -154,7 +154,7 @@ public class PlayerHealth : MonoBehaviour {
     _characterController.enabled = true;
     _thirdPersonController.enabled = true;
     _controllerAnimator.SetTrigger("KneelUp"); // RespawnAnim
-    Invoke("GiveControlBack", 1.5f);
+    Invoke(nameof(GiveControlBack), 1.5f);
   }
 
   void GiveControlBack() {
