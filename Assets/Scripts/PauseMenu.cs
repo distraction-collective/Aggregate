@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour {
   public Button defaultButton;
   private bool playing = true;
 
-  void Awake() {
+  void OnEnable() {
     inputAction.performed += PauseOrResume;
     inputAction.Enable();
   }
