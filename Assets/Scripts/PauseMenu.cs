@@ -45,4 +45,6 @@ public class PauseMenu : MonoBehaviour {
     LocalizationSettings.SelectedLocale =
         LocalizationSettings.AvailableLocales.GetLocale("fr");
   }
+
+  public void Quit() { Application.Quit(); }
 }
