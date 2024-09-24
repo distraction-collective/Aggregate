@@ -10,12 +10,13 @@ namespace DesirePaths
         public AudioSource audioSource;                 // Reference to the audio source
         public AudioClip[] soundClips;                  // Array of audio clips to play
         public float minVolume = 0.1f;                  // Minimum volume level
-        public float maxVolume = 0.7f;                  // Maximum volume level
+        public float maxVolume = 0.6f;                  // Maximum volume level
 
         private VisualEffect vfx;                       // Reference to the Visual Effect component
         private float unsafeTime = 0f;                  // Time spent unsafe
-        private float distortionRate = 0.1f;            // Rate at which distortion increases
-        private float maxDistortion = 1f;               // Maximum distortion level
+        private float distortionRate = 0.2f;            // Rate at which distortion increases
+        private float maxDistortion = 0.7f;               // Maximum distortion level
+        private int lastPlayedIndex = -1;               // Index of the last played sound clip
 
         void Start()
         {
@@ -76,8 +77,17 @@ namespace DesirePaths
         {
             if (audioSource != null && soundClips.Length > 0)
             {
-                // Select a random sound clip from the array
-                int randomIndex = Random.Range(0, soundClips.Length);
+                int randomIndex;
+
+                // Ensure a different sound is played than the last one
+                do
+                {
+                    randomIndex = Random.Range(0, soundClips.Length);
+                } while (randomIndex == lastPlayedIndex); // Prevent playing the same sound
+
+                lastPlayedIndex = randomIndex; // Update last played index
+
+                // Select the random sound clip from the array
                 AudioClip selectedClip = soundClips[randomIndex];
 
                 // Set the selected clip in the audio source
