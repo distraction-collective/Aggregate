@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+ <html xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><meta content="en-us" http-equiv="Content-Language" /><meta content="text/html; charset=utf-16" http-equiv="Content-Type" /><title _locID="ConversionReport0">
+          Rapport de migration
+        </title><style> 
+                    /* Body style, for the entire document */
+                    body
+                    {
+                        background: #F3F3F4;
+                        color: #1E1E1F;
+                        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    /* Header1 style, used for the main title */
+                    h1
+                    {
+                        padding: 10px 0px 10px 10px;
+                        font-size: 21pt;
+                        background-color: #E2E2E2;
+                        border-bottom: 1px #C1C1C2 solid; 
+                        color: #201F20;
+                        margin: 0;
+                        font-weight: normal;
+                    }
+
+                    /* Header2 style, used for "Overview" and other sections */
+                    h2
+                    {
+                        font-size: 18pt;
+                        font-weight: normal;
+                        padding: 15px 0 5px 0;
+                        margin: 0;
+                    }
+
+                    /* Header3 style, used for sub-sections, such as project name */
+                    h3
+                    {
+                        font-weight: normal;
+                        font-size: 15pt;
+                        margin: 0;
+                        padding: 15px 0 5px 0;
+                        background-color: transparent;
+                    }
+
+                    /* Color all hyperlinks one color */
+                    a
+                    {
+                        color: #1382CE;
+                    }
+
+                    /* Table styles */ 
+                    table
+                    {
+                        border-spacing: 0 0;
+                        border-collapse: collapse;
+                        font-size: 10pt;
+                    }
+
+                    table th
+                    {
+                        background: #E7E7E8;
+                        text-align: left;
+                        text-decoration: none;
+                        font-weight: normal;
+                        padding: 3px 6px 3px 6px;
+                    }
+
+                    table td
+                    {
+                        vertical-align: top;
+                        padding: 3px 6px 5px 5px;
+                        margin: 0px;
+                        border: 1px solid #E7E7E8;
+                        background: #F7F7F8;
+                    }
+
+                    /* Local link is a style for hyperlinks that link to file:/// content, there are lots so color them as 'normal' text until the user mouse overs */
+                    .localLink
+                    {
+                        color: #1E1E1F;
+                        background: #EEEEED;
+                        text-decoration: none;
+                    }
+
+                    .localLink:hover
+                    {
+                        color: #1382CE;
+                        background: #FFFF99;
+                        text-decoration: none;
+                    }
+
+                    /* Center text, used in the over views cells that contain message level counts */ 
+                    .textCentered
+                    {
+                        text-align: center;
+                    }
+
+                    /* The message cells in message tables should take up all avaliable space */
+                    .messageCell
+                    {
+                        width: 100%;
+                    }
+
+                    /* Padding around the content after the h1 */ 
+                    #content 
+                    {
+	                    padding: 0px 12px 12px 12px; 
+                    }
+
+                    /* The overview table expands to width, with a max width of 97% */ 
+                    #overview table
+                    {
+                        width: auto;
+                        max-width: 75%; 
+                    }
+
+                    /* The messages tables are always 97% width */
+                    #messages table
+                    {
+                        width: 97%;
+                    }
+
+                    /* All Icons */
+                    .IconSuccessEncoded, .IconInfoEncoded, .IconWarningEncoded, .IconErrorEncoded
+                    {
+                        min-width:18px;
+                        min-height:18px; 
+                        background-repeat:no-repeat;
+                        background-position:center;
+                    }
+
+                    /* Success icon encoded */
+                    .IconSuccessEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconSuccess#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABcElEQVR4Xq2TsUsCURzHv15g8ZJcBWlyiYYgCIWcb9DFRRwMW5TA2c0/QEFwFkxxUQdxVlBwCYWOi6IhWgQhBLHJUCkhLr/BW8S7gvrAg+N+v8/v+x68Z8MGy+XSCyABQAXgBgHGALoASkIIDWSLeLBetdHryMjd5IxQPWT4rn1c/P7+xxp72Cs9m5SZ0Bq2vPnbPFafK2zDvmNHypdC0BPkLlQhxJsCAhQoZwdZU5mwxh720qGo8MzTxTTKZDPCx2HoVzp6lz0Q9tKhyx0kGs8Ny+TkWRKk8lCROwEduhyg9l/6lunOPSfmH3NUH6uQ0KHLAe7JYvJjevm+DAMGJHToKtigE+vwvIidxLamb8IBY9e+C5LiXREkfho3TSd06HJA13/oh6T51MTsfQbHrsMynQ5dDihFjiK8JJAU9AKIWTp76dCVN7HWHrajmUEGvyF9nkbAE6gLIS7kTUyuf2gscLoJrElZo/Mvj+nPz/kLTmfnEwP3tB0AAAAASUVORK5CYII=);
+                    }
+
+                    /* Information icon encoded */
+                    .IconInfoEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconInformation#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHElEQVR4Xs2TsUoDQRRF7wwoziokjZUKadInhdhukR9YP8DMX1hYW+QvdsXa/QHBbcXC7W0CamWTQnclFutceIQJwwaWNLlwm5k5d94M76mmaeCrrmsLYOocY12FcxZFUeozCqKqqgYA8uevv1H6VuPxcwlfk5N92KHBxfFeCSAxxswlYAW/Xr989x/mv9gkhtyMDhcAxgzRsp7flj8B/HF1RsMXq+NZMkopaHe7lbKxQUEIGbKsYNoGn969060hZBkQex/W8oRQwsQaW2o3Ago2SVcJUzAgY3N0lTCZZm+zPS8HB51gMmS1DEYyOz9acKO1D8JWTlafKIMxdhvlfdyT94Vv5h7P8Ky7nQzACmhvKq3zk3PjW9asz9D/1oigecsioooAAAAASUVORK5CYII=);
+                    }
+
+                    /* Warning icon encoded */
+                    .IconWarningEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconWarning#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAx0lEQVR4XpWSMQ7CMAxFf4xAyBMLCxMrO8dhaBcuwdCJS3RJBw7SA/QGTCxdWJgiQYWKXJWKIXHIlyw5lqr34tQgEOdcBsCOx5yZK3hCCKdYXneQkh4pEfqzLfu+wVDSyyzFoJjfz9NB+pAF+eizx2Vruts0k15mPgvS6GYvpVtQhB61IB/dk6AF6fS4Ben0uIX5odtFe8Q/eW1KvFeH4e8khT6+gm5B+t3juyDt7n0jpe+CANTd+oTUjN/U3yVaABnSUjFz/gFq44JaVSCXeQAAAABJRU5ErkJggg==);
+                    }
+
+                    /* Error icon encoded */
+                    .IconErrorEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconError#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABQElEQVR4XqWTvUoEQRCE6wYPZUA80AfwAQz23uCMjA7MDRQEIzPBVEyNTQUFIw00vcQTTMzuAh/AxEQQT8HF/3G/oGGnEUGuoNnd6qoZuqltyKEsyzVJq5I6rnUp6SjGeGhESikzzlc1eL7opfuVbrqbU1Zw9NCgtQMaZpY0eNnaaL2fHusvTK5vKu7sjSS1Y4y3QUA6K3e3Mau5UFDyMP7tYF9o8cAHZv68vipoIJg971PZIZ5HiwdvYGGvFVFHmGmZ2MxwmQYPXubPl9Up0tfoMQGetXd6mRbvhBw+boZ6WF7Mbv1+GsHRk0fQmPAH1GfmZirbCfDJ61tw3Px8/8pZsPAG4jlVhcPgZ7adwNWBB68lkRQWFiTgFlbnLY3DGGM7izIJIyT/jjIvEJw6fdJTc6krDzh6aMwMP9bvDH4ADSsa9uSWVJkAAAAASUVORK5CYII=);
+                    }
+                 </style><script type="text/javascript" language="javascript"> 
+          
+            // Startup 
+            // Hook up the the loaded event for the document/window, to linkify the document content
+            var startupFunction = function() { linkifyElement("messages"); };
+            
+            if(window.attachEvent)
+            {
+              window.attachEvent('onload', startupFunction);
+            }
+            else if (window.addEventListener) 
+            {
+              window.addEventListener('load', startupFunction, false);
+            }
+            else 
+            {
+              document.addEventListener('load', startupFunction, false);
+            } 
+            
+            // Toggles the visibility of table rows with the specified name 
+            function toggleTableRowsByName(name)
+            {
+               var allRows = document.getElementsByTagName('tr');
+               for (i=0; i < allRows.length; i++)
+               {
+                  var currentName = allRows[i].getAttribute('name');
+                  if(!!currentName && currentName.indexOf(name) == 0)
+                  {
+                      var isVisible = allRows[i].style.display == ''; 
+                      isVisible ? allRows[i].style.display = 'none' : allRows[i].style.display = '';
+                  }
+               }
+            }
+            
+            function scrollToFirstVisibleRow(name) 
+            {
+               var allRows = document.getElementsByTagName('tr');
+               for (i=0; i < allRows.length; i++)
+               {
+                  var currentName = allRows[i].getAttribute('name');
+                  var isVisible = allRows[i].style.display == ''; 
+                  if(!!currentName && currentName.indexOf(name) == 0 && isVisible)
+                  {
+                     allRows[i].scrollIntoView(true); 
+                     return true; 
+                  }
+               }
+               
+               return false;
+            }
+            
+            // Linkifies the specified text content, replaces candidate links with html links 
+            function linkify(text)
+            {
+                 if(!text || 0 === text.length)
+                 {
+                     return text; 
+                 }
+
+                 // Find http, https and ftp links and replace them with hyper links 
+                 var urlLink = /(http|https|ftp)\:\/\/[a-zA-Z0-9\-\.]+(:[a-zA-Z0-9]*)?\/?([a-zA-Z0-9\-\._\?\,\/\\\+&%\$#\=~;\{\}])*/gi;
+                 
+                 return text.replace(urlLink, '<a href="$&">$&</a>') ;
+            }
+            
+            // Linkifies the specified element by ID
+            function linkifyElement(id)
+            {
+                var element = document.getElementById(id);
+                if(!!element)
+                {
+                  element.innerHTML = linkify(element.innerHTML); 
+                }
+            }
+            
+            function ToggleMessageVisibility(projectName)
+            {
+              if(!projectName || 0 === projectName.length)
+              {
+                return; 
+              }
+              
+              toggleTableRowsByName("MessageRowClass" + projectName);
+              toggleTableRowsByName('MessageRowHeaderShow' + projectName);
+              toggleTableRowsByName('MessageRowHeaderHide' + projectName); 
+            }
+            
+            function ScrollToFirstVisibleMessage(projectName)
+            {
+              if(!projectName || 0 === projectName.length)
+              {
+                return; 
+              }
+              
+              // First try the 'Show messages' row
+              if(!scrollToFirstVisibleRow('MessageRowHeaderShow' + projectName))
+              {
+                // Failed to find a visible row for 'Show messages', try an actual message row 
+                scrollToFirstVisibleRow('MessageRowClass' + projectName); 
+              }
+            }
+           </script></head><body><h1 _locID="ConversionReport">
+          Rapport de migration - </h1><div id="content"><h2 _locID="OverviewTitle">Vue d'ensemble</h2><div id="overview"><table><tr><th></th><th _locID="ProjectTableHeader">Projet</th><th _locID="PathTableHeader">Chemin d'accès</th><th _locID="ErrorsTableHeader">Erreurs</th><th _locID="WarningsTableHeader">Avertissements</th><th _locID="MessagesTableHeader">Messages</th></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#AmplifyShaderEditor">AmplifyShaderEditor</a></strong></td><td>AmplifyShaderEditor.csproj</td><td class="textCentered"><a href="#AmplifyShaderEditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Assembly-CSharp">Assembly-CSharp</a></strong></td><td>Assembly-CSharp.csproj</td><td class="textCentered"><a href="#Assembly-CSharpError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Assembly-CSharp-Editor">Assembly-CSharp-Editor</a></strong></td><td>Assembly-CSharp-Editor.csproj</td><td class="textCentered"><a href="#Assembly-CSharp-EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#AwesomeTechnologies.TouchReactSystemPro.Editor">AwesomeTechnologies.TouchReactSystemPro.Editor</a></strong></td><td>AwesomeTechnologies.TouchReactSystemPro.Editor.csproj</td><td class="textCentered"><a href="#AwesomeTechnologies.TouchReactSystemPro.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#AwesomeTechnologies.TouchReactSystemPro.Runtime">AwesomeTechnologies.TouchReactSystemPro.Runtime</a></strong></td><td>AwesomeTechnologies.TouchReactSystemPro.Runtime.csproj</td><td class="textCentered"><a href="#AwesomeTechnologies.TouchReactSystemPro.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#AwesomeTechnologies.VegetationStudioPro.Editor">AwesomeTechnologies.VegetationStudioPro.Editor</a></strong></td><td>AwesomeTechnologies.VegetationStudioPro.Editor.csproj</td><td class="textCentered"><a href="#AwesomeTechnologies.VegetationStudioPro.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#AwesomeTechnologies.VegetationStudioPro.Runtime">AwesomeTechnologies.VegetationStudioPro.Runtime</a></strong></td><td>AwesomeTechnologies.VegetationStudioPro.Runtime.csproj</td><td class="textCentered"><a href="#AwesomeTechnologies.VegetationStudioPro.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#BakeryEditorAssembly">BakeryEditorAssembly</a></strong></td><td>BakeryEditorAssembly.csproj</td><td class="textCentered"><a href="#BakeryEditorAssemblyError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#BakeryRuntimeAssembly">BakeryRuntimeAssembly</a></strong></td><td>BakeryRuntimeAssembly.csproj</td><td class="textCentered"><a href="#BakeryRuntimeAssemblyError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#FullscreenEditor">FullscreenEditor</a></strong></td><td>FullscreenEditor.csproj</td><td class="textCentered"><a href="#FullscreenEditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#JBooth.ShaderPackager.Editor">JBooth.ShaderPackager.Editor</a></strong></td><td>JBooth.ShaderPackager.Editor.csproj</td><td class="textCentered"><a href="#JBooth.ShaderPackager.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#OccaSoftware.Altos.Demo">OccaSoftware.Altos.Demo</a></strong></td><td>OccaSoftware.Altos.Demo.csproj</td><td class="textCentered"><a href="#OccaSoftware.Altos.DemoError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#OccaSoftware.Altos.Editor">OccaSoftware.Altos.Editor</a></strong></td><td>OccaSoftware.Altos.Editor.csproj</td><td class="textCentered"><a href="#OccaSoftware.Altos.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#OccaSoftware.Altos.Runtime">OccaSoftware.Altos.Runtime</a></strong></td><td>OccaSoftware.Altos.Runtime.csproj</td><td class="textCentered"><a href="#OccaSoftware.Altos.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#OccaSoftware.Altos.ShaderLibrary">OccaSoftware.Altos.ShaderLibrary</a></strong></td><td>OccaSoftware.Altos.ShaderLibrary.csproj</td><td class="textCentered"><a href="#OccaSoftware.Altos.ShaderLibraryError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#OccaSoftware.Altos.Shaders">OccaSoftware.Altos.Shaders</a></strong></td><td>OccaSoftware.Altos.Shaders.csproj</td><td class="textCentered"><a href="#OccaSoftware.Altos.ShadersError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#sc.posteffects.editor">sc.posteffects.editor</a></strong></td><td>sc.posteffects.editor.csproj</td><td class="textCentered"><a href="#sc.posteffects.editorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#sc.posteffects.runtime">sc.posteffects.runtime</a></strong></td><td>sc.posteffects.runtime.csproj</td><td class="textCentered"><a href="#sc.posteffects.runtimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#sc.stylizedgrass.demo.runtime">sc.stylizedgrass.demo.runtime</a></strong></td><td>sc.stylizedgrass.demo.runtime.csproj</td><td class="textCentered"><a href="#sc.stylizedgrass.demo.runtimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#sc.stylizedgrass.editor">sc.stylizedgrass.editor</a></strong></td><td>sc.stylizedgrass.editor.csproj</td><td class="textCentered"><a href="#sc.stylizedgrass.editorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#sc.stylizedgrass.runtime">sc.stylizedgrass.runtime</a></strong></td><td>sc.stylizedgrass.runtime.csproj</td><td class="textCentered"><a href="#sc.stylizedgrass.runtimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Unity.RenderPipelines.Universal.Runtime">Unity.RenderPipelines.Universal.Runtime</a></strong></td><td>Unity.RenderPipelines.Universal.Runtime.csproj</td><td class="textCentered"><a href="#Unity.RenderPipelines.Universal.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconSuccessEncoded" /><td><strong><a href="#Solution"><span _locID="OverviewSolutionSpan">Solution</span></a></strong></td><td>Desire_Path.sln</td><td class="textCentered"><a>0</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#" onclick="ScrollToFirstVisibleMessage('Solution'); return false;">1</a></td></tr></table></div><h2 _locID="SolutionAndProjectsTitle">Solution et projets</h2><div id="messages"><a name="AmplifyShaderEditor" /><h3>AmplifyShaderEditor</h3><table><tr id="AmplifyShaderEditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAmplifyShaderEditor"><td class="IconErrorEncoded"><a name="AmplifyShaderEditorError" /></td><td class="messageCell"><strong>AmplifyShaderEditor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Assembly-CSharp" /><h3>Assembly-CSharp</h3><table><tr id="Assembly-CSharpHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAssembly-CSharp"><td class="IconErrorEncoded"><a name="Assembly-CSharpError" /></td><td class="messageCell"><strong>Assembly-CSharp.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Assembly-CSharp-Editor" /><h3>Assembly-CSharp-Editor</h3><table><tr id="Assembly-CSharp-EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAssembly-CSharp-Editor"><td class="IconErrorEncoded"><a name="Assembly-CSharp-EditorError" /></td><td class="messageCell"><strong>Assembly-CSharp-Editor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="AwesomeTechnologies.TouchReactSystemPro.Editor" /><h3>AwesomeTechnologies.TouchReactSystemPro.Editor</h3><table><tr id="AwesomeTechnologies.TouchReactSystemPro.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAwesomeTechnologies.TouchReactSystemPro.Editor"><td class="IconErrorEncoded"><a name="AwesomeTechnologies.TouchReactSystemPro.EditorError" /></td><td class="messageCell"><strong>AwesomeTechnologies.TouchReactSystemPro.Editor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="AwesomeTechnologies.TouchReactSystemPro.Runtime" /><h3>AwesomeTechnologies.TouchReactSystemPro.Runtime</h3><table><tr id="AwesomeTechnologies.TouchReactSystemPro.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAwesomeTechnologies.TouchReactSystemPro.Runtime"><td class="IconErrorEncoded"><a name="AwesomeTechnologies.TouchReactSystemPro.RuntimeError" /></td><td class="messageCell"><strong>AwesomeTechnologies.TouchReactSystemPro.Runtime.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="AwesomeTechnologies.VegetationStudioPro.Editor" /><h3>AwesomeTechnologies.VegetationStudioPro.Editor</h3><table><tr id="AwesomeTechnologies.VegetationStudioPro.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAwesomeTechnologies.VegetationStudioPro.Editor"><td class="IconErrorEncoded"><a name="AwesomeTechnologies.VegetationStudioPro.EditorError" /></td><td class="messageCell"><strong>AwesomeTechnologies.VegetationStudioPro.Editor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="AwesomeTechnologies.VegetationStudioPro.Runtime" /><h3>AwesomeTechnologies.VegetationStudioPro.Runtime</h3><table><tr id="AwesomeTechnologies.VegetationStudioPro.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAwesomeTechnologies.VegetationStudioPro.Runtime"><td class="IconErrorEncoded"><a name="AwesomeTechnologies.VegetationStudioPro.RuntimeError" /></td><td class="messageCell"><strong>AwesomeTechnologies.VegetationStudioPro.Runtime.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="BakeryEditorAssembly" /><h3>BakeryEditorAssembly</h3><table><tr id="BakeryEditorAssemblyHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassBakeryEditorAssembly"><td class="IconErrorEncoded"><a name="BakeryEditorAssemblyError" /></td><td class="messageCell"><strong>BakeryEditorAssembly.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="BakeryRuntimeAssembly" /><h3>BakeryRuntimeAssembly</h3><table><tr id="BakeryRuntimeAssemblyHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassBakeryRuntimeAssembly"><td class="IconErrorEncoded"><a name="BakeryRuntimeAssemblyError" /></td><td class="messageCell"><strong>BakeryRuntimeAssembly.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="FullscreenEditor" /><h3>FullscreenEditor</h3><table><tr id="FullscreenEditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFullscreenEditor"><td class="IconErrorEncoded"><a name="FullscreenEditorError" /></td><td class="messageCell"><strong>FullscreenEditor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="JBooth.ShaderPackager.Editor" /><h3>JBooth.ShaderPackager.Editor</h3><table><tr id="JBooth.ShaderPackager.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassJBooth.ShaderPackager.Editor"><td class="IconErrorEncoded"><a name="JBooth.ShaderPackager.EditorError" /></td><td class="messageCell"><strong>JBooth.ShaderPackager.Editor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="OccaSoftware.Altos.Demo" /><h3>OccaSoftware.Altos.Demo</h3><table><tr id="OccaSoftware.Altos.DemoHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassOccaSoftware.Altos.Demo"><td class="IconErrorEncoded"><a name="OccaSoftware.Altos.DemoError" /></td><td class="messageCell"><strong>OccaSoftware.Altos.Demo.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="OccaSoftware.Altos.Editor" /><h3>OccaSoftware.Altos.Editor</h3><table><tr id="OccaSoftware.Altos.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassOccaSoftware.Altos.Editor"><td class="IconErrorEncoded"><a name="OccaSoftware.Altos.EditorError" /></td><td class="messageCell"><strong>OccaSoftware.Altos.Editor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="OccaSoftware.Altos.Runtime" /><h3>OccaSoftware.Altos.Runtime</h3><table><tr id="OccaSoftware.Altos.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassOccaSoftware.Altos.Runtime"><td class="IconErrorEncoded"><a name="OccaSoftware.Altos.RuntimeError" /></td><td class="messageCell"><strong>OccaSoftware.Altos.Runtime.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="OccaSoftware.Altos.ShaderLibrary" /><h3>OccaSoftware.Altos.ShaderLibrary</h3><table><tr id="OccaSoftware.Altos.ShaderLibraryHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassOccaSoftware.Altos.ShaderLibrary"><td class="IconErrorEncoded"><a name="OccaSoftware.Altos.ShaderLibraryError" /></td><td class="messageCell"><strong>OccaSoftware.Altos.ShaderLibrary.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="OccaSoftware.Altos.Shaders" /><h3>OccaSoftware.Altos.Shaders</h3><table><tr id="OccaSoftware.Altos.ShadersHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassOccaSoftware.Altos.Shaders"><td class="IconErrorEncoded"><a name="OccaSoftware.Altos.ShadersError" /></td><td class="messageCell"><strong>OccaSoftware.Altos.Shaders.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="sc.posteffects.editor" /><h3>sc.posteffects.editor</h3><table><tr id="sc.posteffects.editorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClasssc.posteffects.editor"><td class="IconErrorEncoded"><a name="sc.posteffects.editorError" /></td><td class="messageCell"><strong>sc.posteffects.editor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="sc.posteffects.runtime" /><h3>sc.posteffects.runtime</h3><table><tr id="sc.posteffects.runtimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClasssc.posteffects.runtime"><td class="IconErrorEncoded"><a name="sc.posteffects.runtimeError" /></td><td class="messageCell"><strong>sc.posteffects.runtime.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="sc.stylizedgrass.demo.runtime" /><h3>sc.stylizedgrass.demo.runtime</h3><table><tr id="sc.stylizedgrass.demo.runtimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClasssc.stylizedgrass.demo.runtime"><td class="IconErrorEncoded"><a name="sc.stylizedgrass.demo.runtimeError" /></td><td class="messageCell"><strong>sc.stylizedgrass.demo.runtime.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="sc.stylizedgrass.editor" /><h3>sc.stylizedgrass.editor</h3><table><tr id="sc.stylizedgrass.editorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClasssc.stylizedgrass.editor"><td class="IconErrorEncoded"><a name="sc.stylizedgrass.editorError" /></td><td class="messageCell"><strong>sc.stylizedgrass.editor.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="sc.stylizedgrass.runtime" /><h3>sc.stylizedgrass.runtime</h3><table><tr id="sc.stylizedgrass.runtimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClasssc.stylizedgrass.runtime"><td class="IconErrorEncoded"><a name="sc.stylizedgrass.runtimeError" /></td><td class="messageCell"><strong>sc.stylizedgrass.runtime.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Unity.RenderPipelines.Universal.Runtime" /><h3>Unity.RenderPipelines.Universal.Runtime</h3><table><tr id="Unity.RenderPipelines.Universal.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnity.RenderPipelines.Universal.Runtime"><td class="IconErrorEncoded"><a name="Unity.RenderPipelines.Universal.RuntimeError" /></td><td class="messageCell"><strong>Unity.RenderPipelines.Universal.Runtime.csproj:
+        </strong><span>L'application sur laquelle est basé ce type de projet est introuvable. Pour plus d'informations, utilisez le lien suivant : http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Solution" /><h3 _locID="ProjectDisplayNameHeader">Solution</h3><table><tr id="SolutionHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="MessageRowHeaderShowSolution"><td class="IconInfoEncoded" /><td class="messageCell"><a _locID="ShowAdditionalMessages" href="#" name="SolutionMessage" onclick="ToggleMessageVisibility('Solution'); return false;">
+          Afficher 1 messages supplémentaires
+        </a></td></tr><tr name="MessageRowClassSolution" style="display: none"><td class="IconInfoEncoded"><a name="SolutionMessage" /></td><td class="messageCell"><strong>Desire_Path.sln:
+        </strong><span>Le fichier solution ne requiert pas de migration.</span></td></tr><tr style="display: none" name="MessageRowHeaderHideSolution"><td class="IconInfoEncoded" /><td class="messageCell"><a _locID="HideAdditionalMessages" href="#" name="SolutionMessage" onclick="ToggleMessageVisibility('Solution'); return false;">
+          Masquer 1 messages supplémentaires
+        </a></td></tr></table></div></div></body></html>
