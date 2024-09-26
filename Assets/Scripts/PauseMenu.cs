@@ -1,4 +1,7 @@
 
+using System;
+using DesirePaths;
+using DesirePaths.Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -6,15 +9,33 @@ using UnityEngine.Localization.Settings;
 
 public class PauseMenu : MonoBehaviour {
   public GameObject pauseCanvas;
-  public InputAction inputAction;
+  //public InputAction inputAction;
   public Button defaultButton;
-  private bool playing = true;
+  //private bool playing = true;
 
   void OnEnable() {
-    inputAction.performed += PauseOrResume;
-    inputAction.Enable();
+    GameManager.OnGameStateChanged.AddListener(GameStateChanged);
   }
 
+  private void GameStateChanged(GameManager.GameState newState)
+  {
+    switch (newState)
+    {
+      case GameManager.GameState.Pause:
+        Pause();
+        return;
+      case GameManager.GameState.Play:
+        Resume();
+        return;
+    }
+  }
+
+  private void OnDisable()
+  {
+    GameManager.OnGameStateChanged.RemoveListener(GameStateChanged);
+  }
+
+  /* Moved up to GameManager to handle game play state higher in the game architecture
   public void PauseOrResume(InputAction.CallbackContext context) {
     if (playing) {
       Pause();
@@ -22,18 +43,17 @@ public class PauseMenu : MonoBehaviour {
       Resume();
     }
   }
+  */
 
   public void Pause() {
-    Time.timeScale = 0f;
     pauseCanvas.SetActive(true);
-    Debug.Log(defaultButton.IsActive());
+    //Debug.Log(defaultButton.IsActive());
     defaultButton.Select();
-    playing = false;
+    //playing = false;
   }
   public void Resume() {
-    Time.timeScale = 1f;
     pauseCanvas.SetActive(false);
-    playing = true;
+    //playing = true;
   }
 
   public void SetLanguageEn() {
