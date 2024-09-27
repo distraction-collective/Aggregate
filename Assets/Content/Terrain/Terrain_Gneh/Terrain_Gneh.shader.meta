@@ -3,9 +3,10 @@ guid: 13c0a2dbeec401a40b5dccc0079f687b
 ShaderImporter:
   externalObjects: {}
   defaultTextures:
+  - _struggle_map: {fileID: 2800000, guid: 3654a761a141e7b418559a041ad907f5, type: 3}
   - _Splatmaphehe: {fileID: 2800000, guid: ae1c3e30ed322e548b4fffb5d4b178fb, type: 3}
   - _Colormaphehe: {fileID: 2800000, guid: f9e2a0ca5ddb35d4b8565db818a7733a, type: 3}
-  - _struggle_map: {fileID: 2800000, guid: 3654a761a141e7b418559a041ad907f5, type: 3}
+  - _Noise_Emission: {fileID: 2800000, guid: b4e1e739d65ec7f41bc99511a1f33bcf, type: 3}
   nonModifiableTextures: []
   userData: 
   assetBundleName: 
