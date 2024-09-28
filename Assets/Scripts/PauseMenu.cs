@@ -1,9 +1,7 @@
-
-using System;
 using DesirePaths;
-using DesirePaths.Tools;
+using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
 
@@ -12,9 +10,20 @@ public class PauseMenu : MonoBehaviour {
   //public InputAction inputAction;
   public Button defaultButton;
   //private bool playing = true;
+  
+  [Header("Button animations")]
   [SerializeField] private Sprite[] deactivatedLanguageSprites = new Sprite[2];
   [SerializeField] private Sprite[] activatedLanguageSprites = new Sprite[2];
   [SerializeField] private Image[] languageDisplays = new Image[2];
+  
+  [Header("Text animations")]
+  [SerializeField] private Color focusTextColor = Color.white;
+  [SerializeField] private Color unfocusedTextColor = Color.grey;
+  [SerializeField] private TMP_Text resumeButtonText;
+  [SerializeField] private TMP_Text language1Text;
+  [SerializeField] private TMP_Text language2Text;
+
+  public static UnityEvent OnResumeButtonPressed = new UnityEvent();
 
   private bool isEnglishSelected
   {
@@ -26,11 +35,17 @@ public class PauseMenu : MonoBehaviour {
 
   void OnEnable() {
     GameManager.OnGameStateChanged.AddListener(GameStateChanged);
+    defaultButton.onClick.AddListener(delegate
+    {
+      OnResumeButtonPressed.Invoke();
+      Resume();
+    });
     InitLanguageDisplay();
   }
 
   void OnDisable()
   {
+    defaultButton.onClick.RemoveAllListeners();
     GameManager.OnGameStateChanged.RemoveListener(GameStateChanged);
   }
 
@@ -70,9 +85,11 @@ public class PauseMenu : MonoBehaviour {
   
   void ToggleLocaleDisplay(bool isEnglish)
   {
-    Debug.Log("Toggle language display feedback : " + isEnglish);
+    //Debug.Log("Toggle language display feedback : " + isEnglish);
     languageDisplays[0].sprite = isEnglish ? activatedLanguageSprites[0] : deactivatedLanguageSprites[0];
     languageDisplays[1].sprite = isEnglish ? deactivatedLanguageSprites[1] : activatedLanguageSprites[1];
+    language1Text.color = isEnglish ? focusTextColor : unfocusedTextColor;
+    language2Text.color = isEnglish ? unfocusedTextColor : focusTextColor;
   }
 
   public void Quit() { Application.Quit(); }
