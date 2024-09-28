@@ -1,0 +1,6 @@
+newmtl M_AggregateBuilding_1
+map_Kd D:/GENERATION/Project Generation/Assets/Textures/aggregate/Atlas_Concrete.png
+bump D:/GENERATION/Project Generation/Assets/Textures/aggregate/Atlas_Concrete_Normal.png
+Kd 1 1 1
+d 1
+

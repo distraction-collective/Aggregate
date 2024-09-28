@@ -68,5 +68,5 @@ Material:
     m_Colors:
     - Vector2_1BA47784: {r: 0, g: 0.5, b: 0, a: 0}
     - Vector2_33C1C82B: {r: 1, g: 1, b: 0, a: 0}
-    - _Color1: {r: 3.7573338, g: 2.836369, b: 0.83299375, a: 1}
+    - _Color1: {r: 0.80450666, g: 0.80450666, b: 0.80450666, a: 1}
   m_BuildTextureStacks: []

@@ -213,7 +213,7 @@ Material:
     - Vector2_E187B6BC: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 0.66596997, g: 0.57254905, b: 1, a: 0.8352941}
     - _Color: {r: 1, g: 0.63872534, b: 0, a: 0.8352941}
-    - _Color1: {r: 4.5947933, g: 2.1336148, b: 0.32510328, a: 0}
+    - _Color1: {r: 0.18863064, g: 0.1981132, b: 0.1713243, a: 0}
     - _EmissionColor: {r: 0.5941343, g: 0.5750961, b: 1.0076064, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Specular_Highlight_Strenght: {r: 0, g: 0, b: 0, a: 0}
