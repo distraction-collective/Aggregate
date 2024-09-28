@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace DesirePaths {
 /// <summary>
@@ -32,11 +33,13 @@ public class GameManager : MonoBehaviour {
   private UI.UIManager _uiManager;
   [SerializeField]
   private Narration.NarrationManager _narrationManager;
+  [Header("Input")]
+  public InputAction pauseAction;
 
-  public static GameStateEvent OnGameStateChanged;
+  public static GameStateEvent OnGameStateChanged = new GameStateEvent();
 
   public enum GameState { Play, Pause, Init }
-  private GameState _currentState = GameState.Init;
+  [SerializeField] private GameState _currentState = GameState.Init;
 
   PlayerDeathEvent PlayerDeathEvent => _playerHealth.PlayerDeathEvent;
   UnityAction UpdateNarration => _narrationManager.UpdateNarrationAction;
@@ -45,10 +48,25 @@ public class GameManager : MonoBehaviour {
                         // to fetch the next line and trigger a narration
                         // event if next line is found
 
+  private bool isPlaying => _currentState == GameState.Play;
+
   private void Awake() {
     SubscribeToPlayerDeathEvents(true);
     BindNarrationCallbacks(true);
+    
+    pauseAction.performed += PauseOrResume;
+    pauseAction.Enable();
+    
     SetState(GameState.Play);
+  }
+  
+  void PauseOrResume(InputAction.CallbackContext context) {
+    if (isPlaying) {
+      SetState(GameState.Pause);
+    } else
+    {
+      SetState(GameState.Play);
+    }
   }
 
   private void OnDisable() {
@@ -57,19 +75,35 @@ public class GameManager : MonoBehaviour {
   }
 
   void SetState(GameState newState) {
-    if (newState == _currentState)
-      return;
-    _currentState = newState;
-    if (OnGameStateChanged != null)
-      OnGameStateChanged.Invoke(newState);
+    if (newState == _currentState) return;
+    if (OnGameStateChanged != null) OnGameStateChanged.Invoke(newState);
     switch (newState) {
-    case GameState.Play:
-      return;
-    case GameState.Pause:
-      return;
-    case GameState.Init:
-      return;
+      case GameState.Play:
+        if(_currentState == GameState.Pause) UnPauseGame();
+        _currentState = newState;
+        return;
+      case GameState.Pause:
+        _currentState = newState;
+        PauseGame();
+        return;
+      case GameState.Init:
+        _currentState = newState;
+        return;
     }
+  }
+
+  void PauseGame()
+  {
+    Tools.PostProcessSwitcher.SwitchPP.Invoke(DesirePaths.Tools.PostProcessSwitcher.PostProcessType.MENU, true);
+    Tools.CameraSwitcher.ToggleCameraMovement.Invoke(false);
+    Time.timeScale = 0f;
+  }
+
+  void UnPauseGame()
+  {
+    Tools.PostProcessSwitcher.SwitchPP.Invoke(DesirePaths.Tools.PostProcessSwitcher.PostProcessType.MENU, false);
+    Tools.CameraSwitcher.ToggleCameraMovement.Invoke(true);
+    Time.timeScale = 1f;
   }
 
   void BindNarrationCallbacks(bool bind) {
