@@ -12,20 +12,25 @@ public class PauseMenu : MonoBehaviour {
   //public InputAction inputAction;
   public Button defaultButton;
   //private bool playing = true;
-  [SerializeField] private Button languageButton;
   [SerializeField] private Sprite[] deactivatedLanguageSprites = new Sprite[2];
   [SerializeField] private Sprite[] activatedLanguageSprites = new Sprite[2];
   [SerializeField] private Image[] languageDisplays = new Image[2];
 
+  private bool isEnglishSelected
+  {
+    get
+    {
+      return LocalizationSettings.SelectedLocale.ToString() == "English (en)";
+    }
+  }
+
   void OnEnable() {
     GameManager.OnGameStateChanged.AddListener(GameStateChanged);
-    languageButton.onClick.AddListener(Language);
     InitLanguageDisplay();
   }
 
   void OnDisable()
   {
-    languageButton.onClick.RemoveAllListeners();
     GameManager.OnGameStateChanged.RemoveListener(GameStateChanged);
   }
 
@@ -42,39 +47,32 @@ public class PauseMenu : MonoBehaviour {
     }
   }
 
-  private void InitLanguageDisplay()
-  {
-    SetLanguage(LocalizationSettings.SelectedLocale.ToString());
-  }
-  
-  private void Language()
-  {
-    Debug.Log("Currently selected locale : " + LocalizationSettings.SelectedLocale.ToString());
-    string targetLanguage = LocalizationSettings.SelectedLocale.ToString() == "en" ? "fr" : "en";
-    SetLanguage(targetLanguage);
-  }
-
   public void Pause() {
     pauseCanvas.SetActive(true);
     defaultButton.Select();
-    InitLanguageDisplay();
+    //InitLanguageDisplay();
   }
   public void Resume() {
     pauseCanvas.SetActive(false);
   }
-
-  void SetLanguage(string locale)
+  
+  private void InitLanguageDisplay()
   {
-    Debug.Log("SET LANGUAGE : " + locale);
-    LocalizationSettings.SelectedLocale =
-      LocalizationSettings.AvailableLocales.GetLocale(locale);
-    ToggleLocaleDisplay(locale == "en");
+    ToggleLocaleDisplay(isEnglishSelected);
   }
-
+  
+  public void ToggleLanguage()
+  {
+    string targetLanguage = LocalizationSettings.SelectedLocale.ToString() == "English (en)" ? "fr" : "en";
+    LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(targetLanguage);
+    ToggleLocaleDisplay(isEnglishSelected);
+  }
+  
   void ToggleLocaleDisplay(bool isEnglish)
   {
-    languageDisplays[0].sprite = isEnglish == true ? activatedLanguageSprites[0] : deactivatedLanguageSprites[0];
-    languageDisplays[1].sprite = isEnglish == true ? deactivatedLanguageSprites[1] : activatedLanguageSprites[1];
+    Debug.Log("Toggle language display feedback : " + isEnglish);
+    languageDisplays[0].sprite = isEnglish ? activatedLanguageSprites[0] : deactivatedLanguageSprites[0];
+    languageDisplays[1].sprite = isEnglish ? deactivatedLanguageSprites[1] : activatedLanguageSprites[1];
   }
 
   public void Quit() { Application.Quit(); }

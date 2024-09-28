@@ -715,7 +715,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseCanvas: {fileID: 7984462271692505595}
   defaultButton: {fileID: 7593142074119826038}
-  languageButton: {fileID: 8209076843377389275}
   deactivatedLanguageSprites:
   - {fileID: 1400278516, guid: a2ce2479d37dfa24a9ac50dae4625612, type: 3}
   - {fileID: 529334382, guid: a2ce2479d37dfa24a9ac50dae4625612, type: 3}
@@ -723,8 +722,8 @@ MonoBehaviour:
   - {fileID: 388571495, guid: 8ec6946f5f56e4145b641d01a333f3b1, type: 3}
   - {fileID: 1110773114, guid: 8ec6946f5f56e4145b641d01a333f3b1, type: 3}
   languageDisplays:
-  - {fileID: 4523049826451579174}
   - {fileID: 8886898036900092370}
+  - {fileID: 4523049826451579174}
 --- !u!1 &7552128937578776655
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,7 +737,7 @@ GameObject:
   - component: {fileID: 3227217104157695241}
   - component: {fileID: 8209076843377389275}
   m_Layer: 0
-  m_Name: Button
+  m_Name: LaguageButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -846,7 +845,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3227217104157695241}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2475491329278455750}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: ToggleLanguage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7984462271692505595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,11 +1318,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1014530250075560801, guid: dfd216d03a3319d4fa5989c1c9a9ff69, type: 3}
       propertyPath: m_fontSize
-      value: 50
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1014530250075560801, guid: dfd216d03a3319d4fa5989c1c9a9ff69, type: 3}
       propertyPath: m_fontSizeBase
-      value: 50
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3936675810617841439, guid: dfd216d03a3319d4fa5989c1c9a9ff69, type: 3}
       propertyPath: m_Name
@@ -1422,8 +1433,12 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5675179126623375568, guid: dfd216d03a3319d4fa5989c1c9a9ff69, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675179126623375568, guid: dfd216d03a3319d4fa5989c1c9a9ff69, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -84.7
+      value: -103.6
       objectReference: {fileID: 0}
     - target: {fileID: 8308887452632855154, guid: dfd216d03a3319d4fa5989c1c9a9ff69, type: 3}
       propertyPath: m_Transition
