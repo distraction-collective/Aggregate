@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour {
   private void Awake() {
     SubscribeToPlayerDeathEvents(true);
     BindNarrationCallbacks(true);
+    SubscribeToMenuEvents(true);
     
     pauseAction.performed += PauseOrResume;
     pauseAction.Enable();
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour {
   }
 
   private void OnDisable() {
+    SubscribeToMenuEvents(false);
     SubscribeToPlayerDeathEvents(false);
     BindNarrationCallbacks(false);
   }
@@ -121,6 +123,18 @@ public class GameManager : MonoBehaviour {
       PlayerDeathEvent.AddListener(RespawnPlayer);
     } else {
       PlayerDeathEvent.RemoveAllListeners();
+    }
+  }
+
+  private void SubscribeToMenuEvents(bool subscribe)
+  {
+    if (subscribe)
+    {
+      PauseMenu.OnResumeButtonPressed.AddListener(delegate { UnPauseGame(); });
+    }
+    else
+    {
+      PauseMenu.OnResumeButtonPressed.RemoveAllListeners();
     }
   }
 
