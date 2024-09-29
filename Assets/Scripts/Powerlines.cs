@@ -26,8 +26,11 @@ public class Powerlines : MonoBehaviour {
       pylons[i].name = $"pylon{i}";
       pylons[i].transform.position =
           splineContainer.transform.TransformPoint(knot.Position);
-      pylons[i].transform.rotation =
-          splineContainer.transform.rotation * knot.Rotation;
+      // aligned with curve, but upright
+      pylons[i].transform.rotation = Quaternion.Euler(
+          0f,
+          (splineContainer.transform.rotation * knot.Rotation).eulerAngles.y,
+          0f);
     }
 
     // Spawns cables
