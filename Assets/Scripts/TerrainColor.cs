@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class TerrainColor : MonoBehaviour {
@@ -13,14 +14,23 @@ public class TerrainColor : MonoBehaviour {
   public float clear_force = 1f;
 
   void Start() {
-    Color[] pixels = new Color[struggle_map.width * struggle_map.height];
+    // HACK uses raycast to detect safe zones. A render texture would be
+    // trickier but much more performant.
+    Color[] pixels = struggle_map.GetPixels();
+    int size = struggle_map.width;
     for (int i = 0; i < pixels.Length; i++) {
-      pixels[i] = Color.black;
+      int u = i % size;
+      int v = i / size;
+      float dx = (float)u / size * Terrain.activeTerrain.terrainData.size.x;
+      float dz = (float)v / size * Terrain.activeTerrain.terrainData.size.z;
+      RaycastHit[] hits = Physics.RaycastAll(
+          Terrain.activeTerrain.transform.position + new Vector3(dx, 100f, dz),
+          Vector3.down, Mathf.Infinity);
+      bool over_safe = hits.Any(hit => hit.collider.CompareTag("Safe"));
+      pixels[i] = over_safe ? Color.yellow : Color.black;
     }
     struggle_map.SetPixels(pixels);
     struggle_map.Apply();
-
-    Debug.Log(Terrain.activeTerrain.transform.position);
   }
 
   void Update() {
