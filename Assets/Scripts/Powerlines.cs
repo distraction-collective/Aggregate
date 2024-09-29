@@ -3,6 +3,7 @@ using UnityEngine.Splines;
 
 public class Powerlines : MonoBehaviour {
   private SplineContainer splineContainer => GetComponent<SplineContainer>();
+  public GameObject tipPrefab;
   public GameObject pylonPrefab;
   public Material cableMaterial;
   public int cableResolution = 20;
@@ -20,7 +21,8 @@ public class Powerlines : MonoBehaviour {
     GameObject[] pylons = new GameObject[path.Count];
     for (int i = 0; i < path.Count; i++) {
       BezierKnot knot = path[i];
-      pylons[i] = Instantiate(pylonPrefab, transform);
+      bool is_tip = i == 0 || i == (path.Count - 1);
+      pylons[i] = Instantiate(is_tip ? tipPrefab : pylonPrefab, transform);
       pylons[i].name = $"pylon{i}";
       pylons[i].transform.position =
           splineContainer.transform.TransformPoint(knot.Position);
@@ -34,7 +36,7 @@ public class Powerlines : MonoBehaviour {
       GameObject pylonB = pylons[i + 1];
 
       // Iterates over attach points and draw a cable between them
-      // Make sure to have empties named attach0,...,attach10 in your pylon
+      // Make sure to have empties named attach0,...,attach9 in your pylon
       // prefab!
       for (int j = 0; j < 10; j++) {
         Transform start = pylonA.transform.Find($"attach{j}");
