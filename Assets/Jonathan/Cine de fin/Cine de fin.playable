@@ -851,25 +851,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1011,6 +993,23 @@ MonoBehaviour:
     m_DisplayName: VC_Final_Shot
   m_Markers:
     m_Objects: []
+--- !u!114 &-5386555737598630336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
+  m_Name: AudioPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 7eb061e70058e274aae167ffc2094e34, type: 3}
+  m_Loop: 0
+  m_bufferingTime: 0.1
+  m_ClipProperties:
+    volume: 1
 --- !u!114 &-5132947844771787237
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2096,23 +2095,6 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   m_PostPlaybackState: 3
---- !u!114 &-186812175987397670
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
-  m_Name: AudioPlayableAsset
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: 9de8071a19afce446898481aea29d306, type: 3}
-  m_Loop: 0
-  m_bufferingTime: 0.1
-  m_ClipProperties:
-    volume: 0.4
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2146,7 +2128,7 @@ MonoBehaviour:
   - {fileID: 4070721146645824289}
   - {fileID: -2984071415162678939}
   - {fileID: -4702121419464310687}
-  m_FixedDuration: 0
+  m_FixedDuration: 219.266666666666
   m_EditorSettings:
     m_Framerate: 60
     m_ScenePreview: 1
@@ -3294,14 +3276,14 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 0.2
-    m_ClipIn: 16.45000000000001
-    m_Asset: {fileID: -186812175987397670}
-    m_Duration: 81.54199999999993
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: -5386555737598630336}
+    m_Duration: 207.36
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7620051489635357246}
-    m_EaseInDuration: 5.60650634765625
-    m_EaseOutDuration: 1.9676132202148438
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
     m_BlendInDuration: -1
     m_BlendOutDuration: -1
     m_MixInCurve:
@@ -3361,7 +3343,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: Musique de fin
+    m_DisplayName: Hunted
   m_Markers:
     m_Objects: []
   m_TrackProperties:
