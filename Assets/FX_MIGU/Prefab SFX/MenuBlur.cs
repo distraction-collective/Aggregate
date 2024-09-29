@@ -74,7 +74,6 @@ public class MenuDepthOfField : MonoBehaviour
         {
             depthOfFieldEffect.active = focalLength > 0; // Enable or disable the effect based on focal length
             depthOfFieldEffect.focalLength.value = focalLength; // Set the focal length directly
-            Debug.Log($"Depth of Field focal length set to: {focalLength}"); // Log the amount for debugging
         }
         else
         {
@@ -89,7 +88,6 @@ public class MenuDepthOfField : MonoBehaviour
         {
             bloomEffect.active = intensity > 0; // Enable or disable the effect based on intensity
             bloomEffect.intensity.value = intensity; // Set the bloom intensity directly
-            Debug.Log($"Bloom intensity set to: {intensity}"); // Log the amount for debugging
         }
         else
         {
@@ -103,7 +101,6 @@ public class MenuDepthOfField : MonoBehaviour
         if (bloomEffect != null)
         {
             bloomEffect.threshold.value = threshold; // Set the bloom threshold directly
-            Debug.Log($"Bloom threshold set to: {threshold}"); // Log the amount for debugging
         }
         else
         {

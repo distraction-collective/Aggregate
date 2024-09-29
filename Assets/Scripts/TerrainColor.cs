@@ -18,6 +18,9 @@ public class TerrainColor : MonoBehaviour {
       pixels[i] = Color.black;
     }
     struggle_map.SetPixels(pixels);
+    struggle_map.Apply();
+
+    Debug.Log(Terrain.activeTerrain.transform.position);
   }
 
   void Update() {
