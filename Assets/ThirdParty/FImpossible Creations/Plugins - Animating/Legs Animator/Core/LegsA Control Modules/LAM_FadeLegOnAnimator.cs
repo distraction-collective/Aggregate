@@ -17,11 +17,58 @@ namespace FIMSpace.FProceduralAnimation
 
         float enabledMultiplier = 1f;
         float sd_eneMul = 0f;
-        
+
         [NonSerialized] LegsAnimator.Leg[] legs; // I have no idea but unity keeps creating serialization cycle on this variable, if not using [NonSerialized] even when it's private variable
         List<int> stateHashes;
         List<int> tagHashes;
 
+        enum ELayerSelectMode { ByIndex, Auto }
+        LegsAnimator.Variable _layerMode;
+        LegsAnimator.Variable _layerSkip;
+        List<int> layersToCheck = null;
+        int lastAutoWeightIndex = 0;
+
+        #region Auto Layers Check Init
+
+        bool InitLayerCheck(LegsAnimator.LegsAnimatorCustomModuleHelper helper)
+        {
+            if (helper.Parent.Mecanim == null) return false;
+            if (_layerMode.GetInt() == 0) return false;
+            if (_layerMode == null || _layerSkip == null) return false;
+
+            layersToCheck = new List<int>();
+
+            string[] args = _layerSkip.GetString().Split(',');
+
+            for (int i = 0; i < helper.Parent.Mecanim.layerCount; i++) layersToCheck.Add(i);
+
+            for (int a = 0; a < args.Length; a++)
+            {
+                int parsed;
+                if (int.TryParse(args[a], out parsed))
+                {
+                    layersToCheck.Remove(parsed);
+                }
+                else
+                {
+                    int layerNameIndex = -1;
+                    for (int i = 0; i < helper.Parent.Mecanim.layerCount; i++)
+                    {
+                        if (helper.Parent.Mecanim.GetLayerName(i) == args[a])
+                        {
+                            layerNameIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (layerNameIndex != -1) layersToCheck.Remove(layerNameIndex);
+                }
+            }
+
+            return true;
+        }
+
+        #endregion
 
         public override void OnInit(LegsAnimator.LegsAnimatorCustomModuleHelper helper)
         {
@@ -104,6 +151,14 @@ namespace FIMSpace.FProceduralAnimation
             legs = preLegs.ToArray();
 
             if (_layerV.GetInt() < 0) _layerV.SetValue(0); if (_layerV.GetInt() > LA.Mecanim.layerCount - 1) _layerV.SetValue(LA.Mecanim.layerCount - 1);
+
+            // Auto Layers Check
+            _layerMode = helper.RequestVariable("Mode", 0);
+            _layerSkip = helper.RequestVariable("Skip", "");
+            if (_layerMode.GetInt() == 1)
+            {
+                if (InitLayerCheck(helper) == false) _layerMode.SetValue(0);
+            }
         }
 
 
@@ -113,6 +168,39 @@ namespace FIMSpace.FProceduralAnimation
             if (anim == null) return;
 
             int layer = _layerV.GetInt();
+
+            if (_layerMode.GetInt() == 1) 
+            {
+                #region Auto Layer Check
+
+                float mostWeight = 0f;
+                int mostWeightI = -1;
+
+                for (int i = layersToCheck.Count-1; i >= 0; i--) // Reverse for to stop checking on 100% weight top layer
+                {
+                    int idx = layersToCheck[i];
+                    float weight = helper.Parent.Mecanim.GetLayerWeight(idx);
+                    if (weight > 0.95f) // Dont check if layer has 
+                    {
+                        mostWeightI = idx;
+                        break;
+                    }
+                    else
+                    {
+                        if ( weight > mostWeight)
+                        {
+                            mostWeight = weight;
+                            mostWeightI = idx;
+                        }
+                    }
+                }
+
+                layer = mostWeightI;
+                lastAutoWeightIndex = layer;
+
+                #endregion
+            }
+
             AnimatorStateInfo animatorInfo = anim.IsInTransition(layer) ? anim.GetNextAnimatorStateInfo(layer) : anim.GetCurrentAnimatorStateInfo(layer);
 
             bool fadeOut = false;
@@ -134,11 +222,11 @@ namespace FIMSpace.FProceduralAnimation
 
             if (fadeOut)
             {
-                enabledMultiplier = Mathf.SmoothDamp(enabledMultiplier, -0.001f, ref sd_eneMul, fadeDur * 0.9f, float.MaxValue, LA.DeltaTime);
+                enabledMultiplier = Mathf.SmoothDamp(enabledMultiplier, -0.001f, ref sd_eneMul, fadeDur * 0.9f, 100000f, LA.DeltaTime);
             }
             else
             {
-                enabledMultiplier = Mathf.SmoothDamp(enabledMultiplier, 1.01f, ref sd_eneMul, fadeDur, float.MaxValue, LA.DeltaTime);
+                enabledMultiplier = Mathf.SmoothDamp(enabledMultiplier, 1.01f, ref sd_eneMul, fadeDur, 100000f, LA.DeltaTime);
             }
 
             enabledMultiplier = Mathf.Clamp01((float)enabledMultiplier);
@@ -167,11 +255,11 @@ namespace FIMSpace.FProceduralAnimation
         {
             if (legsAnimator.Mecanim == null)
             {
-                EditorGUILayout.HelpBox("Unity Animator Reference (Mecanim) is required by this module. Go to Extra/Control category and assign Mecanim reference there!", MessageType.Warning);
+                EditorGUILayout.HelpBox("Unity Animator Reference (Mecanim) is required by this module. Go to Extra/Control category and assign Mecanim reference there!", UnityEditor.MessageType.Warning);
                 if (GUILayout.Button("Go to Extra/Control")) { legsAnimator._EditorCategory = LegsAnimator.EEditorCategory.Extra; legsAnimator._EditorExtraCategory = LegsAnimator.EEditorExtraCategory.Control; }
             }
 
-            EditorGUILayout.HelpBox("This module will help to disable legs animator motion, when playing special animations!\nUseful when using Legs Animator on insect creature which playes attack animations using front legs.", MessageType.Info);
+            EditorGUILayout.HelpBox("This module will help to disable legs animator motion, when playing special animations!\nUseful when using Legs Animator on insect creature which playes attack animations using front legs.", UnityEditor.MessageType.Info);
 
             Animator anim = legsAnimator.Mecanim;
             bool drawLayer = true;
@@ -182,11 +270,45 @@ namespace FIMSpace.FProceduralAnimation
 
             if (drawLayer)
             {
-                var rotateVar = helper.RequestVariable("Animation Layer", 0);
-                if (!rotateVar.TooltipAssigned) rotateVar.AssignTooltip("Unity Animator's animation layer to check played clip data");
-                rotateVar.Editor_DisplayVariableGUI();
-                if (rotateVar.GetInt() < 0) rotateVar.SetValue(0);
-                if (anim) if (rotateVar.GetInt() > anim.layerCount - 1) rotateVar.SetValue(anim.layerCount - 1);
+                EditorGUILayout.BeginHorizontal();
+
+                EditorGUIUtility.labelWidth = 34;
+                var layerMode = helper.RequestVariable("Mode", 0);
+
+                if (Initialized) GUI.enabled = false;
+                ELayerSelectMode selMode = (ELayerSelectMode)layerMode.GetInt();
+                selMode = (ELayerSelectMode)EditorGUILayout.EnumPopup(new GUIContent("", "If layer to read animator state/tag from should be selected by index, or by top layer with biggest weight fade"), selMode, GUILayout.MaxWidth(74));
+                layerMode.SetValue((int)selMode);
+                GUI.enabled = true;
+
+                EditorGUIUtility.labelWidth = 40;
+
+                if (selMode == ELayerSelectMode.ByIndex)
+                {
+                    GUILayout.Space(6);
+                    var layerInd = helper.RequestVariable("Animation Layer", 0);
+                    EditorGUIUtility.labelWidth = 42;
+                    int indx = EditorGUILayout.IntField(new GUIContent("Index:", "Index to read animator state/tag from"), layerInd.GetInt());
+                    if (indx < 0) indx = 0;
+                    if (anim) if (indx > anim.layerCount - 1) indx = anim.layerCount - 1;
+                    layerInd.SetValue(indx);
+                }
+                else
+                {
+                    GUILayout.Space(6);
+                    var skipVar = helper.RequestVariable("Skip", "");
+                    EditorGUIUtility.labelWidth = 35;
+                    string skip = skipVar.GetString();
+                    if (Initialized) GUI.enabled = false;
+                    skip = EditorGUILayout.TextField(new GUIContent("Skip:", "Write here indexes of upper body layers to skip checking them. You can also write here layer names. To skip multiple layers, use command ',' like: 3,4,6"), skip);
+                    skipVar.SetValue(skip);
+                    GUI.enabled = true;
+                }
+
+                EditorGUILayout.EndHorizontal();
+                EditorGUIUtility.labelWidth = 0;
+
+                if (selMode == ELayerSelectMode.Auto) EditorGUILayout.HelpBox("Automatic Layer: " + lastAutoWeightIndex, UnityEditor.MessageType.None);
             }
 
             #region Draw legs list

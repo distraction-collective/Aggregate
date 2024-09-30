@@ -39,7 +39,7 @@ namespace FIMSpace.FProceduralAnimation
             float magnitude = calculatedVelo.magnitude;
             newVelo = Vector3.Slerp(newVelo, newVelo.normalized, Mathf.InverseLerp(0f, magnitude, LA.ScaleReference));
 
-            calculatedVelo = Vector3.SmoothDamp(calculatedVelo, newVelo, ref _sd_average, (0.00005f + (1f - _Reaction.GetFloat()) * 0.15f), float.MaxValue, LA.DeltaTime);
+            calculatedVelo = Vector3.SmoothDamp(calculatedVelo, newVelo, ref _sd_average, (0.00005f + (1f - _Reaction.GetFloat()) * 0.15f), 100000f, LA.DeltaTime);
 
             if (_IsMov.GetBool())
             {
@@ -55,7 +55,7 @@ namespace FIMSpace.FProceduralAnimation
 
         public override void Editor_InspectorGUI(LegsAnimator legsAnimator, LegsAnimator.LegsAnimatorCustomModuleHelper helper)
         {
-            EditorGUILayout.HelpBox("Reading world translation of the character and providing as 'Desired Movement Direction'.\nIt's not precise as rigidbody desired direction read.", MessageType.Info);
+            EditorGUILayout.HelpBox("Reading world translation of the character and providing as 'Desired Movement Direction'.\nIt's not precise as rigidbody desired direction read.", UnityEditor.MessageType.Info);
             GUILayout.Space(3);
 
             var adjPowerV = helper.RequestVariable("Reaction Speed", .8f);

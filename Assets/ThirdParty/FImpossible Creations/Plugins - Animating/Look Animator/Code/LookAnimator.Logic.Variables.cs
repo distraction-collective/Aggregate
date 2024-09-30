@@ -12,7 +12,7 @@ namespace FIMSpace.FLook
         public int BackBonesCount = 0;
         public int _preBackBonesCount = 0;
         /// <summary> List of main bone transform used by Look Animator </summary>
-        public List<LookBone> LookBones = new List<LookBone>();
+        public List<LookBone> LookBones;
 
         #region Regular Calculations Variables
 
@@ -28,7 +28,7 @@ namespace FIMSpace.FLook
 
 
         //private Animator animator;
-        protected bool initialized;
+        public bool initialized { get; protected set; }
 
         #endregion
 

@@ -54,7 +54,7 @@ namespace FIMSpace.FProceduralAnimation
                     }
             }
 
-            offsetV = Vector3.SmoothDamp(offsetV, targetOffset, ref _Sd_offsetV, 0.2f - _rapidV.GetFloat() * 0.199f, float.MaxValue, LA.DeltaTime);
+            offsetV = Vector3.SmoothDamp(offsetV, targetOffset, ref _Sd_offsetV, 0.2f - _rapidV.GetFloat() * 0.199f, 1000000f, LA.DeltaTime);
             LA._Hips_Modules_ExtraWOffset += LA.RootToWorldSpaceVec(offsetV);
         }
 
@@ -65,7 +65,7 @@ namespace FIMSpace.FProceduralAnimation
 
         public override void Editor_InspectorGUI(LegsAnimator legsAnimator, LegsAnimator.LegsAnimatorCustomModuleHelper helper)
         {
-            EditorGUILayout.HelpBox("Pushing body in opposite direction to big slope raycast, can help slightly humanoids movement on really steep slopes.", MessageType.Info);
+            EditorGUILayout.HelpBox("Pushing body in opposite direction to big slope raycast, can help slightly humanoids movement on really steep slopes.", UnityEditor.MessageType.Info);
             GUILayout.Space(5);
             var rotateVar = helper.RequestVariable("Offset Power", 0.6f);
             rotateVar.SetMinMaxSlider(0f, 1f);

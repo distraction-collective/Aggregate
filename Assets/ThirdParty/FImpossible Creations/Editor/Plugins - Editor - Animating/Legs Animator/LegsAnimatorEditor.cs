@@ -6,7 +6,7 @@ namespace FIMSpace.FProceduralAnimation
 {
 
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(LegsAnimator))]
+    [CustomEditor(typeof(LegsAnimator), true)]
     public partial class LegsAnimatorEditor : Editor
     {
         public LegsAnimator Get { get { if (_get == null) _get = (LegsAnimator)target; return _get; } }
@@ -89,7 +89,7 @@ namespace FIMSpace.FProceduralAnimation
                 if (Get.Hips != null)
                 {
                     EditorGUILayout.Space(8);
-                    EditorGUILayout.HelpBox("The setup is not valid yet.\nPrepare LEG BONES FIRST! Then more options will be unlocked!", MessageType.Warning);
+                    EditorGUILayout.HelpBox("The setup is not valid yet.\nPrepare LEG BONES FIRST! Then more options will be unlocked!", UnityEditor.MessageType.Warning);
 
                     EditorGUILayout.Space(4);
 

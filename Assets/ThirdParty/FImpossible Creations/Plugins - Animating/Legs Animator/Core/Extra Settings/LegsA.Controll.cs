@@ -97,26 +97,39 @@ namespace FIMSpace.FProceduralAnimation
             User_SetDesiredMovementDirection(worldDirection);
         }
 
-        protected virtual void Controll_DefineHashes()
+        public void User_SetDesiredMovementDirectionOff()
+        {
+            usingCustomDesiredMovementDirection = false;
+        }
+
+        /// <summary>
+        /// Requires assigned 'Mecanim' parameter to calculate mecanim properties hashes
+        /// </summary>
+        public virtual void Controll_DefineHashes()
         {
             if (Mecanim == null) return;
-            if (string.IsNullOrWhiteSpace(GroundedParameter) == false) _hash_Grounded = Animator.StringToHash(GroundedParameter);
 
-            if (string.IsNullOrWhiteSpace(MovingParameter) == false)
+            if( string.IsNullOrWhiteSpace( GroundedParameter ) == false ) _hash_Grounded = Animator.StringToHash( GroundedParameter ); else _hash_Grounded = -1;
+
+            if( string.IsNullOrWhiteSpace( MovingParameter ) == false )
             {
-                _hash_Moving = Animator.StringToHash(MovingParameter);
+                _hash_Moving = Animator.StringToHash( MovingParameter );
 
-                for (int i = 0; i < Mecanim.parameterCount; i++)
-                    if (Mecanim.GetParameter(i).nameHash == _hash_Moving)
-                        if (Mecanim.GetParameter(i).type == AnimatorControllerParameterType.Float)
-                        {
-                            _hash_MovingIsFloat = true;
-                            break;
-                        }
+                if( Mecanim.runtimeAnimatorController != null )
+                {
+                    for( int i = 0; i < Mecanim.parameterCount; i++ )
+                        if( Mecanim.GetParameter( i ).nameHash == _hash_Moving )
+                            if( Mecanim.GetParameter( i ).type == AnimatorControllerParameterType.Float )
+                            {
+                                _hash_MovingIsFloat = true;
+                                break;
+                            }
+                }
             }
+            else _hash_Moving = -1;
 
-            if (string.IsNullOrWhiteSpace(SlidingParameter) == false) _hash_Sliding = Animator.StringToHash(SlidingParameter);
-            if (string.IsNullOrWhiteSpace(RagdolledParameter) == false) _hash_Ragdolled = Animator.StringToHash(RagdolledParameter);
+            if( string.IsNullOrWhiteSpace( SlidingParameter ) == false ) _hash_Sliding = Animator.StringToHash( SlidingParameter ); else _hash_Sliding = -1;
+            if( string.IsNullOrWhiteSpace( RagdolledParameter ) == false ) _hash_Ragdolled = Animator.StringToHash( RagdolledParameter ); else _hash_Ragdolled = -1;
         }
 
         public bool Helper_WasMoving { get; private set; }
@@ -133,7 +146,7 @@ namespace FIMSpace.FProceduralAnimation
             if (IsRagdolled)
             {
                 if (RagdolledTime < 0f) RagdolledTime = 0f; RagdolledTime += DeltaTime;
-                RadgolledDisablerBlend = Mathf.MoveTowards(RadgolledDisablerBlend, 0f, DeltaTime * 6f);
+                RagdolledDisablerBlend = Mathf.MoveTowards(RagdolledDisablerBlend, 0f, DeltaTime * 6f);
                 UpdateBeingRagdolled();
             }
             else
@@ -145,13 +158,13 @@ namespace FIMSpace.FProceduralAnimation
 
                 if (blendTo1)
                 {
-                    float was = RadgolledDisablerBlend;
-                    RadgolledDisablerBlend = Mathf.MoveTowards(RadgolledDisablerBlend, 1f, DeltaTime * 4f);
-                    if (was != RadgolledDisablerBlend) UpdateBeingRagdolled();
+                    float was = RagdolledDisablerBlend;
+                    RagdolledDisablerBlend = Mathf.MoveTowards(RagdolledDisablerBlend, 1f, DeltaTime * 4f);
+                    if (was != RagdolledDisablerBlend) UpdateBeingRagdolled();
                 }
                 else
                 {
-                    RadgolledDisablerBlend = Mathf.MoveTowards(RadgolledDisablerBlend, 0f, DeltaTime * 6f);
+                    RagdolledDisablerBlend = Mathf.MoveTowards(RagdolledDisablerBlend, 0f, DeltaTime * 6f);
                 }
             }
 
@@ -189,7 +202,7 @@ namespace FIMSpace.FProceduralAnimation
 
             if (IsGrounded && GroundedTime < 0.2f) _glueModeExecuted = EGlueMode.Moving;
 
-            //if (IsGrounded) GroundedTime += Time.deltaTime; else GroundedTime = -0.000001f;
+            //if (IsGrounded) GroundedTime += DeltaTime; else GroundedTime = -0.000001f;
             if (IsGrounded) { if (GroundedTime < 0f) GroundedTime = 0f; GroundedTime += DeltaTime; } else { if (GroundedTime > 0f) GroundedTime = 0f; GroundedTime -= DeltaTime; }
             if (IsMoving) { if (MovingTime < 0f) MovingTime = 0f; MovingTime += DeltaTime; } else { if (MovingTime > 0f) MovingTime = 0f; MovingTime -= DeltaTime; }
 

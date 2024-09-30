@@ -17,13 +17,14 @@ namespace FIMSpace.FTools
         [Tooltip("Flex style algorithm for different limbs")] public FIK_HintMode AutoHintMode = FIK_HintMode.MiddleForward;
 
 
-        private Vector3 targetElbowNormal = Vector3.right;
-        private Quaternion lateEndBoneRotation;
-        private Quaternion postIKAnimatorEndBoneRot;
+        protected Vector3 targetElbowNormal = Vector3.right;
+        protected Quaternion lateEndBoneRotation;
+        protected Quaternion postIKAnimatorEndBoneRot;
 
         /// <summary> For custom slight adjustements of the IK knee/elbow hints </summary>
         public Vector3 ExtraHintAdjustementOffset = Vector3.zero;
-
+        /// <summary> Inverse direction of default calculated hint position </summary>
+        public bool InverseHint = false;
 
         /// <summary> Updating processor with 3-bones oriented inverse kinematics </summary>
         public override void Update()
@@ -44,7 +45,7 @@ namespace FIMSpace.FTools
                 targetElbowNormal = Vector3.Lerp( targetElbowNormal, CalculateElbowNormalToPosition(EndIKBone.transform.position + EndIKBone.transform.rotation * ExtraHintAdjustementOffset), ExtraHintAdjustementOffset.magnitude).normalized;
             }
 
-            Vector3 orientationDirection = GetOrientationDirection(IKTargetPosition, targetElbowNormal);
+            Vector3 orientationDirection = GetOrientationDirection(IKTargetPosition, InverseHint ? -targetElbowNormal : targetElbowNormal);
             if (orientationDirection == Vector3.zero) orientationDirection = MiddleIKBone.transform.position - StartIKBone.transform.position;
 
             if (posWeight > 0f)
@@ -101,6 +102,20 @@ namespace FIMSpace.FTools
                     return normal;
 
                 case FIK_HintMode.OnGoal: return Vector3.LerpUnclamped(bendNormal, lateEndBoneRotation * EndIKBone.right, 0.5f);
+                
+                case FIK_HintMode.UnityHumanoidIK:
+
+                    if( HumanoidAnimator )
+                    {
+                        HumanoidAnimator.logWarnings = false;
+                        Vector3 nrm = CalculateElbowNormalToPosition( HumanoidAnimator.GetIKHintPosition( IsRight ? AvatarIKHint.RightKnee : AvatarIKHint.LeftKnee ) );
+#if UNITY_EDITOR
+                        HumanoidAnimator.logWarnings = true;
+#endif
+                        return nrm;
+                    }
+
+                    break;
             }
 
             return bendNormal;

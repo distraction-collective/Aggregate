@@ -965,8 +965,8 @@ MonoBehaviour:
   _gizmospeep: {fileID: 0}
   SpineBones:
   - transform: {fileID: 8170650540666286303}
-    ProceduralPosition: {x: -330.67447, y: 16.549608, z: -90.28936}
-    ProceduralRotation: {x: 0.36744985, y: 0.33529216, z: -0.15610027, w: 0.85334194}
+    ProceduralPosition: {x: -415.75098, y: 2.4622977, z: -183.68512}
+    ProceduralRotation: {x: 0.340027, y: 0.47350332, z: -0.2047647, w: 0.7862873}
     HelperDiffPosition: {x: 0.48399353, y: 0.09977436, z: 0.31326294}
     HelperDiffRoation: {x: -0.01607232, y: -0.3523545, z: 0.007241788, w: 0.93570065}
     PreviousPosition: {x: -198.2813, y: 7.9372144, z: -422.8419}
@@ -988,8 +988,8 @@ MonoBehaviour:
     CollisionRadius: 1.1872531
     ColliderOffset: {x: 0, y: 0, z: 0}
   - transform: {fileID: 6700653477399937310}
-    ProceduralPosition: {x: -330.8834, y: 16.88378, z: -90.52002}
-    ProceduralRotation: {x: -0.040626988, y: 0.92011607, z: -0.1289107, w: -0.367584}
+    ProceduralPosition: {x: -416.19327, y: 2.9946468, z: -183.91917}
+    ProceduralRotation: {x: 0.07078748, y: -0.8485584, z: 0.117548786, w: 0.510999}
     HelperDiffPosition: {x: -0.3143921, y: 0.14248562, z: 0.5159912}
     HelperDiffRoation: {x: -0.0064776847, y: -0.20708424, z: 0.0046340236, w: 0.9782906}
     PreviousPosition: {x: -198.37186, y: 7.9372144, z: -423.92313}
@@ -1011,8 +1011,8 @@ MonoBehaviour:
     CollisionRadius: 1.1872531
     ColliderOffset: {x: 0, y: 0, z: 0}
   - transform: {fileID: 4985591832844145751}
-    ProceduralPosition: {x: -330.4573, y: 17.054667, z: -90.07438}
-    ProceduralRotation: {x: 0.011740486, y: 0.92909425, z: 0.0024458708, w: -0.36964855}
+    ProceduralPosition: {x: -415.32254, y: 3.2729235, z: -183.45839}
+    ProceduralRotation: {x: -0.0021561193, y: -0.85665494, z: -0.0035804352, w: 0.515873}
     HelperDiffPosition: {x: -0.9386749, y: 0.17019701, z: 0.7831116}
     HelperDiffRoation: {x: 0.005102523, y: -0.07313502, z: 0.0015493956, w: 0.9973078}
     PreviousPosition: {x: -198.49918, y: 7.9372144, z: -425.44324}
@@ -1034,8 +1034,8 @@ MonoBehaviour:
     CollisionRadius: 1.1872531
     ColliderOffset: {x: 0, y: 0, z: 0}
   - transform: {fileID: 4314451079207213154}
-    ProceduralPosition: {x: -329.94537, y: 17.04481, z: -89.532715}
-    ProceduralRotation: {x: 0.033593427, y: 0.9273224, z: 0.057420064, w: -0.36830366}
+    ProceduralPosition: {x: -414.2685, y: 3.2629547, z: -182.90059}
+    ProceduralRotation: {x: -0.032677695, y: -0.8549403, z: -0.05426392, w: 0.5148444}
     HelperDiffPosition: {x: -1.1796722, y: 0.15863991, z: 0.94091797}
     HelperDiffRoation: {x: 0.015298208, y: 0.0383463, z: -0.0013546096, w: 0.9991465}
     PreviousPosition: {x: -198.64848, y: 7.9372144, z: -427.22586}
@@ -1057,8 +1057,8 @@ MonoBehaviour:
     CollisionRadius: 1.1872531
     ColliderOffset: {x: 0, y: 0, z: 0}
   - transform: {fileID: 2076367429020064548}
-    ProceduralPosition: {x: -329.506, y: 16.959915, z: -89.065605}
-    ProceduralRotation: {x: 0.014041187, y: 0.92906564, z: 0.008229368, w: -0.3695567}
+    ProceduralPosition: {x: -413.36102, y: 3.1320958, z: -182.42036}
+    ProceduralRotation: {x: -0.0053671333, y: -0.85661465, z: -0.008912568, w: 0.51585186}
     HelperDiffPosition: {x: -1.0705109, y: 0.11587763, z: 0.88705444}
     HelperDiffRoation: {x: 0.019903563, y: 0.117818244, z: -0.0015307508, w: 0.9928345}
     PreviousPosition: {x: -198.77806, y: 7.9372144, z: -428.77295}
@@ -1080,8 +1080,8 @@ MonoBehaviour:
     CollisionRadius: 1.1872531
     ColliderOffset: {x: 0, y: 0, z: 0}
   - transform: {fileID: 2469301568805154918}
-    ProceduralPosition: {x: -329.002, y: 16.941069, z: -88.53204}
-    ProceduralRotation: {x: -0.030257007, y: 0.92337865, z: -0.10293932, w: -0.36859182}
+    ProceduralPosition: {x: -412.32294, y: 3.1076536, z: -181.87102}
+    ProceduralRotation: {x: 0.056364413, y: -0.8515312, z: 0.093597256, w: 0.51279354}
     HelperDiffPosition: {x: -0.72268677, y: 0.054420948, z: 0.61813354}
     HelperDiffRoation: {x: 0.01962992, y: 0.16649137, z: 0.0020491492, w: 0.9858453}
     PreviousPosition: {x: -198.92513, y: 7.9372144, z: -430.5289}
@@ -1103,8 +1103,8 @@ MonoBehaviour:
     CollisionRadius: 1.1872531
     ColliderOffset: {x: 0, y: 0, z: 0}
   - transform: {fileID: 2347682233727828473}
-    ProceduralPosition: {x: -328.58078, y: 17.073727, z: -88.09044}
-    ProceduralRotation: {x: -0.060955472, y: 0.9115438, z: -0.1797457, w: -0.36477914}
+    ProceduralPosition: {x: -411.46082, y: 3.3246994, z: -181.4148}
+    ProceduralRotation: {x: 0.099022165, y: -0.840733, z: 0.16443571, w: 0.5062841}
     HelperDiffPosition: {x: -0.30767822, y: 0.008508205, z: 0.25793457}
     HelperDiffRoation: {x: 0.012243011, y: 0.16261925, z: 0.014129848, w: 0.98651177}
     PreviousPosition: {x: -199.05022, y: 7.9372144, z: -432.02255}
@@ -1126,8 +1126,8 @@ MonoBehaviour:
     CollisionRadius: 1.1872531
     ColliderOffset: {x: 0, y: 0, z: 0}
   - transform: {fileID: 3059380519448993505}
-    ProceduralPosition: {x: -328.31372, y: 17.228271, z: -87.81252}
-    ProceduralRotation: {x: -0.060955472, y: 0.9115438, z: -0.1797457, w: -0.36477914}
+    ProceduralPosition: {x: -410.91684, y: 3.5750227, z: -181.12692}
+    ProceduralRotation: {x: 0.099022165, y: -0.840733, z: 0.16443571, w: 0.5062841}
     HelperDiffPosition: {x: 0, y: 0, z: 0}
     HelperDiffRoation: {x: -0.0041287676, y: 0.022914885, z: 0.05341161, w: 0.9983021}
     PreviousPosition: {x: -199.13339, y: 7.9372144, z: -433.01572}

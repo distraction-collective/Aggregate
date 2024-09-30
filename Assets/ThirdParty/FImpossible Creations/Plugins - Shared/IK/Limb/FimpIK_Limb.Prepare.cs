@@ -62,7 +62,7 @@ namespace FIMSpace.FTools
             if (!everyIsChild) { if (MiddleIKBone != EndParentIKBone) EndParentIKBone.CaptureSourceAnimation(); }
         }
 
-        private Vector3 GetDefaultFlexNormal()
+        protected Vector3 GetDefaultFlexNormal()
         {
             if (ManualHintPositionWeight > 0f)
             {
@@ -89,7 +89,7 @@ namespace FIMSpace.FTools
         }
 
 
-        private Vector3 GetOrientationDirection(Vector3 ikPosition, Vector3 orientationNormal)
+        protected Vector3 GetOrientationDirection(Vector3 ikPosition, Vector3 orientationNormal)
         {
             Vector3 direction = ikPosition - StartIKBone.transform.position; // From start bone to target ik position
             if (direction == Vector3.zero) return Vector3.zero;

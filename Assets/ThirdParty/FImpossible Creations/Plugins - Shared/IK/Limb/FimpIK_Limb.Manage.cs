@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace FIMSpace.FTools
 {
@@ -15,7 +16,12 @@ namespace FIMSpace.FTools
         public IKBone GetBone(int index) { return IKBones[index]; }
         public int BonesCount { get { return IKBones.Length; } }
 
-        public enum FIK_HintMode { Default, MiddleForward, MiddleBack, OnGoal, EndForward, Leg }
+        public enum FIK_HintMode { Default, MiddleForward, MiddleBack, OnGoal, EndForward, Leg, UnityHumanoidIK }
+        /// <summary> Required for UnityHumanoidIK hint mode </summary>
+        [NonSerialized] public Animator HumanoidAnimator;
+        /// <summary> Required for UnityHumanoidIK hint mode </summary>
+        [NonSerialized] public bool IsRight;
+
         private bool everyIsChild = true;
         private bool hasFeet = false;
         private bool hasRoot = false;

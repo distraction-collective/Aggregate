@@ -1,9 +1,4 @@
-﻿using FIMSpace.FEditor;
-using System;
-using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace FIMSpace.FProceduralAnimation
@@ -32,6 +27,18 @@ namespace FIMSpace.FProceduralAnimation
             }
 
             UsingControlModules = anyModule;
+        }
+
+        void DisposeModules()
+        {
+            if (CustomModules == null) return;
+
+            for (int i = CustomModules.Count - 1; i >= 0; i--)
+            {
+                if (CustomModules[i] == null) { CustomModules.RemoveAt(i); continue; }
+                if (CustomModules[i].ModuleReference == null) { CustomModules.RemoveAt(i); continue; }
+                CustomModules[i].DisposeModule();
+            }
         }
 
 

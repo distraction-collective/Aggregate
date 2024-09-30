@@ -1,5 +1,4 @@
 ﻿using FIMSpace.FTools;
-using System;
 using UnityEngine;
 
 namespace FIMSpace.FProceduralAnimation
@@ -9,9 +8,11 @@ namespace FIMSpace.FProceduralAnimation
         public partial class Leg
         {
             public FimpIK_Limb IKProcessor { get; private set; }
-            public void IK_Initialize()
+
+            public void IK_Initialize(bool generateNew = true)
             {
-                IKProcessor = new FimpIK_Limb();
+                if (generateNew) IKProcessor = new FimpIK_Limb();
+
                 if (BoneFeet) IKProcessor.SetLegWithFeet(BoneStart, BoneMid, BoneEnd, BoneFeet);
                 else IKProcessor.SetBones(BoneStart, BoneMid, BoneEnd);
 
@@ -25,9 +26,22 @@ namespace FIMSpace.FProceduralAnimation
                 IKProcessor.FeetFadeQuicker = 1.1f;
                 IKProcessor.FeetStretchLimit = 0.8f;
 
+                IKProcessor.HumanoidAnimator = Owner.Mecanim;
+                IKProcessor.IsRight = (Side == ELegSide.Right);
+
                 _FinalIKPos = IKProcessor.EndIKBone.transform.position;
                 _PreviousFinalIKPos = _FinalIKPos;
                 _PreviousFinalIKPosForStability = _FinalIKPos;
+                _PreviousFinalIKPosRootLocal = ToRootLocalSpace( _FinalIKPos );
+
+                IKProcessor.IKTargetPosition = _FinalIKPos;
+                IKProcessor.IKTargetRotation = _FinalIKRot;
+            }
+
+            public void AssignCustomIKProcessor(FimpIK_Limb ik)
+            {
+                IKProcessor = ik;
+                IK_Initialize(false);
             }
 
             /// <summary> If not using IK multiplicator it's simply _SourceIKPos </summary>
@@ -80,11 +94,17 @@ namespace FIMSpace.FProceduralAnimation
 
 
             public Vector3 _PreviousFinalIKPos { get; private set; }
+            public Vector3 _PreviousFinalIKPosRootLocal { get; private set; }
             public Vector3 _PreviousFinalIKPosForStability { get; private set; }
             public Quaternion _PreviousFinalIKRot { get; private set; }
             public Vector3 _AnimatorStartBonePos { get; private set; }
             public Vector3 _AnimatorMidBonePos { get; private set; }
             public Vector3 _AnimatorEndBonePos { get; private set; }
+
+            bool _wasFixedCalibrateAnimationCaptured = false;
+            public Quaternion _AnimatorStartBoneLocRot { get; private set; }
+            public Quaternion _AnimatorMidBoneLocRot { get; private set; }
+            public Quaternion _AnimatorEndBoneLocRot { get; private set; }
 
             bool _wasGrounded = true;
             Vector3 _ungroundLocalIKCache;
@@ -94,7 +114,7 @@ namespace FIMSpace.FProceduralAnimation
             /// </summary>
             public void IK_PreUpdate()
             {
-                IKProcessor.CallPreCalibrate = Owner.Calibrate;
+                IKProcessor.CallPreCalibrate = Owner.Calibrate == ECalibrateMode.Calibrate;
 
                 #region Handling unground fade (return;)
 
@@ -164,6 +184,14 @@ namespace FIMSpace.FProceduralAnimation
                     }
                 }
 
+                // NaN protection
+                if ( float.IsNaN( _FinalIKPos.x) || float.IsNaN( _FinalIKPos.y ) || float.IsNaN( _FinalIKPos.z ) )
+                {
+                    Reset();
+                    _FinalIKPos = RootSpaceToWorld( InitialPosInRootSpace );
+                    Gluing_Init();
+                }
+
                 _PreviousFinalIKPosForStability = _FinalIKPos;
 
                 IKProcessor.IKTargetPosition = _FinalIKPos;
@@ -181,6 +209,8 @@ namespace FIMSpace.FProceduralAnimation
                 }
 
                 _PreviousFinalIKPos = IKProcessor.IKTargetPosition;
+                _PreviousFinalIKPosRootLocal = ToRootLocalSpace( _PreviousFinalIKPos );
+
                 if (Owner.AnimateFeet) _PreviousFinalIKRot = IKProcessor.IKTargetRotation;
 
                 //UnityEngine.Debug.DrawRay(IKProcessor.IKTargetPosition, IKProcessor.IKTargetRotation * Vector3.forward, Color.green, 0.01f);
@@ -190,6 +220,7 @@ namespace FIMSpace.FProceduralAnimation
             {
                 IKProcessor.IKWeight = Owner._MainBlend * LegBlendWeight * InternalModuleBlendWeight;
                 BlendWeight = IKProcessor.IKWeight;
+                IKProcessor.InverseHint = InverseHint;
             }
 
             public void IK_UpdateParams()

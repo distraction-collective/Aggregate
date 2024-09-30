@@ -16,6 +16,7 @@ namespace FIMSpace.FProceduralAnimation
         LegsAnimator.Variable _rotateV;
         LegsAnimator.Variable _alignSpdV;
         LegsAnimator.Variable _alignDownV;
+        LegsAnimator.Variable _AxisBlendV;
 
         float _blend = 1f;
 
@@ -30,6 +31,7 @@ namespace FIMSpace.FProceduralAnimation
             _rotateV = helper.RequestVariable("Rotate Hips", 1f);
             _alignSpdV = helper.RequestVariable("Aligning Speed", .7f);
             _alignDownV = helper.RequestVariable("Spine Restore", .5f);
+            _AxisBlendV = helper.RequestVariable("Rotation Axis Blend", Vector3.one);
         }
 
 
@@ -104,6 +106,15 @@ namespace FIMSpace.FProceduralAnimation
             else animatedAverageNormal = averageNormal;
 
             lastOrientation = Quaternion.FromToRotation(Vector3.up, animatedAverageNormal);
+
+            Vector3 axisMul = _AxisBlendV.GetVector3();
+            if (axisMul != Vector3.one)
+            {
+                Vector3 eulers = lastOrientation.eulerAngles;
+                axisMul = helper.Parent.BaseTransform.TransformDirection(axisMul);
+                lastOrientation = Quaternion.Euler(eulers.x * axisMul.x, eulers.y * axisMul.y, eulers.z * axisMul.z);
+            }
+
             averageNormal = Vector3.zero;
         }
 
@@ -114,7 +125,7 @@ namespace FIMSpace.FProceduralAnimation
 
         public override void Editor_InspectorGUI(LegsAnimator legsAnimator, LegsAnimator.LegsAnimatorCustomModuleHelper helper)
         {
-            EditorGUILayout.HelpBox("Adjusting body raycasting matrix on the raycasted slope + offers hips rotation. Mostly useful for spider creatures but it can also help humanoids slopes movement.", MessageType.Info);
+            EditorGUILayout.HelpBox("Adjusting body raycasting matrix on the raycasted slope + offers hips rotation. Mostly useful for spider creatures but it can also help humanoids slopes movement.", UnityEditor.MessageType.Info);
 
             var mxVar = helper.RequestVariable("Matrix Blend", 1f);
             mxVar.SetMinMaxSlider(0f, 1f);
@@ -136,6 +147,12 @@ namespace FIMSpace.FProceduralAnimation
                 downVar.SetMinMaxSlider(0f, 1f);
                 downVar.Editor_DisplayVariableGUI();
             }
+
+            GUILayout.Space(5);
+
+            var axisV = helper.RequestVariable("Rotation Axis Blend", Vector3.one);
+            axisV.AssignTooltip("Giving possibility for locking alignment rotation to target axes.\nX = Forward/Back lean  Z = Sides Lean,\nset axis value 0 to disable adjustement leaning for the axis.");
+            axisV.Editor_DisplayVariableGUI();
         }
 
         public override void Editor_OnSceneGUI(LegsAnimator legsAnimator, LegsAnimator.LegsAnimatorCustomModuleHelper helper)

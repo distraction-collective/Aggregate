@@ -56,7 +56,7 @@ namespace FIMSpace.FProceduralAnimation
 
             localDiff *= EffectBlend;
 
-            adjustement = Vector3.SmoothDamp(adjustement, localDiff, ref sd_adjustement, Mathf.Lerp(0.4f, 0.005f, _reactV.GetFloat()), float.MaxValue, LA.DeltaTime);
+            adjustement = Vector3.SmoothDamp(adjustement, localDiff, ref sd_adjustement, Mathf.Lerp(0.4f, 0.005f, _reactV.GetFloat()), 1000000f, LA.DeltaTime);
 
             LA._Hips_Modules_ExtraWOffset += LA.RootToWorldSpaceVec(adjustement);
         }
@@ -69,7 +69,7 @@ namespace FIMSpace.FProceduralAnimation
 
         public override void Editor_InspectorGUI(LegsAnimator legsAnimator, LegsAnimator.LegsAnimatorCustomModuleHelper helper)
         {
-            EditorGUILayout.HelpBox("Extra stability calculation, dynamically adapting to movement of the character and manipulating the hips position to keep right height.", MessageType.Info);
+            EditorGUILayout.HelpBox("Extra stability calculation, dynamically adapting to movement of the character and manipulating the hips position to keep right height.", UnityEditor.MessageType.Info);
             GUILayout.Space(5);
 
             _powerV = helper.RequestVariable("Blend", 1f);

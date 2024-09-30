@@ -1,7 +1,5 @@
 ﻿using FIMSpace.FTools;
-using System;
 using UnityEngine;
-using static FIMSpace.FProceduralAnimation.LegsAnimator;
 
 namespace FIMSpace.FProceduralAnimation
 {
@@ -92,7 +90,7 @@ namespace FIMSpace.FProceduralAnimation
             if (duration < 1f)
             {
                 value = Vector3.SmoothDamp(value,
-                    target, ref sd, duration, float.MaxValue, delta);
+                    target, ref sd, duration, 10000000f, delta);
             }
             else
             {

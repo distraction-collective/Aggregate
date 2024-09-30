@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace FIMSpace.FProceduralAnimation
 {
@@ -172,6 +169,33 @@ namespace FIMSpace.FProceduralAnimation
             Legs[legID].OverrideTargetIKPosition(position);
             Legs[legID].OverrideTargetIKRotation(rotation);
         }
+
+        public void DoBackCompatibilityChecks()
+        {
+            if ( ZeroStepsOnNoRaycast)
+            {
+                ZeroStepsOnNoRaycast = false;
+                NoRaycastGroundBehaviour = ENoRaycastBehviour.ZeroFloorSteps;
+
+#if UNITY_EDITOR
+                UnityEditor.EditorUtility.SetDirty(this);
+#endif
+            }
+        }
+
+
+        public bool CheckIfSomeOfTheLegsHasNullBone()
+        {
+            bool lackingBone = false;
+            for (int i = 0; i < Legs.Count; i++)
+            {
+                var leg = Legs[i];
+                if (leg.BoneStart == null || leg.BoneMid == null || leg.BoneEnd == null) { lackingBone = true; break; }
+            }
+
+            return lackingBone;
+        }
+
 
     }
 

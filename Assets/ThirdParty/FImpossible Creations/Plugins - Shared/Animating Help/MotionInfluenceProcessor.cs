@@ -20,7 +20,7 @@ namespace FIMSpace.FProceduralAnimation
         private float _sd_mb = 0f;
         public void TransitionBlend(float target, float duration, float delta)
         {
-            MultiplyBlend = Mathf.SmoothDamp(MultiplyBlend, target, ref _sd_mb, duration, float.MaxValue, delta);
+            MultiplyBlend = Mathf.SmoothDamp(MultiplyBlend, target, ref _sd_mb, duration, 10000000f, delta);
         }
 
         public void Reset()

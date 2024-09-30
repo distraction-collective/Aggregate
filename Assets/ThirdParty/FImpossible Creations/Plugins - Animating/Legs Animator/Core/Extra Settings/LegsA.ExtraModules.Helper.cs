@@ -54,6 +54,11 @@ namespace FIMSpace.FProceduralAnimation
                 PlaymodeModule.Base_Init(parent, this);
             }
 
+            public void DisposeModule()
+            {
+                if (PlaymodeModule != null) Destroy(PlaymodeModule);
+                PlaymodeModule = null;
+            }
 
             [SerializeField] private List<LegsAnimator.Variable> variables = new List<LegsAnimator.Variable>();
 

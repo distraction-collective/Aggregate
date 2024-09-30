@@ -62,11 +62,11 @@ namespace FIMSpace.FProceduralAnimation
                 middlePoint = middlePoint - currentPos;
                 middlePoint = LA.RootToWorldSpaceVec(middlePoint);
 
-                currentHeightAdjust = Vector3.SmoothDamp(currentHeightAdjust, middlePoint, ref sd_currentHeightAdjust, 0.05f + _adjSpeed.GetFloat() * 0.3f, float.MaxValue, LA.DeltaTime);
+                currentHeightAdjust = Vector3.SmoothDamp(currentHeightAdjust, middlePoint, ref sd_currentHeightAdjust, 0.05f + _adjSpeed.GetFloat() * 0.3f, 1000000f, LA.DeltaTime);
             }
             else
             {
-                currentHeightAdjust = Vector3.SmoothDamp(currentHeightAdjust, Vector3.zero, ref sd_currentHeightAdjust, 0.05f + _adjSpeed.GetFloat() * 0.3f, float.MaxValue, LA.DeltaTime);
+                currentHeightAdjust = Vector3.SmoothDamp(currentHeightAdjust, Vector3.zero, ref sd_currentHeightAdjust, 0.05f + _adjSpeed.GetFloat() * 0.3f, 1000000f, LA.DeltaTime);
             }
 
             LA.Hips.position += currentHeightAdjust * EffectBlend * _blendV.GetFloat() * LA._MainBlend;
@@ -82,7 +82,7 @@ namespace FIMSpace.FProceduralAnimation
 
         public override void Editor_InspectorGUI(LegsAnimator legsAnimator, LegsAnimator.LegsAnimatorCustomModuleHelper helper)
         {
-            EditorGUILayout.HelpBox("Extra calculations to keep character hips in the center. It's similar to the stability settings but providing extra correction.", MessageType.Info);
+            EditorGUILayout.HelpBox("Extra calculations to keep character hips in the center. It's similar to the stability settings but providing extra correction.", UnityEditor.MessageType.Info);
             GUILayout.Space(3);
 
             var blendVar = helper.RequestVariable("Blend", 1f);

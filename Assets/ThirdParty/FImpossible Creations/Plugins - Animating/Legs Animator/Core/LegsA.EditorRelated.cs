@@ -95,6 +95,7 @@ namespace FIMSpace.FProceduralAnimation
             {
                 if (LegsInitialized == false) return;
                 User_UpdateParametersAfterManualChange();
+                Controll_DefineHashes();
             }
 
             _Editor_OnValidateTrigger = true;

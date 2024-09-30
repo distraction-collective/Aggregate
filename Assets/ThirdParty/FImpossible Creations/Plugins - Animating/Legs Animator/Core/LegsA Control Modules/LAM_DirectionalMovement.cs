@@ -6,6 +6,7 @@ using FIMSpace.FEditor;
 #endif
 using UnityEngine;
 using static FIMSpace.FProceduralAnimation.LegsAnimator;
+using System.Linq;
 
 namespace FIMSpace.FProceduralAnimation
 {
@@ -235,6 +236,18 @@ namespace FIMSpace.FProceduralAnimation
 
             #region Define desired movement direction
 
+
+            if (useOverridingDirection)
+            {
+                if (overrideDirectionFadeSpeed < 0.0001f) overrideDirectionBlend = 1f;
+                else overrideDirectionBlend = Mathf.MoveTowards(overrideDirectionBlend, 1f, Owner.DeltaTime * overrideDirectionFadeSpeed);
+            }
+            else
+            {
+                if (overrideDirectionFadeSpeed < 0.0001f) overrideDirectionBlend = 0f;
+                else overrideDirectionBlend = Mathf.MoveTowards(overrideDirectionBlend, 0f, Owner.DeltaTime * overrideDirectionFadeSpeed);
+            }
+
             //bool usesRigid = false;
             //if (_play_UseRigid.GetBool())
             //{
@@ -245,12 +258,26 @@ namespace FIMSpace.FProceduralAnimation
             //    }
             //}
 
-            //if (!usesRigid) 
-            { // Using rigidbody anyway (if assigned it's driving LA.DesiredMovementDirection)
-                if (_hash_zDir != -1)
-                    _calc_WorldDir = new Vector3(LA.Mecanim.GetFloat(_hash_xDir), 0f, LA.Mecanim.GetFloat(_hash_zDir)).normalized;
-                else // Default use variable
-                    _calc_WorldDir = LA.DesiredMovementDirection.normalized;
+            Vector3 _src_worldDir;
+            if (_hash_zDir != -1)
+            {
+                _src_worldDir = new Vector3(LA.Mecanim.GetFloat(_hash_xDir), 0f, LA.Mecanim.GetFloat(_hash_zDir)).normalized;
+            }
+            else // Default use variable
+            {
+                _src_worldDir = LA.DesiredMovementDirection;
+                _src_worldDir.y = 0f;
+                if (_src_worldDir.magnitude < 0.1f) _src_worldDir = Vector3.zero;
+            }
+
+            _calc_WorldDir = _src_worldDir;
+
+            if (overrideDirectionBlend > 0.0001f)
+            {
+                if (overrideDirectionBlend >= 1f)
+                    _calc_WorldDir = overridingDirection;
+                else
+                    _calc_WorldDir = Vector3.Slerp(_calc_WorldDir, overridingDirection, overrideDirectionBlend);
             }
 
             #endregion
@@ -259,6 +286,8 @@ namespace FIMSpace.FProceduralAnimation
 
             _var_raiseLimit = _play_LimitRaise.GetFloat();
             _var_fixFeet = _play_FixFeet.GetFloat();
+
+            if (_calc_LocalDir.sqrMagnitude < 0.00001f) _localTargetAngle = 0f; // Reset Angle protection
 
             _localTargetAngle = FEngineering.GetAngleRad(_calc_LocalDir.x, _calc_LocalDir.z);
 
@@ -275,7 +304,6 @@ namespace FIMSpace.FProceduralAnimation
 
             // +- 180 angle conversion
             _wrappedAngle = FormatAngleToPM180(_localTargetAngle);
-
 
             #region Smooth wrapped angle and keep correctness
 
@@ -364,6 +392,25 @@ namespace FIMSpace.FProceduralAnimation
 
         }
 
+
+        #region Override Move Direction Switch Support
+
+        Vector3 overridingDirection = Vector3.zero;
+        bool useOverridingDirection = false;
+        [NonSerialized] public float overrideDirectionFadeSpeed = 6f;
+        float overrideDirectionBlend = 0f;
+        /// <summary> If you want to force module to apply different legs direction than automatically calculated directions (useful when using root motion velocity animations) </summary>
+        public void OverrideMoveDirection(Vector3? direction)
+        {
+            if (direction == null) useOverridingDirection = false;
+            else
+            {
+                useOverridingDirection = true;
+                overridingDirection = direction.Value;
+            }
+        }
+
+        #endregion
 
 
         float _calc_lStretch = 0f;
@@ -558,7 +605,7 @@ namespace FIMSpace.FProceduralAnimation
 
             if (restoreSpn > 0f) SpineBone.rotation = Quaternion.Slerp(SpineBone.rotation, preSpineRot, Mathf.Lerp(1f, restoreSpn, _mainBlend));
 
-            _calc_hipsStretchOffset = Vector3.SmoothDamp(_calc_hipsStretchOffset, strafeBlendIn * extraHipsOffset, ref _sd_hipsStretchOff, 0.2f + 0.3f * _play_TrDur.GetFloat(), float.MaxValue, LA.DeltaTime);
+            _calc_hipsStretchOffset = Vector3.SmoothDamp(_calc_hipsStretchOffset, strafeBlendIn * extraHipsOffset, ref _sd_hipsStretchOff, 0.2f + 0.3f * _play_TrDur.GetFloat(), 100000f, LA.DeltaTime);
 
             // Hips Position Adjust Apply
             Vector3 finalHipsOffset = LA.RootToWorldSpaceVec(_calc_hipsPositionOffsets * 0.5f * LA.ScaleReference) * _mainBlend;
@@ -755,7 +802,7 @@ namespace FIMSpace.FProceduralAnimation
             {
                 EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button(FGUI_Resources.GUIC_Info, FGUI_Resources.ButtonStyle, GUILayout.Width(26))) InfoDisplay = !InfoDisplay; GUILayout.Space(4);
-                EditorGUILayout.HelpBox("Reading Legs Animator's .MovementDirection variable to drive this module.By default it will use rigidbody velocity to do it, so you don't need to code anything.\nBut if you need to drive direction manually, Use legsAnim.User_SetDesiredMovementDirection... or use unity Animator variables (assign animator under Extra/Control and check bottom of this module GUI)", MessageType.None);
+                EditorGUILayout.HelpBox("Reading Legs Animator's .MovementDirection variable to drive this module.By default it will use rigidbody velocity to do it, so you don't need to code anything.\nBut if you need to drive direction manually, Use legsAnim.User_SetDesiredMovementDirection... or use unity Animator variables (assign animator under Extra/Control and check bottom of this module GUI)", UnityEditor.MessageType.None);
                 EditorGUILayout.EndHorizontal();
             }
 
@@ -883,10 +930,16 @@ namespace FIMSpace.FProceduralAnimation
             if (!usingAnimParams)
             {
                 if (la.Rigidbody)
-                    EditorGUILayout.HelpBox("Module will use rigidbody velocity to drive legs direction", MessageType.None);
+                    EditorGUILayout.HelpBox("Module will use rigidbody velocity to drive legs direction", UnityEditor.MessageType.None);
                 else
-                    EditorGUILayout.HelpBox("You can assign 'Rigidbody' under Extra/Control to drive legs direction automatically! Or use legsAnimator.User_SetDesiredMovementDirection...", MessageType.None);
+                    EditorGUILayout.HelpBox("You can assign 'Rigidbody' under Extra/Control to drive legs direction automatically! Or use legsAnimator.User_SetDesiredMovementDirection...", UnityEditor.MessageType.None);
             }
+
+            LAM_DirectionalMovement dirMovPlaymode = helper.PlaymodeModule as LAM_DirectionalMovement;
+            if (dirMovPlaymode == null) return;
+            if (dirMovPlaymode._wasUpdated == false) return;
+
+            EditorGUILayout.LabelField("Dir: " + dirMovPlaymode._localTargetAngle, EditorStyles.centeredGreyMiniLabel);
 
             //if (Application.isPlaying) return;
 

@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using static FIMSpace.FProceduralAnimation.LegsAnimator;
+﻿using UnityEngine;
 
 namespace FIMSpace.FProceduralAnimation
 {
@@ -261,7 +259,7 @@ namespace FIMSpace.FProceduralAnimation
                 _Hips_StepHeightAdjustOffset = Mathf.SmoothDamp(_Hips_StepHeightAdjustOffset,
                     yOffset, ref _sd_Hips_StepHeightAdjustOffset,
                     Mathf.LerpUnclamped(0.4f, 0.01f, landingBoost)
-                    , float.MaxValue, Owner.DeltaTime);
+                    , 1000000f, Owner.DeltaTime);
 
                 _h_lowestHitLeg = -1;
             }
@@ -342,7 +340,7 @@ namespace FIMSpace.FProceduralAnimation
                     AnimateStepAdjustTo(0f);
                 }
 
-                float hipsWeight = Owner.HipsBlendWeight * Owner._MainBlend * Owner.IsGroundedBlend * Owner.RadgolledDisablerBlend;
+                float hipsWeight = Owner.HipsBlendWeight * Owner._MainBlend * Owner.IsGroundedBlend * Owner.RagdolledDisablerBlend;
                 _Hips_LastHipsOffset = (_Hips_StepHeightAdjustOffset * Owner.baseTransform.lossyScale.y) * hipsWeight;
                 return _Hips_LastHipsOffset;
             }
@@ -370,7 +368,7 @@ namespace FIMSpace.FProceduralAnimation
                 }
 
                 stretchReAdjust = Owner.ToRootLocalSpaceVec(stretchReAdjust);
-                _reAdjustLocal = Vector3.SmoothDamp(_reAdjustLocal, stretchReAdjust, ref _sd_readj, 0.1f, float.MaxValue, Owner.DeltaTime);
+                _reAdjustLocal = Vector3.SmoothDamp(_reAdjustLocal, stretchReAdjust, ref _sd_readj, 0.1f, 10000000f, Owner.DeltaTime);
                 return _reAdjustLocal;
             }
 

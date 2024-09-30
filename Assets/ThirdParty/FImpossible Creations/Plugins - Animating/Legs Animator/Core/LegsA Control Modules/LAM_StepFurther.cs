@@ -34,7 +34,7 @@ namespace FIMSpace.FProceduralAnimation
             yNeutralVelo.y = 0f;
             yNeutralVelo = LA.RootToWorldSpaceVec(yNeutralVelo);
             
-            velo = Vector3.SmoothDamp(velo, yNeutralVelo, ref _sd_velo, 0.1f, float.MaxValue, LA.DeltaTime);
+            velo = Vector3.SmoothDamp(velo, yNeutralVelo, ref _sd_velo, 0.1f, 1000000f, LA.DeltaTime);
         }
 
         public override void Leg_LatePreRaycastingUpdate(LegsAnimator.LegsAnimatorCustomModuleHelper helper, LegsAnimator.Leg leg)
@@ -60,11 +60,11 @@ namespace FIMSpace.FProceduralAnimation
         {
             if (legsAnimator.Rigidbody == null)
             {
-                EditorGUILayout.HelpBox("This module requires rigidbody assigned inside Legs Animator!\n(Ignore this message if you're assigning 'Desired Movement Direction' through code)", MessageType.Warning);
+                EditorGUILayout.HelpBox("This module requires rigidbody assigned inside Legs Animator!\n(Ignore this message if you're assigning 'Desired Movement Direction' through code)", UnityEditor.MessageType.Warning);
                 GUILayout.Space(5);
             }
 
-            EditorGUILayout.HelpBox("Pushing leg step raycast position further or pushing hips with rigidbody velocity.", MessageType.Info);
+            EditorGUILayout.HelpBox("Pushing leg step raycast position further or pushing hips with rigidbody velocity.", UnityEditor.MessageType.Info);
             GUILayout.Space(5);
             var rotateVar = helper.RequestVariable("Predict Forward IK Offset", 0.1f);
                 rotateVar.SetMinMaxSlider(0f, 0.3f);

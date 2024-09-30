@@ -94,9 +94,15 @@ namespace FIMSpace.FProceduralAnimation
 
         protected virtual void Hips_ApplyTransformations()
         {
-            if (float.IsNaN(_LastAppliedHipsFinalPosition.x)) return;
-            if (float.IsNaN(_LastAppliedHipsFinalPosition.y)) return;
-            if (float.IsNaN(_LastAppliedHipsFinalPosition.z)) return;
+            if (float.IsNaN(_LastAppliedHipsFinalPosition.x) || float.IsNaN(_LastAppliedHipsFinalPosition.y) || float.IsNaN(_LastAppliedHipsFinalPosition.z))
+            {
+                // Reset hips if some unexepcted NaN exception occurs
+                _LastAppliedHipsFinalPosition = RootToWorldSpace(HipsSetup.InitHipsPositionRootSpace);
+
+                if (float.IsNaN(_LastAppliedHipsFinalPosition.x) || float.IsNaN(_LastAppliedHipsFinalPosition.y) || float.IsNaN(_LastAppliedHipsFinalPosition.z))
+                    // If there is still NaN, there is something wrong in the init setup, so let's just hard reset it
+                    _LastAppliedHipsFinalPosition = Vector3.zero;
+            }
 
             if (_Hips_Modules_ExtraRotOffset != Vector3.zero)
             {

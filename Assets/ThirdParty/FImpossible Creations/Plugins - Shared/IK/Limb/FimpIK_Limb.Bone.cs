@@ -35,7 +35,13 @@ namespace FIMSpace.FTools
 
             public void RefreshOrientations(Vector3 childPosition, Vector3 orientationNormal)
             {
-                Quaternion defaultTargetRotation = Quaternion.LookRotation(childPosition - transform.position, orientationNormal);
+                if (orientationNormal == Vector3.zero) return;
+
+                Vector3 dir = childPosition - transform.position;
+                dir.Normalize();
+                if (dir == Vector3.zero) return;
+
+                Quaternion defaultTargetRotation = Quaternion.LookRotation(dir, orientationNormal);
                 targetToLocalSpace = RotationToLocal(transform.rotation, defaultTargetRotation);
                 defaultLocalPoleNormal = Quaternion.Inverse(transform.rotation) * orientationNormal;
             }

@@ -169,7 +169,8 @@ namespace FIMSpace.FProceduralAnimation
                     if (leg.G_JustLanded)
                         glueAnimationBlend = Mathf.MoveTowards(glueAnimationBlend, target, Owner.DeltaTime * 3f);
 
-                    glueAnimationBlend = Mathf.SmoothDamp(glueAnimationBlend, target, ref _sd_glueAnimationBlend, Mathf.LerpUnclamped(0.2f, 0.005f, speed), float.MaxValue, Owner.DeltaTime);
+                    glueAnimationBlend = Mathf.SmoothDamp(glueAnimationBlend, target, ref _sd_glueAnimationBlend, Mathf.LerpUnclamped(0.2f, 0.005f, speed), 100000f, Owner.DeltaTime);
+                    if (float.IsNaN(_sd_glueAnimationBlend)) _sd_glueAnimationBlend = 0f;
                 }
 
             }

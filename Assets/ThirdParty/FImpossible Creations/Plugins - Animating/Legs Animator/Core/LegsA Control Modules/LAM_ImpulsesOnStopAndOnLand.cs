@@ -16,6 +16,7 @@ namespace FIMSpace.FProceduralAnimation
 
         readonly string powerMulStrN = "Power Multiplier";
         readonly string durMulStrN = "Duration Multiplier";
+        readonly string spdLandPower = "Speed Affects Land";
 
         bool lastGrounded = true;
         bool lastMoving = false;
@@ -25,6 +26,9 @@ namespace FIMSpace.FProceduralAnimation
 
         LegsAnimator.Variable _powerMulVar;
         LegsAnimator.Variable _durMulVar;
+        LegsAnimator.Variable _spdAffectsLand;
+
+        protected float customMul = 1f;
 
 
         private void Reset()
@@ -39,8 +43,9 @@ namespace FIMSpace.FProceduralAnimation
             lastGrounded = true;
             lastMoving = false;
 
-            _powerMulVar  = helper.RequestVariable(powerMulStrN, 1f);
+            _powerMulVar = helper.RequestVariable(powerMulStrN, 1f);
             _durMulVar = helper.RequestVariable(durMulStrN, 1f);
+            _spdAffectsLand = helper.RequestVariable(spdLandPower, false);
         }
 
         public override void OnUpdate(LegsAnimator.LegsAnimatorCustomModuleHelper helper)
@@ -58,7 +63,7 @@ namespace FIMSpace.FProceduralAnimation
                     if (l.IsGrounded)
                     {
                         if (lastUngroundedTime > 0.1f)
-                            l.User_AddImpulse(OnLandImpulse, _powerMulVar.GetFloat(), _durMulVar.GetFloat());
+                            Impact_OnLanding(l);
                     }
             }
 
@@ -73,12 +78,14 @@ namespace FIMSpace.FProceduralAnimation
                     if (l.IsMoving == false)
                     {
                         if (lastMovingTime > 0.3f)
-                            l.User_AddImpulse(OnStopImpulse, _powerMulVar.GetFloat(), _durMulVar.GetFloat());
+                            if (l.GroundedTime > 0.25f)
+                                Impact_OnEndsMove(l);
                     }
                     else
                     {
                         if (OnStartMoveImpulse.PowerMultiplier != 0f)
-                            l.User_AddImpulse(OnStartMoveImpulse, _powerMulVar.GetFloat(), _durMulVar.GetFloat());
+                            if (l.GroundedTime > 0.1f)
+                                Impact_OnStartMove(l);
                     }
             }
 
@@ -86,7 +93,23 @@ namespace FIMSpace.FProceduralAnimation
             lastMoving = l.IsMoving;
         }
 
+        protected virtual void Impact_OnStartMove(LegsAnimator l)
+        {
+            l.User_AddImpulse(OnStartMoveImpulse, _powerMulVar.GetFloat() * customMul, _durMulVar.GetFloat());
+        }
 
+        protected virtual void Impact_OnEndsMove(LegsAnimator l)
+        {
+            l.User_AddImpulse(OnStopImpulse, _powerMulVar.GetFloat() * customMul, _durMulVar.GetFloat());
+        }
+
+        protected virtual void Impact_OnLanding(LegsAnimator l)
+        {
+            if (_spdAffectsLand.GetBool())
+                l.User_AddImpulse(OnLandImpulse, _powerMulVar.GetFloat() * (customMul), _durMulVar.GetFloat());
+            else
+                l.User_AddImpulse(OnLandImpulse, _powerMulVar.GetFloat() * (customMul <= 0f ? 1f : customMul), _durMulVar.GetFloat());
+        }
 
         #region Editor Code
 #if UNITY_EDITOR
@@ -94,7 +117,7 @@ namespace FIMSpace.FProceduralAnimation
 
         public override void Editor_InspectorGUI(LegsAnimator legsAnimator, LegsAnimator.LegsAnimatorCustomModuleHelper helper)
         {
-            EditorGUILayout.HelpBox("Triggering hips push impulses when Legs Animator IsMoving and IsGrounded variables are changing.", MessageType.Info);
+            EditorGUILayout.HelpBox("Triggering hips push impulses when Legs Animator IsMoving and IsGrounded variables are changing.", UnityEditor.MessageType.Info);
             GUILayout.Space(4);
 
             var powerMulV = helper.RequestVariable(powerMulStrN, 1f);
@@ -104,6 +127,10 @@ namespace FIMSpace.FProceduralAnimation
             var durMulV = helper.RequestVariable(durMulStrN, 1f);
             durMulV.SetMinMaxSlider(0f, 3f);
             durMulV.Editor_DisplayVariableGUI();
+
+            var spdAffectLandPower = helper.RequestVariable(spdLandPower, false);
+            spdAffectLandPower.AssignTooltip("Is movement speed affecting landing power? If true, then landing will not add implulse on jump in place.");
+            spdAffectLandPower.Editor_DisplayVariableGUI();
 
             GUILayout.Space(4);
             if (GUILayout.Button("Go to module file for Push Impulses settings!"))
@@ -126,11 +153,11 @@ namespace FIMSpace.FProceduralAnimation
             }
 
             if (!wasWarning)
-            if (string.IsNullOrWhiteSpace(legsAnimator.MovingParameter))
-            {
+                if (string.IsNullOrWhiteSpace(legsAnimator.MovingParameter))
+                {
                     wasWarning = true;
-                UnityEditor.EditorGUILayout.HelpBox("No IsMoving parameter to detect stopping!  (Ignore this message if you set movement state through code)", UnityEditor.MessageType.Warning);
-            }
+                    UnityEditor.EditorGUILayout.HelpBox("No IsMoving parameter to detect stopping!  (Ignore this message if you set movement state through code)", UnityEditor.MessageType.Warning);
+                }
         }
 
 

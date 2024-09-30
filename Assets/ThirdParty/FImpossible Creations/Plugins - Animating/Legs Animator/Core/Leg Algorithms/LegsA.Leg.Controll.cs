@@ -50,6 +50,8 @@ namespace FIMSpace.FProceduralAnimation
             void Controll_Init()
             {
                 C_AnkleToHeelRootSpace = ToRootLocalSpace(Root.position + BoneEnd.TransformVector(AnkleToHeel));
+                ThighH.Calibrate(this, ThighH.Bone.position);
+                AnkleH.Calibrate(this, AnkleH.Bone.position);
             }
 
             Vector3 TransformVectorAnkleWithAlignedRotation(Vector3 offset)
