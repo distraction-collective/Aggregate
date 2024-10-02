@@ -101,10 +101,10 @@ Material:
     - _AmbientOcclusionPower: 0
     - _CausticsPower: 0.415
     - _Causticssize: 27.6
-    - _ColorContrast: 0.22
-    - _ColorSaturation: 0.82
+    - _ColorContrast: 0.5
+    - _ColorSaturation: 0.47
     - _Contrast: 1.6
-    - _Depth: 1.24
+    - _Depth: 1.39
     - _Depth1: 0.5
     - _DepthColorChange: 1
     - _DepthColorGradation: 2
@@ -112,7 +112,7 @@ Material:
     - _DepthGradientRadiusClose: 0.211
     - _DepthGradientRadiusFar: 1.2
     - _DepthSaturation: 0
-    - _DepthSmoothing: 0.38
+    - _DepthSmoothing: 0.494
     - _Distortion: 0.2
     - _EdgeMaskShiftpx: 3
     - _Edgemaskshift: 1
@@ -125,44 +125,44 @@ Material:
     - _FoamDepth: 0.94
     - _FoamDistortionPower: 1.41
     - _FoamFalloff: -60
-    - _FoamGradation: 7.15
+    - _FoamGradation: 6.3
     - _FoamGradation2nd: 6.48
-    - _FoamMaskDistortionPower: 1.63
-    - _FoamMaskSize: 1.89
+    - _FoamMaskDistortionPower: 1.62
+    - _FoamMaskSize: 1.84
     - _FoamPower: 4
     - _FoamSize2nd: 2
-    - _FoamSmoothness: 0.796
+    - _FoamSmoothness: 0.729
     - _FoamSpecular: 0
     - _Foamfalloff: -4
     - _GlossyReflections: 1
-    - _GradientRadiusClose: 0.728
+    - _GradientRadiusClose: 0.866
     - _GradientRadiusFar: 0.89
-    - _IntrsectionSmoothing: 0
+    - _IntrsectionSmoothing: 0.0985
     - _MaskClipValue: 0.5
-    - _NormalPower: 0.174
-    - _NormalPower2nd: 0.313
+    - _NormalPower: 0.452
+    - _NormalPower2nd: 0.251
     - _NormalScale: 0.3
     - _OpacityViewDistanceClose: 1
     - _OpacityViewDistanceFar: 1
     - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Refraction: 0.858
-    - _Refraction2nd: 0.626
-    - _RefractionDistanceFade: 0.53
+    - _Refraction: 0.744
+    - _Refraction2nd: 0.698
+    - _RefractionDistanceFade: 0.225
     - _RefractionDistanceGradation: 0.4
     - _RefractionDistortion: 0.019
     - _RefractionGradation: 0.658
-    - _RipplesSpeed: 0.1
-    - _RipplesSpeed2nd: 0.4
-    - _RoatationAnimationRadius: -0.02
-    - _RotationAnimationSpeed: 0.1
+    - _RipplesSpeed: 0.05
+    - _RipplesSpeed2nd: 0.3
+    - _RoatationAnimationRadius: 0.01
+    - _RotationAnimationSpeed: 1
     - _Saturation: 1.074
-    - _Smoothness: 0.649
+    - _Smoothness: 0.644
     - _Specular: 0.1
     - _SpecularHighlights: 1
-    - _SpeedX: 0.006
-    - _SpeedY: 0.004
+    - _SpeedX: -0.002
+    - _SpeedY: -0.004
     - _TessMax: 15
     - _TessMin: 5
     - _TessValue: 20
@@ -174,7 +174,7 @@ Material:
     - _VertexOffset: 0
     - _WaterDepth: 0.99
     - _WaterFalloff: -3.6
-    - _WaterGradientContrast: 0.411
+    - _WaterGradientContrast: 0.519
     - _WaterGradientRadiusClose: 0.216
     - _WaterGradientRadiusFar: 1.263
     - _WaterSmoothness: 0.9
@@ -187,7 +187,7 @@ Material:
     - _Color0: {r: 0, g: 0.6749488, b: 0.8088235, a: 0}
     - _Color1: {r: 0, g: 0.048731543, b: 0.22794023, a: 0}
     - _ColorClose: {r: 0.3490566, g: 0.22194731, b: 0.22194731, a: 1}
-    - _ColorFar: {r: 0.4554171, g: 0.4436454, b: 0.5849056, a: 0}
+    - _ColorFar: {r: 0.40754718, g: 0.43584907, b: 0.4528302, a: 0}
     - _DeepColor: {r: 0, g: 0.04310166, b: 0.24999821, a: 0}
     - _DepthColorClose: {r: 0, g: 0.2196079, b: 0.2627451, a: 0}
     - _DepthColorFar: {r: 0.1058824, g: 0.5686275, b: 0.7568628, a: 0}

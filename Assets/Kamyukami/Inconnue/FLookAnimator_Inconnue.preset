@@ -1,0 +1,1967 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FLookAnimator_Inconnue
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: e83668c454b4396488081147cb5c9176, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BirdMode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LagRotation
+    value: 0.85
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LagEvery
+    value: 0.285
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DelayPosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DelayMaxDistance
+    value: 0.25111
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DelayGoSpeed
+    value: 0.6
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BirdTargetPosition.x
+    value: -409.53
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BirdTargetPosition.y
+    value: 1.1482165
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BirdTargetPosition.z
+    value: -176.58
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: UseEyes
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesTarget
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LeftEye
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: InvertLeftEye
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RightEye
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: InvertRightEye
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: HeadReference
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesOffsetRotation.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesOffsetRotation.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesOffsetRotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LeftEyeOffsetRotation.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LeftEyeOffsetRotation.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LeftEyeOffsetRotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RightEyeOffsetRotation.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RightEyeOffsetRotation.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RightEyeOffsetRotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesSpeed
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesBlend
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesXRange.x
+    value: -60
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesXRange.y
+    value: 60
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesYRange.x
+    value: -50
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesYRange.y
+    value: 50
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EyesNoKeyframes
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CustomEyesLogics
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NoddingTransitions
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NodAxis.x
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NodAxis.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NodAxis.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesNod
+    value: 0.15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ParentalOffsetsV
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ParentalReferenceBone
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DestroyMomentTargetOnMaxDistance
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: OverrideRotations
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesCount
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _preBackBonesCount
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.size
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].Transform
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedStaticRotation.x
+    value: 0.6630245
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedStaticRotation.y
+    value: 0.20218116
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedStaticRotation.z
+    value: -0.13102856
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedStaticRotation.w
+    value: 0.708769
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetStaticRotation.x
+    value: 0.6630245
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetStaticRotation.y
+    value: 0.20218116
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetStaticRotation.z
+    value: -0.13102856
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetStaticRotation.w
+    value: 0.708769
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].localStaticRotation.x
+    value: -0.03206269
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].localStaticRotation.y
+    value: 0.0000009640656
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].localStaticRotation.z
+    value: 0.000000060246826
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].localStaticRotation.w
+    value: 0.9994859
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedTargetRotation.x
+    value: 0.12391225
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedTargetRotation.y
+    value: 0.38074932
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedTargetRotation.z
+    value: -0.017956072
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedTargetRotation.w
+    value: 0.91616225
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetRotation.x
+    value: 0.12391225
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetRotation.y
+    value: 0.38074932
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetRotation.z
+    value: -0.017956072
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetRotation.w
+    value: 0.91616225
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].correctionOffset.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].correctionOffset.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].correctionOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].finalRotation.x
+    value: 0.6490043
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].finalRotation.y
+    value: 0.45942461
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].finalRotation.z
+    value: -0.36016342
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].finalRotation.w
+    value: 0.48785728
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lastKeyframeRotation.x
+    value: -0.03206269
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lastKeyframeRotation.y
+    value: 0.0000009640656
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lastKeyframeRotation.z
+    value: 0.000000060246826
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lastKeyframeRotation.w
+    value: 0.9994859
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lastFinalLocalRotation.x
+    value: -0.06902239
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lastFinalLocalRotation.y
+    value: 0.055782788
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lastFinalLocalRotation.z
+    value: -0.027348446
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lastFinalLocalRotation.w
+    value: 0.99567884
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].forward.x
+    value: 0.6646978
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].forward.y
+    value: -0.74704653
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].forward.z
+    value: 0.009913951
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].right.x
+    value: 0.7425582
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].right.y
+    value: -0.6591254
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].right.z
+    value: -0.119000345
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].up.x
+    value: -0.08236403
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].up.y
+    value: 0.08646062
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].up.z
+    value: 0.9928448
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].initLocalPos.x
+    value: 2.2351741e-10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].initLocalPos.y
+    value: 0.0019723473
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].initLocalPos.z
+    value: -0.000024545305
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].initLocalRot.x
+    value: -0.03206269
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].initLocalRot.y
+    value: 0.0000009640656
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].initLocalRot.z
+    value: 0.000000060246826
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].initLocalRot.w
+    value: 0.9994859
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].targetDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].animatedDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lookWeight
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].lookWeightB
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[0].motionWeight
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].Transform
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedStaticRotation.x
+    value: 0.6854085
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedStaticRotation.y
+    value: 0.19787544
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedStaticRotation.z
+    value: -0.13744429
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedStaticRotation.w
+    value: 0.6871464
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetStaticRotation.x
+    value: 0.6854085
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetStaticRotation.y
+    value: 0.19787544
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetStaticRotation.z
+    value: -0.13744429
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetStaticRotation.w
+    value: 0.6871464
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].localStaticRotation.x
+    value: 0.13683401
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].localStaticRotation.y
+    value: -0.061966974
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].localStaticRotation.z
+    value: 0.124168485
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].localStaticRotation.w
+    value: 0.98082554
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedTargetRotation.x
+    value: 0.047099367
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedTargetRotation.y
+    value: 0.18304493
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedTargetRotation.z
+    value: -0.04347448
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedTargetRotation.w
+    value: 0.9810129
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetRotation.x
+    value: 0.047099367
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetRotation.y
+    value: 0.18304493
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetRotation.z
+    value: -0.04347448
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetRotation.w
+    value: 0.9810129
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].correctionOffset.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].correctionOffset.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].correctionOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].finalRotation.x
+    value: 0.68820256
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].finalRotation.y
+    value: 0.29657272
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].finalRotation.z
+    value: -0.28084862
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].finalRotation.w
+    value: 0.59962165
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lastKeyframeRotation.x
+    value: 0.13683401
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lastKeyframeRotation.y
+    value: -0.061966974
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lastKeyframeRotation.z
+    value: 0.124168485
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lastKeyframeRotation.w
+    value: 0.98082554
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lastFinalLocalRotation.x
+    value: 0.22208042
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lastFinalLocalRotation.y
+    value: -0.039476786
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lastFinalLocalRotation.z
+    value: -0.049440037
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lastFinalLocalRotation.w
+    value: 0.97297364
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].forward.x
+    value: 0.66469795
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].forward.y
+    value: -0.74614596
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].forward.z
+    value: -0.037985295
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].right.x
+    value: 0.7425583
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].right.y
+    value: -0.6653973
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].right.z
+    value: -0.07650932
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].up.x
+    value: -0.0823621
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].up.y
+    value: 0.022649115
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].up.z
+    value: 0.9963452
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].initLocalPos.x
+    value: -0.00002750203
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].initLocalPos.y
+    value: 0.0028671678
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].initLocalPos.z
+    value: -0.00003034249
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].initLocalRot.x
+    value: 0.13683401
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].initLocalRot.y
+    value: -0.061966974
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].initLocalRot.z
+    value: 0.124168485
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].initLocalRot.w
+    value: 0.98082554
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].targetDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].animatedDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lookWeight
+    value: 0.461899
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].lookWeightB
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[1].motionWeight
+    value: 0.461899
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].Transform
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedStaticRotation.x
+    value: 0.56218827
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedStaticRotation.y
+    value: 0.34057492
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedStaticRotation.z
+    value: -0.15058202
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedStaticRotation.w
+    value: 0.73843
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetStaticRotation.x
+    value: 0.56218827
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetStaticRotation.y
+    value: 0.34057492
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetStaticRotation.z
+    value: -0.15058202
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetStaticRotation.w
+    value: 0.73843
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].localStaticRotation.x
+    value: 0.072071776
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].localStaticRotation.y
+    value: -0.14954403
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].localStaticRotation.z
+    value: -0.16818523
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].localStaticRotation.w
+    value: 0.9716769
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedTargetRotation.x
+    value: 0.03273071
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedTargetRotation.y
+    value: 0.11195622
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedTargetRotation.z
+    value: -0.028418928
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedTargetRotation.w
+    value: 0.9927673
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetRotation.x
+    value: 0.03273071
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetRotation.y
+    value: 0.11195622
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetRotation.z
+    value: -0.028418928
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetRotation.w
+    value: 0.9927673
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].correctionOffset.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].correctionOffset.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].correctionOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].finalRotation.x
+    value: 0.57511145
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].finalRotation.y
+    value: 0.40973517
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].finalRotation.z
+    value: -0.22227143
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].finalRotation.w
+    value: 0.67227924
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lastKeyframeRotation.x
+    value: 0.072071776
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lastKeyframeRotation.y
+    value: -0.14954403
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lastKeyframeRotation.z
+    value: -0.16818523
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lastKeyframeRotation.w
+    value: 0.9716769
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lastFinalLocalRotation.x
+    value: 0.1510533
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lastFinalLocalRotation.y
+    value: -0.11741442
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lastFinalLocalRotation.z
+    value: -0.24996693
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lastFinalLocalRotation.w
+    value: 0.9491645
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].forward.x
+    value: 0.8301664
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].forward.y
+    value: -0.55534595
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].forward.z
+    value: 0.049141377
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].right.x
+    value: 0.5338998
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].right.y
+    value: -0.76652414
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].right.z
+    value: -0.35691983
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].up.x
+    value: -0.16054554
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].up.y
+    value: 0.3225394
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].up.z
+    value: 0.9328416
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].initLocalPos.x
+    value: -0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].initLocalPos.y
+    value: 0.002235962
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].initLocalPos.z
+    value: -0.0000030549616
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].initLocalRot.x
+    value: 0.072071776
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].initLocalRot.y
+    value: -0.14954403
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].initLocalRot.z
+    value: -0.16818523
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].initLocalRot.w
+    value: 0.9716769
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].targetDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].animatedDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lookWeight
+    value: 0.3013019
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].lookWeightB
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[2].motionWeight
+    value: 0.3013019
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].Transform
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedStaticRotation.x
+    value: 0.5728437
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedStaticRotation.y
+    value: 0.35765746
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedStaticRotation.z
+    value: 0.08649369
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedStaticRotation.w
+    value: 0.73242795
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetStaticRotation.x
+    value: 0.5728437
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetStaticRotation.y
+    value: 0.35765746
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetStaticRotation.z
+    value: 0.08649369
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetStaticRotation.w
+    value: 0.73242795
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].localStaticRotation.x
+    value: 0.089426085
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].localStaticRotation.y
+    value: 0.00718863
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].localStaticRotation.z
+    value: -0.05037483
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].localStaticRotation.w
+    value: 0.99469274
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedTargetRotation.x
+    value: 0.019103253
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedTargetRotation.y
+    value: 0.050083373
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedTargetRotation.z
+    value: -0.012814864
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedTargetRotation.w
+    value: 0.99848014
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetRotation.x
+    value: 0.019103253
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetRotation.y
+    value: 0.050083373
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetRotation.z
+    value: -0.012814864
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetRotation.w
+    value: 0.99848014
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].correctionOffset.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].correctionOffset.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].correctionOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].finalRotation.x
+    value: 0.59487975
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].finalRotation.y
+    value: 0.38480297
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].finalRotation.z
+    value: 0.05511873
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].finalRotation.w
+    value: 0.7035671
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lastKeyframeRotation.x
+    value: 0.089426085
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lastKeyframeRotation.y
+    value: 0.00718863
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lastKeyframeRotation.z
+    value: -0.05037483
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lastKeyframeRotation.w
+    value: 0.99469274
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lastFinalLocalRotation.x
+    value: 0.13560446
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lastFinalLocalRotation.y
+    value: 0.017636504
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lastFinalLocalRotation.z
+    value: -0.07771028
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lastFinalLocalRotation.w
+    value: 0.9875533
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].forward.x
+    value: 0.5920035
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].forward.y
+    value: -0.8029777
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].forward.z
+    value: -0.06898442
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].right.x
+    value: 0.60144657
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].right.y
+    value: -0.4971499
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].right.z
+    value: -0.6253831
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].up.x
+    value: -0.536464
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].up.y
+    value: 0.3287385
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].up.z
+    value: 0.7772628
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].initLocalPos.x
+    value: -5.0291415e-10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].initLocalPos.y
+    value: 0.0022362438
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].initLocalPos.z
+    value: -7.4505804e-11
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].initLocalRot.x
+    value: 0.089426085
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].initLocalRot.y
+    value: 0.00718863
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].initLocalRot.z
+    value: -0.05037483
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].initLocalRot.w
+    value: 0.99469274
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].targetDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].animatedDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lookWeight
+    value: 0.1366898
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].lookWeightB
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[3].motionWeight
+    value: 0.1366898
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].Transform
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedStaticRotation.x
+    value: 0.5229439
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedStaticRotation.y
+    value: 0.3139024
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedStaticRotation.z
+    value: 0.15079647
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedStaticRotation.w
+    value: 0.7779818
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetStaticRotation.x
+    value: 0.5229439
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetStaticRotation.y
+    value: 0.3139024
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetStaticRotation.z
+    value: 0.15079647
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetStaticRotation.w
+    value: 0.7779818
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].localStaticRotation.x
+    value: 0.051916145
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].localStaticRotation.y
+    value: -0.044986274
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].localStaticRotation.z
+    value: 0.006349987
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].localStaticRotation.w
+    value: 0.9976175
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedTargetRotation.x
+    value: 0.010107101
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedTargetRotation.y
+    value: 0.025394196
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedTargetRotation.z
+    value: -0.0064247665
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedTargetRotation.w
+    value: 0.99960583
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetRotation.x
+    value: 0.010107101
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetRotation.y
+    value: 0.025394196
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetRotation.z
+    value: -0.0064247665
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetRotation.w
+    value: 0.99960583
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].correctionOffset.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].correctionOffset.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].correctionOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].finalRotation.x
+    value: 0.5364469
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].finalRotation.y
+    value: 0.3286509
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].finalRotation.z
+    value: 0.13563156
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].finalRotation.w
+    value: 0.76538706
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lastKeyframeRotation.x
+    value: 0.051916145
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lastKeyframeRotation.y
+    value: -0.044986274
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lastKeyframeRotation.z
+    value: 0.006349987
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lastKeyframeRotation.w
+    value: 0.9976175
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lastFinalLocalRotation.x
+    value: 0.07648099
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lastFinalLocalRotation.y
+    value: -0.038673423
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lastFinalLocalRotation.z
+    value: -0.005626828
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lastFinalLocalRotation.w
+    value: 0.9963049
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].forward.x
+    value: 0.50780004
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].forward.y
+    value: -0.85694844
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].forward.z
+    value: 0.08819646
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].right.x
+    value: 0.652102
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].right.y
+    value: -0.31546426
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].right.z
+    value: -0.68938035
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].up.x
+    value: -0.5629403
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].up.y
+    value: 0.4075805
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].up.z
+    value: 0.7190107
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].initLocalPos.x
+    value: -0.000012657162
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].initLocalPos.y
+    value: 0.004628791
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].initLocalPos.z
+    value: 0.000043408647
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].initLocalRot.x
+    value: 0.051916145
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].initLocalRot.y
+    value: -0.044986274
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].initLocalRot.z
+    value: 0.006349987
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].initLocalRot.w
+    value: 0.9976175
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].targetDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedDelayPosition.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedDelayPosition.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].animatedDelayPosition.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lookWeight
+    value: 0.070844956
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].lookWeightB
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookBones.Array.data[4].motionWeight
+    value: 0.070844956
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NoTargetHeadStops
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _editor_hideEyes
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _editor_displayName
+    value: Look Animator 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _Editor_Category
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _gizmosDrawMaxDist
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: gizmosAlpha
+    value: 0.85
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: drawGizmos
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _gizmosDrawingGuides
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LeadBone
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BaseTransform
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FaloffValue
+    value: 0.08623488
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FaloffValueB
+    value: 1.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BigAngleAutomation
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BigAngleAutomationCompensation
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AutoBackbonesWeights
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CurveSpread
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[0].time
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[0].value
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[0].inSlope
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[0].outSlope
+    value: -0.9
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[0].tangentMode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[0].weightedMode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[0].inWeight
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[0].outWeight
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[1].time
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[1].value
+    value: 0.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[1].inSlope
+    value: -0.9
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[1].outSlope
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[1].tangentMode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[1].weightedMode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[1].inWeight
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_Curve.Array.data[1].outWeight
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_PreInfinity
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_PostInfinity
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesFalloff.m_RotationOrder
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CompensationBones.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CompensationBones.Array.data[0].Transform
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CompensationBones.Array.data[1].Transform
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CompensationWeight
+    value: 0.349
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CompensationWeightB
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CompensatePositions
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: CompensatePositionsB
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: StartAfterTPose
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AnimatePhysics
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: OptimizeWithMesh
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ObjectToFollow
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FollowOffset.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FollowOffset.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FollowOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FollowMode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RotationSpeed
+    value: 0.337
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: UltraSmoother
+    value: 0.449
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: StopLookingAbove
+    value: 126.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: StopLookingAboveFactor
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ChangeTargetSmoothing
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AdvancedFalloff
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: MaximumDistance
+    value: 21.57
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: HoldRotateToOppositeUntil
+    value: 28.450142
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: MaxOutDistanceFactor
+    value: 0.402
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: Distance2D
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DistanceMeasurePoint.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DistanceMeasurePoint.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DistanceMeasurePoint.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookWhenAbove
+    value: 0.102319226
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookWhenAboveVertical
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: WhenAboveGoBackAfter
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: WhenAboveGoBackAfterVertical
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: WhenAboveGoBackDuration
+    value: 0.2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: StartLookElasticRangeX
+    value: 5.150875
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: StartLookElasticRangeY
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: XRotationLimits.x
+    value: -77.973404
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: XRotationLimits.y
+    value: 121.505356
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: XElasticRange
+    value: 6.3292384
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LimitHolder
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: YRotationLimits.x
+    value: -9.502725
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: YRotationLimits.y
+    value: 43.348663
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: YElasticRange
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookAnimatorAmount
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: StartLookPointOffset.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: StartLookPointOffset.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: StartLookPointOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AnchorStartLookPoint
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RefreshStartLookPoint
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: SyncWithAnimator
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: MonitorAnimator
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: WeightsMultiplier
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: MaxRotationSpeed
+    value: 2.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BaseRotationCompensation
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DetectZeroKeyframes
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LookAtPositionSmoother
+    value: 0.273
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DeltaType
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: SimulationSpeed
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: OverrideHeadForPerfectLookDirection
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: Calibration
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FixingPreset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ModelForwardAxis.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ModelForwardAxis.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ModelForwardAxis.z
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ModelUpAxis.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ModelUpAxis.y
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ModelUpAxis.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ManualFromAxis.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ManualFromAxis.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ManualFromAxis.z
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ManualToAxis.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ManualToAxis.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ManualToAxis.z
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FromAuto.x
+    value: -0.11900017
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FromAuto.y
+    value: 0.99284554
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FromAuto.z
+    value: -0.009913087
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: OffsetAuto.x
+    value: 40.35387
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: OffsetAuto.y
+    value: 52.64986
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: OffsetAuto.z
+    value: 95.685326
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: parentalReferenceLookForward.x
+    value: -0.6646985
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: parentalReferenceLookForward.y
+    value: 0.7461465
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: parentalReferenceLookForward.z
+    value: -0.0379861
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: parentalReferenceUp.x
+    value: 0.082362354
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: parentalReferenceUp.y
+    value: 0.022648409
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: parentalReferenceUp.z
+    value: -0.9963458
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DynamicReferenceUp.x
+    value: 0.09403937
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DynamicReferenceUp.y
+    value: 0.2698776
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DynamicReferenceUp.z
+    value: -0.95829153
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RotationOffset.x
+    value: 3.7
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RotationOffset.y
+    value: -51.71
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RotationOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesAddOffset.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesAddOffset.y
+    value: -8.98
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BackBonesAddOffset.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RotCorrectionMultiplier.x
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RotCorrectionMultiplier.y
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RotCorrectionMultiplier.z
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: DebugRays
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AnimationStyle
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ConstantParentalAxisUpdate
+    value: 1
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []

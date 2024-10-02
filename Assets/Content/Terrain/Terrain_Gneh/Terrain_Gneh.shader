@@ -473,7 +473,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.texcoord.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 				o.ase_texcoord8.xy = v.texcoord.xy;
 				
@@ -1265,7 +1265,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.ase_texcoord.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -1634,7 +1634,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.ase_texcoord.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -2026,7 +2026,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.texcoord0.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 				o.ase_texcoord4.xy = v.texcoord0.xy;
 				
@@ -2510,7 +2510,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.ase_texcoord.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 				o.ase_texcoord2.xy = v.ase_texcoord.xy;
 				
@@ -2989,7 +2989,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.ase_texcoord.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 				o.ase_texcoord5.xy = v.ase_texcoord.xy;
 				
@@ -3555,7 +3555,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.texcoord.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 				o.ase_texcoord8.xy = v.texcoord.xy;
 				
@@ -4196,7 +4196,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.ase_texcoord.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -4504,7 +4504,7 @@ Shader "Terrain_Gneh"
 				v = ApplyMeshModification(v);
 				float2 uv_struggle_map = v.ase_texcoord.xy * _struggle_map_ST.xy + _struggle_map_ST.zw;
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D_LOD( _struggle_map, sampler_struggle_map, uv_struggle_map, 0.0 ).g );
-				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.2 ) , 0.0));
+				float3 appendResult224 = (float3(0.0 , ( temp_output_159_0 * 0.0 ) , 0.0));
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -4762,7 +4762,7 @@ Node;AmplifyShaderEditor.SimpleMultiplyOpNode;231;1778.744,4167.408;Inherit;Fals
 Node;AmplifyShaderEditor.TextureCoordinatesNode;192;1937.948,4169.648;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;50,50;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.Vector2Node;230;1551.557,4178.655;Inherit;False;Constant;_Vector2;Vector 0;27;0;Create;True;0;0;0;False;0;False;50,50;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
 Node;AmplifyShaderEditor.DynamicAppendNode;177;1757.832,3772.177;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.TexturePropertyNode;211;1213.808,3386.169;Inherit;True;Property;_Noise_Emission;Noise_Emission;26;0;Create;True;1;;0;0;False;0;False;b4e1e739d65ec7f41bc99511a1f33bcf;b4e1e739d65ec7f41bc99511a1f33bcf;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
+Node;AmplifyShaderEditor.TexturePropertyNode;211;1213.808,3386.169;Inherit;True;Property;_Noise_Emission;Noise_Emission;26;0;Create;True;1;;0;0;False;0;False;b4e1e739d65ec7f41bc99511a1f33bcf;d9a770fddc0276740b642075488dc8ac;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.RangedFloatNode;153;4116.292,1981.318;Float;False;Property;_AmbiantOcclusion0;AmbiantOcclusion0;19;1;[HideInInspector];Create;True;0;0;0;False;0;False;0.3318382;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.DynamicAppendNode;224;4393.258,1596.307;Inherit;False;FLOAT3;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.SamplerNode;154;3420.615,1561.947;Inherit;True;Property;_struggle_map;struggle_map;23;1;[HideInInspector];Create;True;0;0;0;False;0;False;-1;3654a761a141e7b418559a041ad907f5;3654a761a141e7b418559a041ad907f5;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -4770,12 +4770,12 @@ Node;AmplifyShaderEditor.OneMinusNode;159;3713.115,1612.147;Inherit;False;1;0;FL
 Node;AmplifyShaderEditor.SimpleAddOpNode;206;3014.05,3923.97;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;202;3200.797,3846.163;Inherit;False;noisepath;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;234;3981.253,1525.173;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;235;3221.614,1237.904;Inherit;False;Property;_Emission;Emission;25;1;[HDR];Create;True;0;0;0;False;0;False;7.975868,7.780234,7.780234,0;7.975868,7.780234,7.780234,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.RangedFloatNode;201;927.1849,4038.109;Inherit;False;Property;_AnimationSpeed;AnimationSpeed;24;0;Create;True;0;0;0;False;0;False;0;0.2;0;2;0;1;FLOAT;0
+Node;AmplifyShaderEditor.ColorNode;235;3221.614,1237.904;Inherit;False;Property;_Emission;Emission;25;1;[HDR];Create;True;0;0;0;False;0;False;7.975868,7.780234,7.780234,0;2.118547,2.118547,2.118547,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.RangedFloatNode;201;927.1849,4038.109;Inherit;False;Property;_AnimationSpeed;AnimationSpeed;24;0;Create;True;0;0;0;False;0;False;0;0.157;0;2;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;163;3766.436,1035.933;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;205;3543.504,1163.209;Inherit;False;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ClampOpNode;237;3755.62,1720.155;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0.2;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;223;3980.736,1664.356;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.2;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;223;3980.736,1663.356;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 WireConnection;52;0;51;0
 WireConnection;52;1;53;0
 WireConnection;83;0;33;1
@@ -4905,4 +4905,4 @@ WireConnection;205;1;235;0
 WireConnection;237;0;203;0
 WireConnection;223;0;159;0
 ASEEND*/
-//CHKSM=F6A323751BE8DF6C19CFA28E36EB339E51131C9B
+//CHKSM=F357A095534BD73892DA8643A018B18F5907C131

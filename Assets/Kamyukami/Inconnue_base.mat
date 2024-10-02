@@ -8,21 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Inconnue_base
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 987322a918220fa4aafe772158e2c344, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _DETAIL_MULX2
-  - _METALLICSPECGLOSSMAP
-  - _NORMALMAP
-  - _SPECULAR_SETUP
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -68,6 +63,26 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_3ff5c79775f241b09a2037d90d37347a_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 3e415f1e4a6cdd84ba8fee8e70eeeff4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_972c652510bb44339e5c7c76c990434f_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 195d43c771dd20d47a518bf6c9583a91, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ab6d8a51b0764f66899c475ecf473d1a_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 144246007b56d1145a56ee1fdcd35e3c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ea3bd48b9ccf4f5180a7c82a87e9126b_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 8ce02eb05208d1b44bd7a50aa073e256, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ec9cc445964c4ebe8935ff9e1037040b_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 7fba941244f6afe47830c34e24ca57ff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 2800000, guid: 8ce02eb05208d1b44bd7a50aa073e256, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -104,10 +119,14 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
+    - _Normal_1: 1
+    - _Normal_2: 0.1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _ScaleSecondNormal: 8
     - _Smoothness: 0.129
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
