@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -12,25 +13,20 @@ public class TerrainColor : MonoBehaviour {
   [Tooltip("How strong does walking on brambles clears them out")]
   [Range(0f, 1f)]
   public float clear_force = 1f;
+  private string path =
+      Path.Combine(Application.dataPath,
+                   "Scripts/Controller/struggle_map_with_landmarks.png");
 
   void Start() {
-    // HACK uses raycast to detect safe zones. A render texture would be
-    // trickier but much more performant.
-    Color[] pixels = struggle_map.GetPixels();
-    int size = struggle_map.width;
-    for (int i = 0; i < pixels.Length; i++) {
-      int u = i % size;
-      int v = i / size;
-      float dx = (float)u / size * Terrain.activeTerrain.terrainData.size.x;
-      float dz = (float)v / size * Terrain.activeTerrain.terrainData.size.z;
-      RaycastHit[] hits = Physics.RaycastAll(
-          Terrain.activeTerrain.transform.position + new Vector3(dx, 100f, dz),
-          Vector3.down, Mathf.Infinity);
-      bool over_safe = hits.Any(hit => hit.collider.CompareTag("Safe"));
-      pixels[i] = over_safe ? Color.yellow : Color.black;
+    Debug.Log("start");
+    if (!File.Exists(path)) {
+      Debug.LogError(
+          $"File {path} not found. Make sure you compute the safe landmarks!");
+      return;
     }
-    struggle_map.SetPixels(pixels);
-    struggle_map.Apply();
+    byte[] fileData = File.ReadAllBytes(path);
+    bool ok = struggle_map.LoadImage(fileData);
+    Debug.Log(ok);
   }
 
   void Update() {
@@ -48,5 +44,28 @@ public class TerrainColor : MonoBehaviour {
     int u = (int)(dx / terrain.terrainData.size.x * struggle_map.width);
     int v = (int)(dz / terrain.terrainData.size.z * struggle_map.height);
     return (u, v);
+  }
+
+  [ContextMenu("Compute safe landmarks")]
+  public void ComputeSafeLandmarks() {
+    Debug.Log("Computing safe landmarks...");
+    Color[] pixels = struggle_map.GetPixels();
+    int size = struggle_map.width;
+    for (int i = 0; i < pixels.Length; i++) {
+      int u = i % size;
+      int v = i / size;
+      float dx = (float)u / size * Terrain.activeTerrain.terrainData.size.x;
+      float dz = (float)v / size * Terrain.activeTerrain.terrainData.size.z;
+      RaycastHit[] hits = Physics.RaycastAll(
+          Terrain.activeTerrain.transform.position + new Vector3(dx, 1000f, dz),
+          Vector3.down, Mathf.Infinity);
+      bool over_safe = hits.Any(hit => hit.collider.CompareTag("Safe"));
+      pixels[i] = over_safe ? Color.yellow : Color.black;
+    }
+    struggle_map.SetPixels(pixels);
+    struggle_map.Apply();
+    byte[] fileData = struggle_map.EncodeToPNG();
+    File.WriteAllBytes(path, fileData);
+    Debug.Log($"Saved safe landmarks to {path}");
   }
 }
