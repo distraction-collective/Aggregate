@@ -101,8 +101,8 @@ Material:
     - _AmbientOcclusionPower: 0
     - _CausticsPower: 0.415
     - _Causticssize: 27.6
-    - _ColorContrast: 0.5
-    - _ColorSaturation: 0.47
+    - _ColorContrast: 0.63
+    - _ColorSaturation: 0.519
     - _Contrast: 1.6
     - _Depth: 1.39
     - _Depth1: 0.5
@@ -135,7 +135,7 @@ Material:
     - _FoamSpecular: 0
     - _Foamfalloff: -4
     - _GlossyReflections: 1
-    - _GradientRadiusClose: 0.866
+    - _GradientRadiusClose: 0.915
     - _GradientRadiusFar: 0.89
     - _IntrsectionSmoothing: 0.0985
     - _MaskClipValue: 0.5
@@ -174,7 +174,7 @@ Material:
     - _VertexOffset: 0
     - _WaterDepth: 0.99
     - _WaterFalloff: -3.6
-    - _WaterGradientContrast: 0.519
+    - _WaterGradientContrast: 0.592
     - _WaterGradientRadiusClose: 0.216
     - _WaterGradientRadiusFar: 1.263
     - _WaterSmoothness: 0.9
