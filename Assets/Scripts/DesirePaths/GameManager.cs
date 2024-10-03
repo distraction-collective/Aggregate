@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace DesirePaths {
 /// <summary>
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour {
   private Narration.NarrationManager _narrationManager;
   [Header("Input")]
   public InputAction pauseAction;
+  public InputAction restartAction;
+  public InputAction quitAction;
 
   public static GameStateEvent OnGameStateChanged = new GameStateEvent();
 
@@ -58,6 +61,10 @@ public class GameManager : MonoBehaviour {
 
     pauseAction.performed += PauseOrResume;
     pauseAction.Enable();
+    restartAction.performed += Restart;
+    restartAction.Enable();
+    quitAction.performed += Quit;
+    quitAction.Enable();
 
     SetState(GameState.Play);
   }
@@ -69,6 +76,12 @@ public class GameManager : MonoBehaviour {
       SetState(GameState.Play);
     }
   }
+
+  void Restart(InputAction.CallbackContext context) {
+    SceneManager.LoadScene("Main");
+  }
+
+  void Quit(InputAction.CallbackContext context) { Application.Quit(); }
 
   private void OnDisable() {
     SubscribeToMenuEvents(false);
