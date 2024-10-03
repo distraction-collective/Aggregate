@@ -61,7 +61,7 @@ public class TerrainColor : MonoBehaviour {
           Terrain.activeTerrain.transform.position + new Vector3(dx, 1000f, dz),
           Vector3.down, Mathf.Infinity);
       bool over_safe = hits.Any(hit => hit.collider.CompareTag("Safe"));
-      pixels[i] = over_safe ? Color.yellow : Color.black;
+      pixels[i] = over_safe ? Color.blue : Color.black;
     }
     struggle_map.SetPixels(pixels);
     struggle_map.Apply();
