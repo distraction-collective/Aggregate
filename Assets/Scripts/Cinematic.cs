@@ -9,6 +9,7 @@ using UnityEngine.Playables;
 public class Cinematic : MonoBehaviour {
   public ThirdPersonController player;
   public PlayerHealth health;
+  public GameObject respawnAt;
   private SkinnedMeshRenderer[] skinnedMeshRenderers =>
       player.GetComponentsInChildren<SkinnedMeshRenderer>();
   private ParticleSystemRenderer[] particleSystemRenderers =>
@@ -38,7 +39,20 @@ public class Cinematic : MonoBehaviour {
   }
 
   private void OnAnimationEnd(PlayableDirector _) {
-    // restore the player
+    // restore the player at a new respawn point
+    Vector3 pos = respawnAt.transform.position;
+    Quaternion rot = respawnAt.transform.rotation;
+    health.respawn_position = pos;
+    health.respawn_rotation = rot;
+    player.transform.position = pos;
+    player.transform.rotation = rot;
+    if (health == null) {
+      Debug.LogError("health is null");
+    }
+    if (health._puppetMaster == null) {
+      Debug.LogError("puppet master is null");
+    }
+    health._puppetMaster.Teleport(pos, rot, true);
     player.enabled = true;
     foreach (var r in skinnedMeshRenderers) {
       r.enabled = true;
@@ -46,7 +60,5 @@ public class Cinematic : MonoBehaviour {
     foreach (var r in particleSystemRenderers) {
       r.enabled = true;
     }
-    health.respawn_position = player.transform.position;
-    health.respawn_rotation = player.transform.rotation;
   }
 }
