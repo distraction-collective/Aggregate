@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour {
   public static GameStateEvent OnGameStateChanged = new GameStateEvent();
 
   public enum GameState { Play, Pause, Init }
-  [SerializeField] private GameState _currentState = GameState.Init;
+  [SerializeField]
+  private GameState _currentState = GameState.Init;
 
   PlayerDeathEvent PlayerDeathEvent => _playerHealth.PlayerDeathEvent;
   UnityAction UpdateNarration => _narrationManager.UpdateNarrationAction;
@@ -54,18 +55,17 @@ public class GameManager : MonoBehaviour {
     SubscribeToPlayerDeathEvents(true);
     BindNarrationCallbacks(true);
     SubscribeToMenuEvents(true);
-    
+
     pauseAction.performed += PauseOrResume;
     pauseAction.Enable();
-    
+
     SetState(GameState.Play);
   }
-  
+
   void PauseOrResume(InputAction.CallbackContext context) {
     if (isPlaying) {
       SetState(GameState.Pause);
-    } else
-    {
+    } else {
       SetState(GameState.Play);
     }
   }
@@ -77,33 +77,36 @@ public class GameManager : MonoBehaviour {
   }
 
   void SetState(GameState newState) {
-    if (newState == _currentState) return;
-    if (OnGameStateChanged != null) OnGameStateChanged.Invoke(newState);
+    if (newState == _currentState)
+      return;
+    if (OnGameStateChanged != null)
+      OnGameStateChanged.Invoke(newState);
     switch (newState) {
-      case GameState.Play:
-        if(_currentState == GameState.Pause) UnPauseGame();
-        _currentState = newState;
-        return;
-      case GameState.Pause:
-        _currentState = newState;
-        PauseGame();
-        return;
-      case GameState.Init:
-        _currentState = newState;
-        return;
+    case GameState.Play:
+      if (_currentState == GameState.Pause)
+        UnPauseGame();
+      _currentState = newState;
+      return;
+    case GameState.Pause:
+      _currentState = newState;
+      PauseGame();
+      return;
+    case GameState.Init:
+      _currentState = newState;
+      return;
     }
   }
 
-  void PauseGame()
-  {
-    Tools.PostProcessSwitcher.SwitchPP.Invoke(DesirePaths.Tools.PostProcessSwitcher.PostProcessType.MENU, true);
+  void PauseGame() {
+    Tools.PostProcessSwitcher.SwitchPP.Invoke(
+        DesirePaths.Tools.PostProcessSwitcher.PostProcessType.MENU, true);
     Tools.CameraSwitcher.ToggleCameraMovement.Invoke(false);
     Time.timeScale = 0f;
   }
 
-  void UnPauseGame()
-  {
-    Tools.PostProcessSwitcher.SwitchPP.Invoke(DesirePaths.Tools.PostProcessSwitcher.PostProcessType.MENU, false);
+  void UnPauseGame() {
+    Tools.PostProcessSwitcher.SwitchPP.Invoke(
+        DesirePaths.Tools.PostProcessSwitcher.PostProcessType.MENU, false);
     Tools.CameraSwitcher.ToggleCameraMovement.Invoke(true);
     Time.timeScale = 1f;
   }
@@ -126,14 +129,10 @@ public class GameManager : MonoBehaviour {
     }
   }
 
-  private void SubscribeToMenuEvents(bool subscribe)
-  {
-    if (subscribe)
-    {
+  private void SubscribeToMenuEvents(bool subscribe) {
+    if (subscribe) {
       PauseMenu.OnResumeButtonPressed.AddListener(delegate { UnPauseGame(); });
-    }
-    else
-    {
+    } else {
       PauseMenu.OnResumeButtonPressed.RemoveAllListeners();
     }
   }
