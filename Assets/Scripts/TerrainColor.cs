@@ -18,7 +18,6 @@ public class TerrainColor : MonoBehaviour {
                    "Scripts/Controller/struggle_map_with_landmarks.png");
 
   void Start() {
-    Debug.Log("start");
     if (!File.Exists(path)) {
       Debug.LogError(
           $"File {path} not found. Make sure you compute the safe landmarks!");
@@ -26,7 +25,11 @@ public class TerrainColor : MonoBehaviour {
     }
     byte[] fileData = File.ReadAllBytes(path);
     bool ok = struggle_map.LoadImage(fileData);
-    Debug.Log(ok);
+    if (!ok) {
+      Debug.LogError(
+          $"Could not load cached safe landmarks. Computing now, this might take ~10s. For faster game startup, investigate why {path} was not loaded into the struggle_map texture.");
+      ComputeSafeLandmarks();
+    }
   }
 
   void Update() {
@@ -46,9 +49,7 @@ public class TerrainColor : MonoBehaviour {
     return (u, v);
   }
 
-  [ContextMenu("Compute safe landmarks")]
-  public void ComputeSafeLandmarks() {
-    Debug.Log("Computing safe landmarks...");
+  private void ComputeSafeLandmarks() {
     Color[] pixels = struggle_map.GetPixels();
     int size = struggle_map.width;
     for (int i = 0; i < pixels.Length; i++) {
@@ -64,6 +65,12 @@ public class TerrainColor : MonoBehaviour {
     }
     struggle_map.SetPixels(pixels);
     struggle_map.Apply();
+  }
+
+  [ContextMenu("Compute and save safe landmarks")]
+  public void ComputeAndSaveSafeLandmarks() {
+    Debug.Log("Computing safe landmarks...");
+    ComputeSafeLandmarks();
     byte[] fileData = struggle_map.EncodeToPNG();
     File.WriteAllBytes(path, fileData);
     Debug.Log($"Saved safe landmarks to {path}");
