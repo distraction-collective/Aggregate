@@ -23238,6 +23238,8 @@ PlayableDirector:
     value: {fileID: 1794572756157085289}
   - key: {fileID: -2555752036600424422, guid: 7d1eadd6848d1bc438b89075f79be023, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 4482265102965880781, guid: 7d1eadd6848d1bc438b89075f79be023, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - bd380c7aad45ad642acde7890676f2e9: {fileID: 3660555217824329293}
@@ -23258,6 +23260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  health: {fileID: 0}
 --- !u!1 &9106875506132050574
 GameObject:
   m_ObjectHideFlags: 0
@@ -25760,6 +25763,14 @@ PrefabInstance:
     - target: {fileID: -5159060017211757231, guid: 5a13f2fcf2e92ca4cbf9825d7778db3d, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5159060017211757231, guid: 5a13f2fcf2e92ca4cbf9825d7778db3d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5159060017211757231, guid: 5a13f2fcf2e92ca4cbf9825d7778db3d, type: 3}
+      propertyPath: m_TagString
+      value: Safe
       objectReference: {fileID: 0}
     - target: {fileID: -4324698490136837474, guid: 5a13f2fcf2e92ca4cbf9825d7778db3d, type: 3}
       propertyPath: m_Layer
