@@ -166,7 +166,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Intensity: 1
+    - _Intensity: 0.463
     - _Metallic: 0.797
     - _NormalInfluence: 1
     - _OcclusionStrength: 1
@@ -201,9 +201,9 @@ Material:
     - Vector2_cb3542ce7aa64e38b0f23698542f271b: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 3.3294532, g: 0.86377335, b: 2.7742898, a: 1}
-    - _Main_Color_1: {r: 0.6037736, g: 0.12246352, b: 0.4691375, a: 0}
-    - _Main_Color_2: {r: 0.068752214, g: 0.19255318, b: 0.9716981, a: 1}
+    - _EmissionColor: {r: 3.1451051, g: 2.9356883, b: 1.414308, a: 1}
+    - _Main_Color_1: {r: 1, g: 1, b: 1, a: 0}
+    - _Main_Color_2: {r: 0.9988947, g: 1, b: 0.71383643, a: 1}
     - _Remap: {r: 0, g: 1, b: 0, a: 0}
     - _SSS_Color: {r: 1, g: 1, b: 1, a: 0}
     - _SSS_Tile: {r: 1, g: 1, b: 0, a: 0}
