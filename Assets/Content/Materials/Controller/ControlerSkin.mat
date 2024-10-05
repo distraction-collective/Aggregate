@@ -85,7 +85,7 @@ Material:
     - _QueueOffset: 24
     - _SSS_Intensity: 1
     - _SSS_Power: 1
-    - _Smoothness: 0.439
+    - _Smoothness: 0.23
     - _Strength: 0
     - _Surface: 1
     - _TopNormalValue: 1.86
@@ -97,8 +97,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0.8666667}
     - _Color: {r: 1, g: 1, b: 1, a: 0.8666667}
-    - _ColorEffectOnBasic: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 0}
-    - _ColorEffectOnTop: {r: 1, g: 1, b: 1, a: 0}
+    - _ColorEffectOnBasic: {r: 0.5, g: 0.47955972, b: 0.47955972, a: 0}
+    - _ColorEffectOnTop: {r: 0.3018868, g: 0.22404176, b: 0.22404176, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Main_Color_1: {r: 1, g: 1, b: 1, a: 0}
     - _Main_Color_2: {r: 1, g: 0, b: 0.8358784, a: 0}
