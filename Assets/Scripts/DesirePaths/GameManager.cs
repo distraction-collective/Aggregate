@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour {
     Tools.PostProcessSwitcher.SwitchPP.Invoke(
         DesirePaths.Tools.PostProcessSwitcher.PostProcessType.MENU, true);
     Tools.CameraSwitcher.ToggleCameraMovement.Invoke(false);
+    SubtitlesSwitcher.Show.Invoke(false);
     Time.timeScale = 0f;
   }
 
@@ -121,6 +122,7 @@ public class GameManager : MonoBehaviour {
     Tools.PostProcessSwitcher.SwitchPP.Invoke(
         DesirePaths.Tools.PostProcessSwitcher.PostProcessType.MENU, false);
     Tools.CameraSwitcher.ToggleCameraMovement.Invoke(true);
+    SubtitlesSwitcher.Show.Invoke(true);
     Time.timeScale = 1f;
   }
 
