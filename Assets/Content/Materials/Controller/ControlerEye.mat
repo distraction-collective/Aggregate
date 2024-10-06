@@ -167,7 +167,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Intensity: 0.463
-    - _Metallic: 0.797
+    - _Metallic: 0.861
     - _NormalInfluence: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -177,7 +177,7 @@ Material:
     - _SSS_Intensity: 2.18
     - _SSS_Power: 2.05
     - _Size: 1
-    - _Smoothness: 0.803
+    - _Smoothness: 0.396
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 10
@@ -186,7 +186,7 @@ Material:
     - _Strength: 0.36
     - _Surface: 0
     - _Wave_GlobalSpeed: 9.55
-    - _Wave_Intensity: 0.02
+    - _Wave_Intensity: 0
     - _Wave_Shape: 3.29
     - _WorkflowMode: 0
     - _ZWrite: 1
