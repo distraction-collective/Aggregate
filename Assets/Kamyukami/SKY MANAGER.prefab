@@ -101,7 +101,7 @@ MonoBehaviour:
   enableNativeLights: 0
   enablePointLights: 0
   enableSpotLights: 0
-  enableVoids: 1
+  enableVoids: 0
   enableFollow: 0
   followTarget: {fileID: 0}
   followMode: 0

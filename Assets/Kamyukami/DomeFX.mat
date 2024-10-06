@@ -58,15 +58,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ParrallaxPower: 10
+    - _ParrallaxPower: 1.01
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Tspeed: 5
-    - _Tvariation: 0.2
+    - _Tspeed: 1
+    - _Tvariation: 1
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _Color_1: {r: 15.597118, g: 9.622095, b: 7.857416, a: 1}
+    - _Color_1: {r: 0.3077861, g: 0.3077861, b: 0.3077861, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Tile_1: {r: 7, g: 1, b: 0, a: 0}
-    - _Tile_2: {r: 3, g: 1, b: 0, a: 0}
+    - _Tile_1: {r: 3, g: 1, b: 0, a: 0}
+    - _Tile_2: {r: 2, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
