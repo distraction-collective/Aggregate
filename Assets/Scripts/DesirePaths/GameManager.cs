@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour {
 
   void InputDetected()
   {
-    Debug.Log("[GM / AUTO PAUSE]  InputDetected - timer active : " + _timerActive + " / current game state : " + _currentState.ToString());
+    //Debug.Log("[GM / AUTO PAUSE]  InputDetected - timer active : " + _timerActive + " / current game state : " + _currentState.ToString());
     if (_timerActive && _currentState != GameState.Pause)
     {
       ResetTimer();
@@ -112,13 +112,13 @@ public class GameManager : MonoBehaviour {
 
   void ResetTimer()
   {
-    Debug.Log("[GM / AUTO PAUSE] Reset autopause timer");
+    //Debug.Log("[GM / AUTO PAUSE] Reset autopause timer");
     _timer = 0f;
   }
 
   void EnableTimer(bool enable)
   {
-    Debug.Log("[GM / AUTO PAUSE] Toggle autopause timer : " + enable);
+    //Debug.Log("[GM / AUTO PAUSE] Toggle autopause timer : " + enable);
     _timerActive = enable;
     if(!enable) ResetTimer();
   }
