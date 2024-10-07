@@ -1,6 +1,7 @@
 using DesirePaths;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Playables;
 
 [RequireComponent(typeof(Collider))]
@@ -10,6 +11,7 @@ public class Cinematic : MonoBehaviour {
   public ThirdPersonController player;
   public PlayerHealth health;
   public GameObject respawnAt;
+  public UnityEvent onCinematicEnd;
   private SkinnedMeshRenderer[] skinnedMeshRenderers =>
       player.GetComponentsInChildren<SkinnedMeshRenderer>();
   private ParticleSystemRenderer[] particleSystemRenderers =>
@@ -60,5 +62,6 @@ public class Cinematic : MonoBehaviour {
     foreach (var r in particleSystemRenderers) {
       r.enabled = true;
     }
+    onCinematicEnd.Invoke();
   }
 }
