@@ -1,8 +1,6 @@
-using AmplifyShaderEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.SceneManagement;
 
