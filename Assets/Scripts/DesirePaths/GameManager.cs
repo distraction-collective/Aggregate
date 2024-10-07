@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour {
   [SerializeField]
   private Narration.NarrationManager _narrationManager;
 
-  [SerializeField] private float autoPauseTimer = 120f;
+  [SerializeField]
+  private float autoPauseTimer = 120f;
   private float _timer = 0f;
   private bool _timerActive = false;
   [Header("Input")]
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour {
     BindNarrationCallbacks(true);
     SubscribeToMenuEvents(true);
     SubscribeToAnyInputEvents(true);
-    
+
     pauseAction.performed += PauseOrResume;
     pauseAction.Enable();
     restartAction.performed += Restart;
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour {
 
     SetState(GameState.Play);
   }
-  
+
   private void OnDisable() {
     SubscribeToMenuEvents(false);
     SubscribeToPlayerDeathEvents(false);
@@ -84,60 +85,49 @@ public class GameManager : MonoBehaviour {
     SubscribeToAnyInputEvents(false);
   }
 
-  #region AUTO-PAUSE
+#region AUTO - PAUSE
   /// <summary>
   /// Control the auto-pause timer
   /// </summary>
   /// <param name="b"></param>
   /// <exception cref="NotImplementedException"></exception>
-  private void SubscribeToAnyInputEvents(bool b)
-  {
-    if (b)
-    {
-      InputSystem.onAnyButtonPress.Call(currentAction =>
-      {
-        InputDetected();
-      });
+  private void SubscribeToAnyInputEvents(bool b) {
+    if (b) {
+      InputSystem.onAnyButtonPress.Call(currentAction => { InputDetected(); });
     }
   }
 
-  void InputDetected()
-  {
-    //Debug.Log("[GM / AUTO PAUSE]  InputDetected - timer active : " + _timerActive + " / current game state : " + _currentState.ToString());
-    if (_timerActive && _currentState != GameState.Pause)
-    {
+  void InputDetected() {
+    // Debug.Log("[GM / AUTO PAUSE]  InputDetected - timer active : " +
+    // _timerActive + " / current game state : " + _currentState.ToString());
+    if (_timerActive && _currentState != GameState.Pause) {
       ResetTimer();
     }
   }
 
-  void ResetTimer()
-  {
-    //Debug.Log("[GM / AUTO PAUSE] Reset autopause timer");
+  void ResetTimer() {
+    // Debug.Log("[GM / AUTO PAUSE] Reset autopause timer");
     _timer = 0f;
   }
 
-  void EnableTimer(bool enable)
-  {
-    //Debug.Log("[GM / AUTO PAUSE] Toggle autopause timer : " + enable);
+  void EnableTimer(bool enable) {
+    // Debug.Log("[GM / AUTO PAUSE] Toggle autopause timer : " + enable);
     _timerActive = enable;
-    if(!enable) ResetTimer();
+    if (!enable)
+      ResetTimer();
   }
-  
-  void Update()
-  {
-    if (_timerActive)
-    {
+
+  void Update() {
+    if (_timerActive) {
       _timer += Time.deltaTime;
-      Debug.Log("Autopause timer : " + _timer);
-      if (_timer >= autoPauseTimer)
-      {
+      if (_timer >= autoPauseTimer) {
         EnableTimer(false);
         SetState(GameState.Pause);
       }
     }
   }
-  #endregion 
-  
+#endregion
+
   void PauseOrResume(InputAction.CallbackContext context) {
     if (isPlaying) {
       SetState(GameState.Pause);
@@ -225,8 +215,6 @@ public class GameManager : MonoBehaviour {
       cadavers.DepositCadaver();
     }
   }
-
-
 }
 
 }
