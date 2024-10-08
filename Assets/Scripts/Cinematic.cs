@@ -12,14 +12,16 @@ public class Cinematic : MonoBehaviour {
   public PlayerHealth health;
   public GameObject respawnAt;
   public UnityEvent onCinematicEnd;
-  private SkinnedMeshRenderer[] skinnedMeshRenderers =>
-      player.GetComponentsInChildren<SkinnedMeshRenderer>();
-  private ParticleSystemRenderer[] particleSystemRenderers =>
-      player.GetComponentsInChildren<ParticleSystemRenderer>();
-  private PlayableDirector playableDirector => GetComponent<PlayableDirector>();
-  private bool played;
 
-  private void OnTriggerEnter(Collider other) {
+  SkinnedMeshRenderer[] skinnedMeshRenderers =>
+      player.GetComponentsInChildren<SkinnedMeshRenderer>();
+  ParticleSystemRenderer[] particleSystemRenderers =>
+      player.GetComponentsInChildren<ParticleSystemRenderer>();
+  PlayableDirector playableDirector => GetComponent<PlayableDirector>();
+  bool played;
+  float savedFootstepsAudioVolume;
+
+  void OnTriggerEnter(Collider other) {
     if (played)
       return;
     if (!other.gameObject.CompareTag("Player_Collider"))
@@ -32,6 +34,8 @@ public class Cinematic : MonoBehaviour {
 
     // hide the player
     player.enabled = false;
+    savedFootstepsAudioVolume = player.FootstepAudioVolume;
+    player.FootstepAudioVolume = 0f;
     foreach (var r in skinnedMeshRenderers) {
       r.enabled = false;
     }
@@ -40,11 +44,12 @@ public class Cinematic : MonoBehaviour {
     }
   }
 
-  private void OnAnimationEnd(PlayableDirector _) {
+  void OnAnimationEnd(PlayableDirector _) {
     // restore the player at a new respawn point
     Vector3 pos = respawnAt.transform.position;
     health.respawn_position = pos;
     player.transform.position = pos;
+    player.FootstepAudioVolume = savedFootstepsAudioVolume;
     if (health == null) {
       Debug.LogError("health is null");
     }
