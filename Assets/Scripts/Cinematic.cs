@@ -43,18 +43,15 @@ public class Cinematic : MonoBehaviour {
   private void OnAnimationEnd(PlayableDirector _) {
     // restore the player at a new respawn point
     Vector3 pos = respawnAt.transform.position;
-    Quaternion rot = respawnAt.transform.rotation;
     health.respawn_position = pos;
-    health.respawn_rotation = rot;
     player.transform.position = pos;
-    player.transform.rotation = rot;
     if (health == null) {
       Debug.LogError("health is null");
     }
     if (health._puppetMaster == null) {
       Debug.LogError("puppet master is null");
     }
-    health._puppetMaster.Teleport(pos, rot, true);
+    health._puppetMaster.Teleport(pos, player.transform.rotation, true);
     player.enabled = true;
     foreach (var r in skinnedMeshRenderers) {
       r.enabled = true;

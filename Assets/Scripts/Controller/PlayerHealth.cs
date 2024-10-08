@@ -53,7 +53,6 @@ public class PlayerHealth : MonoBehaviour {
       "Struggle map writable texture used elsewhere, for example in the terrain shader to change ground color based on walked paths")]
   public Texture2D struggle_map;
   public Vector3 respawn_position;
-  public Quaternion respawn_rotation;
 
   void Awake() { InitializeValues(); }
 
@@ -66,7 +65,6 @@ public class PlayerHealth : MonoBehaviour {
     _groundHealPS.Stop();
     _originalLightRange = _light.range;
     respawn_position = player.transform.position;
-    respawn_rotation = player.transform.rotation;
   }
 
   void Update() { CheckSafe(); }
@@ -147,8 +145,7 @@ public class PlayerHealth : MonoBehaviour {
   public void Resuscitate() {
     dead = false;
     player.transform.position = respawn_position;
-    player.transform.rotation = respawn_rotation;
-    _puppetMaster.Teleport(respawn_position, respawn_rotation, true);
+    _puppetMaster.Teleport(respawn_position, player.transform.rotation, true);
     _puppetMaster.Resurrect();
     _currentHealthValue = maxHealthValue;
     _characterController.enabled = true;

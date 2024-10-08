@@ -10,11 +10,8 @@ public class PlayFromHere : MonoBehaviour {
   public PuppetMaster puppetMaster;
   public PlayerHealth health;
   void Start() {
-
     player.transform.position = transform.position;
-    player.transform.rotation = transform.rotation;
-    puppetMaster.Teleport(transform.position, transform.rotation, true);
+    puppetMaster.Teleport(transform.position, player.transform.rotation, true);
     health.respawn_position = transform.position;
-    health.respawn_rotation = transform.rotation;
   }
 }
