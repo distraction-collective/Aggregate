@@ -1,3 +1,4 @@
+using RootMotion.Dynamics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -23,6 +24,8 @@ public class GameStateEvent : UnityEvent<GameManager.GameState> {}
 public class NarrationUpdateEvent : UnityEvent<string> {}
 
 public class GameManager : MonoBehaviour {
+  public GameObject playerStart;
+  public PuppetMaster puppetMaster;
   [Header("Player components")]
   [SerializeField]
   private PlayerHealth _playerHealth;
@@ -135,10 +138,18 @@ public class GameManager : MonoBehaviour {
   }
 
   void Restart(InputAction.CallbackContext context) {
-    SceneManager.LoadScene("Main");
+    Debug.Log("Restarting...");
+    _playerThirdPersonController.transform.position =
+        playerStart.transform.position;
+    puppetMaster.Teleport(playerStart.transform.position,
+                          _playerThirdPersonController.transform.rotation,
+                          true);
   }
 
-  void Quit(InputAction.CallbackContext context) { Application.Quit(); }
+  void Quit(InputAction.CallbackContext context) {
+    Debug.Log("Quitting...");
+    Application.Quit();
+  }
 
   void SetState(GameState newState) {
     if (newState == _currentState)
