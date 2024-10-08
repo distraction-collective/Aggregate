@@ -11,7 +11,6 @@ public class Cadavers : MonoBehaviour {
     bool isHit = Physics.Raycast(player.transform.position, Vector3.down,
                                  out hitInfo, Mathf.Infinity);
     Vector3 pos = isHit ? hitInfo.point : player.transform.position;
-    Debug.Log($"{isHit} {hitInfo.point} {player.transform.position}");
     Instantiate(corpse, pos, Quaternion.identity);
   }
 }

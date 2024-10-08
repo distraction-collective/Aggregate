@@ -1,4 +1,5 @@
 using RootMotion.Dynamics;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -27,20 +28,13 @@ public class GameManager : MonoBehaviour {
   public GameObject playerStart;
   public PuppetMaster puppetMaster;
   [Header("Player components")]
-  [SerializeField]
-  private PlayerHealth _playerHealth;
-  [SerializeField]
-  private Transform _playerTransform;
-  [SerializeField]
-  private StarterAssets.ThirdPersonController _playerThirdPersonController;
+  public PlayerHealth health;
+  public ThirdPersonController player;
   [Header("UX components")]
-  [SerializeField]
-  private UI.UIManager _uiManager;
-  [SerializeField]
-  private Narration.NarrationManager _narrationManager;
+  public UI.UIManager uiManager;
+  public Narration.NarrationManager narrationManager;
 
-  [SerializeField]
-  private float autoPauseTimer = 120f;
+  public float autoPauseTimer = 120f;
   private float _timer = 0f;
   private bool _timerActive = false;
   [Header("Input")]
@@ -51,11 +45,10 @@ public class GameManager : MonoBehaviour {
   public static GameStateEvent OnGameStateChanged = new GameStateEvent();
 
   public enum GameState { Play, Pause, Init }
-  [SerializeField]
-  private GameState _currentState = GameState.Init;
+  public GameState _currentState = GameState.Init;
 
-  PlayerDeathEvent PlayerDeathEvent => _playerHealth.PlayerDeathEvent;
-  UnityAction UpdateNarration => _narrationManager.UpdateNarrationAction;
+  PlayerDeathEvent PlayerDeathEvent => health.PlayerDeathEvent;
+  UnityAction UpdateNarration => narrationManager.UpdateNarrationAction;
   private UnityEvent NarrationTrigger =
       new UnityEvent(); // sends a message to the narration manager
                         // to fetch the next line and trigger a narration
@@ -85,8 +78,6 @@ public class GameManager : MonoBehaviour {
     BindNarrationCallbacks(false);
     SubscribeToAnyInputEvents(false);
   }
-
-#region AUTO - PAUSE
   /// <summary>
   /// Control the auto-pause timer
   /// </summary>
@@ -127,7 +118,6 @@ public class GameManager : MonoBehaviour {
       }
     }
   }
-#endregion
 
   void PauseOrResume(InputAction.CallbackContext context) {
     if (isPlaying) {
@@ -139,11 +129,9 @@ public class GameManager : MonoBehaviour {
 
   void Restart(InputAction.CallbackContext context) {
     Debug.Log("Restarting...");
-    _playerThirdPersonController.transform.position =
-        playerStart.transform.position;
+    player.transform.position = playerStart.transform.position;
     puppetMaster.Teleport(playerStart.transform.position,
-                          _playerThirdPersonController.transform.rotation,
-                          true);
+                          player.transform.rotation, true);
   }
 
   void Quit(InputAction.CallbackContext context) {
@@ -193,10 +181,10 @@ public class GameManager : MonoBehaviour {
   void BindNarrationCallbacks(bool bind) {
     if (bind) {
       NarrationTrigger.AddListener(UpdateNarration);
-      _narrationManager.NarrationUpdated.AddListener(_uiManager.DisplaySubs);
+      narrationManager.NarrationUpdated.AddListener(uiManager.DisplaySubs);
     } else {
       NarrationTrigger.RemoveAllListeners();
-      _narrationManager.NarrationUpdated.RemoveAllListeners();
+      narrationManager.NarrationUpdated.RemoveAllListeners();
     }
   }
 
@@ -218,7 +206,7 @@ public class GameManager : MonoBehaviour {
 
   void RespawnPlayer(bool safe, Vector3 position) {
 
-    _uiManager.HideNShow(); // Fade
+    uiManager.HideNShow(); // Fade
     if (!safe) {
       Cadavers cadavers = GetComponent<Cadavers>();
       cadavers.DepositCadaver();
