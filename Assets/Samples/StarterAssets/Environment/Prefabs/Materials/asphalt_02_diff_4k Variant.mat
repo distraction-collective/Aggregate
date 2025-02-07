@@ -61,6 +61,6 @@ Material:
     - _Parallax: 0.0055
     - _Smoothness: 0.313
     m_Colors:
-    - _BaseColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
-    - _Color: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
+    - _BaseColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+    - _Color: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
   m_BuildTextureStacks: []
