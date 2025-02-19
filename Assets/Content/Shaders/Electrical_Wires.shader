@@ -3238,10 +3238,8 @@ Node;AmplifyShaderEditor.SamplerNode;21;-1693.45,566.9406;Inherit;True;Property;
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;18;-2499.737,604.6387;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;23;-3000.04,876.7205;Inherit;False;Property;_timespeed;time speed;0;0;Create;True;0;0;0;False;0;False;0;2;0;2;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;0,0;Float;False;True;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;Electrical_Wires;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;20;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;;0;0;Standard;41;Workflow;1;0;Surface;0;0;  Refraction Model;0;0;  Blend;0;0;Two Sided;0;638629049344579040;Fragment Normal Space,InvertActionOnDeselection;0;0;Forward Only;0;0;Transmission;0;0;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;0;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;DOTS Instancing;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;4,False,;0;  Max;10,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;0;  Early Z;0;0;Vertex Position,InvertActionOnDeselection;1;638629049252907780;Debug Display;0;0;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;True;True;True;False;;False;0
-Node;AmplifyShaderEditor.ColorNode;47;-431.3483,-141.0443;Inherit;False;Constant;_Color0;Color 0;3;0;Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.GetLocalVarNode;30;-1116.004,-48.34076;Inherit;False;28;noisetiled;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;32;-831.8252,33.2071;Inherit;False;2;2;0;FLOAT;0;False;1;COLOR;10,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.GetLocalVarNode;49;-1193.084,260.1159;Inherit;False;28;noisetiled;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;50;-908.9055,341.6638;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;10;False;1;FLOAT;0
 Node;AmplifyShaderEditor.PosVertexDataNode;52;-717.8479,220.7645;Inherit;False;0;0;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;51;-1294.146,345.377;Inherit;False;Property;_powerVertexPosition;powerVertexPosition;1;0;Create;True;0;0;0;False;0;False;0;10;0;0.1;0;1;FLOAT;0
@@ -3257,13 +3255,15 @@ Node;AmplifyShaderEditor.SimpleMultiplyOpNode;20;-2688.97,787.2068;Inherit;False
 Node;AmplifyShaderEditor.SimpleTimeNode;19;-2907.574,789.1884;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;17;-2377.222,842.7686;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.2;False;1;FLOAT;0
 Node;AmplifyShaderEditor.DynamicAppendNode;10;-2240.144,586.2096;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.TexturePropertyNode;33;-2065.407,220.6462;Inherit;True;Property;_Noise_Texture;Noise_Texture;2;0;Create;True;0;0;0;False;0;False;020dad8bf0258524eaaed95353a7d22d;639412688cd2442be8d98307520a5246;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.TextureCoordinatesNode;25;-1929.476,1027.76;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;0.5,0.5;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TextureCoordinatesNode;26;-1930.66,794.1784;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;0.1,0.1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TextureCoordinatesNode;27;-2009.561,555.2047;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;2,0.1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;70;-2323.633,424.861;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0.7,-2.51;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;60;-2190.524,718.0306;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;-0.7,0.66;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;62;-2124.916,955.9232;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0.8,0.32;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.TexturePropertyNode;33;-2087.083,249.5474;Inherit;True;Property;_Noise_Texture;Noise_Texture;2;0;Create;True;0;0;0;False;0;False;020dad8bf0258524eaaed95353a7d22d;639412688cd2442be8d98307520a5246;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
+Node;AmplifyShaderEditor.ColorNode;47;-527.0836,-148.2696;Inherit;False;Constant;_Color0;Color 0;3;0;Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.GetLocalVarNode;49;-1204.084,262.1159;Inherit;False;28;noisetiled;1;0;OBJECT;;False;1;FLOAT;0
 WireConnection;11;0;17;0
 WireConnection;12;1;16;0
 WireConnection;14;0;13;0
@@ -3304,4 +3304,4 @@ WireConnection;70;0;58;0
 WireConnection;60;0;58;0
 WireConnection;62;0;58;0
 ASEEND*/
-//CHKSM=3CDB3C78759C1E91105DA20D6F6F85B6D5506047
+//CHKSM=72E8122D42F14926629D1C77F5052ECF3849915B
