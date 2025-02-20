@@ -102,7 +102,7 @@ MonoBehaviour:
   enablePointLights: 0
   enableSpotLights: 0
   enableVoids: 0
-  enableFollow: 0
+  enableFollow: 1
   followTarget: {fileID: 0}
   followMode: 0
   followOffset: {x: 0, y: 0, z: 0}
