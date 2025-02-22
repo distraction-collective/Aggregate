@@ -223,9 +223,11 @@ Shader "RED_SIM/Water/Surface Uber"
 			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-			#define _SURFACE_TYPE_TRANSPARENT 1
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _SURFACE_TYPE_TRANSPARENT 1
+			#define ASE_REFRACTION 1
+			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
@@ -1033,8 +1035,10 @@ Shader "RED_SIM/Water/Surface Uber"
 			#define _NORMAL_DROPOFF_TS 1
 			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-			#define _SURFACE_TYPE_TRANSPARENT 1
 			#define ASE_FOG 1
+			#define _SURFACE_TYPE_TRANSPARENT 1
+			#define ASE_REFRACTION 1
+			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
@@ -1380,8 +1384,10 @@ Shader "RED_SIM/Water/Surface Uber"
 			#define _NORMAL_DROPOFF_TS 1
 			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-			#define _SURFACE_TYPE_TRANSPARENT 1
 			#define ASE_FOG 1
+			#define _SURFACE_TYPE_TRANSPARENT 1
+			#define ASE_REFRACTION 1
+			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
@@ -1697,8 +1703,10 @@ Shader "RED_SIM/Water/Surface Uber"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#define _SURFACE_TYPE_TRANSPARENT 1
 			#define ASE_FOG 1
+			#define _SURFACE_TYPE_TRANSPARENT 1
+			#define ASE_REFRACTION 1
+			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
@@ -2214,8 +2222,10 @@ Shader "RED_SIM/Water/Surface Uber"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#define _SURFACE_TYPE_TRANSPARENT 1
 			#define ASE_FOG 1
+			#define _SURFACE_TYPE_TRANSPARENT 1
+			#define ASE_REFRACTION 1
+			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
@@ -2523,8 +2533,10 @@ Shader "RED_SIM/Water/Surface Uber"
 			#define _NORMAL_DROPOFF_TS 1
 			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-			#define _SURFACE_TYPE_TRANSPARENT 1
 			#define ASE_FOG 1
+			#define _SURFACE_TYPE_TRANSPARENT 1
+			#define ASE_REFRACTION 1
+			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
@@ -2917,8 +2929,10 @@ Shader "RED_SIM/Water/Surface Uber"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#define _SURFACE_TYPE_TRANSPARENT 1
 			#define ASE_FOG 1
+			#define _SURFACE_TYPE_TRANSPARENT 1
+			#define ASE_REFRACTION 1
+			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
@@ -3197,8 +3211,10 @@ Shader "RED_SIM/Water/Surface Uber"
 			HLSLPROGRAM
 
 			#define _NORMAL_DROPOFF_TS 1
-			#define _SURFACE_TYPE_TRANSPARENT 1
 			#define ASE_FOG 1
+			#define _SURFACE_TYPE_TRANSPARENT 1
+			#define ASE_REFRACTION 1
+			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define _EMISSION
 			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 140008
@@ -3834,7 +3850,7 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;823;5005.147,-687.0005;Floa
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;824;5005.147,-687.0005;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;SceneSelectionPass;0;8;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;825;5005.147,-687.0005;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ScenePickingPass;0;9;ScenePickingPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.GetLocalVarNode;369;4747.595,-712.0909;Inherit;False;315;NormalWater;1;0;OBJECT;0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;817;5152.147,-734.0005;Float;False;True;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;RED_SIM/Water/Surface Uber;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;20;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;5;False;;10;False;;1;1;False;;10;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;True;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForwardOnly;False;False;0;;0;0;Standard;41;Workflow;1;0;Surface;1;638533602642962235;  Refraction Model;0;638533609167221389;  Blend;0;638533609233821933;Two Sided;1;0;Fragment Normal Space,InvertActionOnDeselection;0;0;Forward Only;1;638533594269865102;Transmission;0;638533587941835737;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;638533605334702778;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;DOTS Instancing;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;638533605225163572;  Early Z;0;638533605221807965;Vertex Position,InvertActionOnDeselection;1;0;Debug Display;0;638533605304724345;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;False;True;True;False;;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;817;5152.147,-734.0005;Float;False;True;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;RED_SIM/Water/Surface Uber;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;20;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;5;False;;10;False;;1;1;False;;10;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;True;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForwardOnly;False;False;0;;0;0;Standard;41;Workflow;1;0;Surface;1;638757816860440887;  Refraction Model;1;638757816889575822;  Blend;0;638533609233821933;Two Sided;1;0;Fragment Normal Space,InvertActionOnDeselection;0;0;Forward Only;1;638757816041545577;Transmission;0;638533587941835737;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;638757816162339872;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;DOTS Instancing;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;638757816575873246;  Early Z;1;638757816319238023;Vertex Position,InvertActionOnDeselection;1;0;Debug Display;0;638533605304724345;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;False;True;True;False;;False;0
 Node;AmplifyShaderEditor.LerpOp;807;4506.895,-917.447;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;808;4240.797,-816.4413;Inherit;False;806;IntersectSmoothing;1;0;OBJECT;;False;1;FLOAT;0
 WireConnection;428;0;409;0
@@ -4218,4 +4234,4 @@ WireConnection;817;4;813;0
 WireConnection;807;1;392;0
 WireConnection;807;2;808;0
 ASEEND*/
-//CHKSM=885781D953AB45BB1DE7E33065AAB3AA7DAAD66B
+//CHKSM=F52CCED4672F2966CA79945E51845262C87D79A5

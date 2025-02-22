@@ -18,6 +18,7 @@ public class TerrainColor : MonoBehaviour {
                    "Scripts/Controller/struggle_map_with_landmarks.png");
 
   void Start() {
+
     if (!File.Exists(path)) {
       Debug.LogError(
           $"File {path} not found. Make sure you compute the safe landmarks!");
