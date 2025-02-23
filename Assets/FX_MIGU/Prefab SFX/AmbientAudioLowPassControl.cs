@@ -64,7 +64,7 @@ public class AmbientAudioLowPassControl : MonoBehaviour
         }
     }
 
-    private void OnTargetActivated()
+    public void OnTargetActivated()
     {
         // Start the active audio with delay
         if (!activeAudioSource.isPlaying)
@@ -76,7 +76,7 @@ public class AmbientAudioLowPassControl : MonoBehaviour
         StartCoroutine(TransitionLowPassFrequency(lowPassFrequencyWhenActive));
     }
 
-    private void OnTargetDeactivated()
+    public void OnTargetDeactivated()
     {
         // Smoothly transition to the inactive low-pass frequency
         StartCoroutine(TransitionLowPassFrequency(lowPassFrequencyWhenInactive));
