@@ -42,6 +42,10 @@ public class PlayerHealth : MonoBehaviour {
   public float maxHealthValue = 10f; // Max 10 seconds currently
   [SerializeField]
   private float _currentHealthValue;
+  [Header("Vitesse (interpolation par AnimationCurve)")]
+ [Tooltip("Définit l'interpolation entre MoveSpeed (à 0 vie) et SprintSpeed normal (à vie max). L'axe X doit être entre 0 et 1.")]
+  public AnimationCurve speedCurve = AnimationCurve.Linear(0, 0, 1, 1);
+
 
   private float currentOscillationModifier;
   private float currentOscillationDuration;
@@ -56,6 +60,9 @@ public class PlayerHealth : MonoBehaviour {
 
   private bool healthToggleActivated = false; // IMMORTAL DEBUG MODE
 
+  private float normalSprintSpeed; // used for SlowDown when dying
+
+
   void Awake() { InitializeValues(); }
 
   private void InitializeValues() {
@@ -67,6 +74,9 @@ public class PlayerHealth : MonoBehaviour {
     _groundHealPS.Stop();
     _originalLightRange = _light.range;
     respawn_position = player.transform.position;
+
+     if(_thirdPersonController != null)
+        normalSprintSpeed = _thirdPersonController.SprintSpeed;
   }
   
 
@@ -82,6 +92,7 @@ public class PlayerHealth : MonoBehaviour {
     }
     
     CheckSafe();
+    UpdateMovementSpeed();
     }
 
   private void LateUpdate() {
@@ -94,11 +105,11 @@ public class PlayerHealth : MonoBehaviour {
         // Affiche "IMMORTAL DEBUG MODE" en haut à gauche de l'écran
         GUI.Label(new Rect(10, 10, 200, 20), "IMMORTAL DEBUG MODE");
     }
-}
+  }
 
   private void CheckSafe() {
 
-if (healthToggleActivated) {
+    if (healthToggleActivated) {
         _currentHealthValue = maxHealthValue;
         UpdateLifeVisuals(1f); // 1 correspond à 100% de vie
         return;
@@ -264,6 +275,25 @@ if (healthToggleActivated) {
     int v = (int)(dz / terrain.terrainData.size.z * struggle_map.height);
     return (u, v);
   }
+
+  private void UpdateMovementSpeed() {
+    if (_thirdPersonController == null) return;
+    
+    // Calculer la santé normalisée : 1 quand la vie est max, 0 quand la vie est nulle
+    float normalizedHealth = _currentHealthValue / maxHealthValue;
+    // Inverser la valeur pour que 0 corresponde à vie max et 1 à la mort
+    float invertedHealth = 1f - normalizedHealth;
+    // Évaluer la courbe avec l'invertedHealth
+    float speedFactor = 1f - speedCurve.Evaluate(invertedHealth);
+
+    // Interpoler entre la vitesse de sprint normale et la vitesse de marche :
+    // Quand speedFactor = 0, SprintSpeed = normalSprintSpeed
+    // Quand speedFactor = 1, SprintSpeed = MoveSpeed
+    _thirdPersonController.SprintSpeed = Mathf.Lerp(normalSprintSpeed, _thirdPersonController.MoveSpeed, speedFactor);
+  }
+
+
+
 }
 
 }
