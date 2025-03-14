@@ -54,6 +54,8 @@ public class PlayerHealth : MonoBehaviour {
   public Texture2D struggle_map;
   public Vector3 respawn_position;
 
+  private bool healthToggleActivated = false; // IMMORTAL DEBUG MODE
+
   void Awake() { InitializeValues(); }
 
   private void InitializeValues() {
@@ -66,15 +68,42 @@ public class PlayerHealth : MonoBehaviour {
     _originalLightRange = _light.range;
     respawn_position = player.transform.position;
   }
+  
 
-  void Update() { CheckSafe(); }
+  void Update() { 
+
+     if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame) {
+        healthToggleActivated = !healthToggleActivated;
+        Debug.Log("Health toggle " + (healthToggleActivated ? "activé" : "désactivé"));
+        // Si activé, on force immédiatement la vie à max
+        if (healthToggleActivated) {
+            _currentHealthValue = maxHealthValue;
+        }
+    }
+    
+    CheckSafe();
+    }
 
   private void LateUpdate() {
     UpdateAnimator();
     UpdateOscillation();
   }
 
+  void OnGUI() {
+    if (healthToggleActivated) {
+        // Affiche "IMMORTAL DEBUG MODE" en haut à gauche de l'écran
+        GUI.Label(new Rect(10, 10, 200, 20), "IMMORTAL DEBUG MODE");
+    }
+}
+
   private void CheckSafe() {
+
+if (healthToggleActivated) {
+        _currentHealthValue = maxHealthValue;
+        UpdateLifeVisuals(1f); // 1 correspond à 100% de vie
+        return;
+    }
+
 
     RaycastHit[] hits =
         Physics.RaycastAll(player.transform.position + 3 * Vector3.up,

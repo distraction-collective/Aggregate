@@ -85,7 +85,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":8400000,"guid":"2190d06e2624cc94da092d35ad33ce1c","type":2}}'
+      m_SerializableObject: 
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -1244,8 +1244,7 @@ MonoBehaviour:
   - {fileID: 114350483966675012}
   m_OutputSlots:
   - {fileID: 114350483966675013}
-  m_Subgraph: {fileID: 5371698745253816930, guid: 1d1e94a4eef9297498f9b1bdc2aacfe3,
-    type: 3}
+  m_Subgraph: {fileID: 5371698745253816930, guid: 1d1e94a4eef9297498f9b1bdc2aacfe3, type: 3}
 --- !u!114 &114350483966675010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,8 +1410,7 @@ MonoBehaviour:
   m_OutputSlots:
   - {fileID: 114350483966675017}
   - {fileID: 114350483966675020}
-  m_Subgraph: {fileID: 5371698745253816930, guid: 3546fa604dd4af04097c51752057d1c6,
-    type: 3}
+  m_Subgraph: {fileID: 5371698745253816930, guid: 3546fa604dd4af04097c51752057d1c6, type: 3}
 --- !u!114 &114350483966675015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1903,8 +1901,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 114350483966675030}
-  m_Subgraph: {fileID: 5371698745253816930, guid: bccc6695d3c8c4f41898a7895dd63692,
-    type: 3}
+  m_Subgraph: {fileID: 5371698745253816930, guid: bccc6695d3c8c4f41898a7895dd63692, type: 3}
 --- !u!114 &114350483966675030
 MonoBehaviour:
   m_ObjectHideFlags: 0
