@@ -58,12 +58,25 @@ public class PlayerHealth : MonoBehaviour {
   public Texture2D struggle_map;
   public Vector3 respawn_position;
 
-  private bool healthToggleActivated = false; // IMMORTAL DEBUG MODE
+    // Vitesse de base stockées lors du démarrage
+  private float normalSprintSpeed;
+  private float normalMoveSpeed;
+    
+  // Toggles
+  private bool healthToggleActivated = false; // pour immortal (touche I)
+  private bool speedMultiplierActivated = false; // pour multiplier les vitesses (touche S)
 
-  private float normalSprintSpeed; // used for SlowDown when dying
 
+  void Awake() {
+    
+    InitializeValues();
 
-  void Awake() { InitializeValues(); }
+    if (_thirdPersonController != null) {
+            normalSprintSpeed = _thirdPersonController.SprintSpeed;
+            normalMoveSpeed = _thirdPersonController.MoveSpeed;
+    }
+  
+  }
 
   private void InitializeValues() {
     if (m_OnCharacterDeath == null)
@@ -82,7 +95,7 @@ public class PlayerHealth : MonoBehaviour {
 
   void Update() { 
 
-     if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame) {
+    if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame) {
         healthToggleActivated = !healthToggleActivated;
         Debug.Log("Health toggle " + (healthToggleActivated ? "activé" : "désactivé"));
         // Si activé, on force immédiatement la vie à max
@@ -90,10 +103,16 @@ public class PlayerHealth : MonoBehaviour {
             _currentHealthValue = maxHealthValue;
         }
     }
+
+    // Toggle pour multiplier la vitesse de course avec la touche S
+    if (Keyboard.current != null && Keyboard.current.sKey.wasPressedThisFrame) {
+            speedMultiplierActivated = !speedMultiplierActivated;
+            Debug.Log("Speed multiplier " + (speedMultiplierActivated ? "activé (x4)" : "désactivé (x1)"));
+    }
     
     CheckSafe();
     UpdateMovementSpeed();
-    }
+  }
 
   private void LateUpdate() {
     UpdateAnimator();
@@ -277,19 +296,27 @@ public class PlayerHealth : MonoBehaviour {
   }
 
   private void UpdateMovementSpeed() {
-    if (_thirdPersonController == null) return;
-    
-    // Calculer la santé normalisée : 1 quand la vie est max, 0 quand la vie est nulle
-    float normalizedHealth = _currentHealthValue / maxHealthValue;
-    // Inverser la valeur pour que 0 corresponde à vie max et 1 à la mort
-    float invertedHealth = 1f - normalizedHealth;
-    // Évaluer la courbe avec l'invertedHealth
-    float speedFactor = 1f - speedCurve.Evaluate(invertedHealth);
+        if (_thirdPersonController == null) return;
 
-    // Interpoler entre la vitesse de sprint normale et la vitesse de marche :
-    // Quand speedFactor = 0, SprintSpeed = normalSprintSpeed
-    // Quand speedFactor = 1, SprintSpeed = MoveSpeed
-    _thirdPersonController.SprintSpeed = Mathf.Lerp(normalSprintSpeed, _thirdPersonController.MoveSpeed, speedFactor);
+        // Appliquer le multiplicateur uniquement sur la vitesse de course
+        float multiplier = speedMultiplierActivated ? 4f : 1f;
+        float currentSprintSpeed = normalSprintSpeed * multiplier;
+        float currentMoveSpeed = normalMoveSpeed; // La vitesse de marche reste inchangée
+
+        // (Optionnel) On met à jour la vitesse de marche dans le contrôleur
+        _thirdPersonController.MoveSpeed = currentMoveSpeed;
+
+        // Calcul de la santé normalisée (1 = vie max, 0 = mort)
+        float normalizedHealth = _currentHealthValue / maxHealthValue;
+        // Inverser horizontalement pour que 0 corresponde à vie max et 1 à la mort
+        float invertedHealth = 1f - normalizedHealth;
+        // Inverser verticalement la valeur de la courbe si besoin
+        float speedFactor = 1f - speedCurve.Evaluate(invertedHealth);
+
+        // Interpolation entre currentSprintSpeed et currentMoveSpeed
+        // Quand speedFactor = 0 (vie max) -> SprintSpeed = currentSprintSpeed
+        // Quand speedFactor = 1 (mort) -> SprintSpeed = currentMoveSpeed
+        _thirdPersonController.SprintSpeed = Mathf.Lerp(currentSprintSpeed, currentMoveSpeed, speedFactor);
   }
 
 
