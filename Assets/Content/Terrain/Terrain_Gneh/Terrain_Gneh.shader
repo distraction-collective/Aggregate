@@ -764,6 +764,7 @@ Shader "Terrain_Gneh"
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).g );
 				float temp_output_234_0 = saturate( temp_output_159_0 );
 				float4 lerpResult162 = lerp( ( temp_output_52_0 * ( noisepath202 * _Emission ) ) , temp_output_52_0 , temp_output_234_0);
+				float3 temp_output_238_0 = SHADERGRAPH_REFLECTION_PROBE(float3( 0,0,0 ),float3( 0,0,0 ),0.0);
 				
 				float localStochasticTiling2_g19 = ( 0.0 );
 				float2 Input_UV145_g19 = uv_Splat0;
@@ -839,7 +840,7 @@ Shader "Terrain_Gneh"
 				float lerpResult124 = lerp( lerpResult122 , _Smoothness3 , Splat_B85);
 				
 
-				float3 BaseColor = lerpResult162.rgb;
+				float3 BaseColor = ( lerpResult162 * temp_output_238_0.x ).rgb;
 				float3 Normal = ( lerpResult100 + temp_output_234_0 );
 				float3 Emission = 0;
 				float3 Specular = 0.5;
@@ -2267,9 +2268,10 @@ Shader "Terrain_Gneh"
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).g );
 				float temp_output_234_0 = saturate( temp_output_159_0 );
 				float4 lerpResult162 = lerp( ( temp_output_52_0 * ( noisepath202 * _Emission ) ) , temp_output_52_0 , temp_output_234_0);
+				float3 temp_output_238_0 = SHADERGRAPH_REFLECTION_PROBE(float3( 0,0,0 ),float3( 0,0,0 ),0.0);
 				
 
-				float3 BaseColor = lerpResult162.rgb;
+				float3 BaseColor = ( lerpResult162 * temp_output_238_0.x ).rgb;
 				float3 Emission = 0;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
@@ -2736,9 +2738,10 @@ Shader "Terrain_Gneh"
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).g );
 				float temp_output_234_0 = saturate( temp_output_159_0 );
 				float4 lerpResult162 = lerp( ( temp_output_52_0 * ( noisepath202 * _Emission ) ) , temp_output_52_0 , temp_output_234_0);
+				float3 temp_output_238_0 = SHADERGRAPH_REFLECTION_PROBE(float3( 0,0,0 ),float3( 0,0,0 ),0.0);
 				
 
-				float3 BaseColor = lerpResult162.rgb;
+				float3 BaseColor = ( lerpResult162 * temp_output_238_0.x ).rgb;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 
@@ -3839,6 +3842,7 @@ Shader "Terrain_Gneh"
 				float temp_output_159_0 = ( 1.0 - SAMPLE_TEXTURE2D( _struggle_map, sampler_struggle_map, uv_struggle_map ).g );
 				float temp_output_234_0 = saturate( temp_output_159_0 );
 				float4 lerpResult162 = lerp( ( temp_output_52_0 * ( noisepath202 * _Emission ) ) , temp_output_52_0 , temp_output_234_0);
+				float3 temp_output_238_0 = SHADERGRAPH_REFLECTION_PROBE(float3( 0,0,0 ),float3( 0,0,0 ),0.0);
 				
 				float localStochasticTiling2_g19 = ( 0.0 );
 				float2 Input_UV145_g19 = uv_Splat0;
@@ -3914,7 +3918,7 @@ Shader "Terrain_Gneh"
 				float lerpResult124 = lerp( lerpResult122 , _Smoothness3 , Splat_B85);
 				
 
-				float3 BaseColor = lerpResult162.rgb;
+				float3 BaseColor = ( lerpResult162 * temp_output_238_0.x ).rgb;
 				float3 Normal = ( lerpResult100 + temp_output_234_0 );
 				float3 Emission = 0;
 				float3 Specular = 0.5;
@@ -4720,7 +4724,6 @@ Node;AmplifyShaderEditor.DesaturateOpNode;49;1630.204,1206.696;Inherit;False;2;0
 Node;AmplifyShaderEditor.TFHCGrayscale;167;1394.605,1585.336;Inherit;False;0;1;0;FLOAT3;0,0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.LerpOp;168;1563.605,1436.336;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;0.7924528,0.7924528,0.7924528,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.LerpOp;162;4244.526,1236.986;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.SimpleAddOpNode;166;4418.54,1413.053;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.LerpOp;119;3300.731,2662.246;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;120;3137.231,2838.858;Inherit;False;83;Splat_R;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;121;3170.231,3003.858;Inherit;False;84;Splat_G;1;0;OBJECT;;False;1;FLOAT;0
@@ -4772,10 +4775,14 @@ Node;AmplifyShaderEditor.RegisterLocalVarNode;202;3200.797,3846.163;Inherit;Fals
 Node;AmplifyShaderEditor.SaturateNode;234;3981.253,1525.173;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;235;3221.614,1237.904;Inherit;False;Property;_Emission;Emission;25;1;[HDR];Create;True;0;0;0;False;0;False;7.975868,7.780234,7.780234,0;2.118547,2.118547,2.118547,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;201;927.1849,4038.109;Inherit;False;Property;_AnimationSpeed;AnimationSpeed;24;0;Create;True;0;0;0;False;0;False;0;0.157;0;2;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;163;3766.436,1035.933;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;205;3543.504,1163.209;Inherit;False;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ClampOpNode;237;3755.62,1720.155;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0.2;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;223;3980.736,1663.356;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;166;4418.54,1413.053;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;163;3766.436,1035.933;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;242;4491.983,1120.026;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
+Node;AmplifyShaderEditor.ReflectionProbeNode;238;4026.749,777.1775;Inherit;False;3;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.BreakToComponentsNode;240;4206.983,780.0259;Inherit;False;FLOAT3;1;0;FLOAT3;0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
 WireConnection;52;0;51;0
 WireConnection;52;1;53;0
 WireConnection;83;0;33;1
@@ -4843,8 +4850,6 @@ WireConnection;168;1;167;0
 WireConnection;162;0;163;0
 WireConnection;162;1;52;0
 WireConnection;162;2;234;0
-WireConnection;166;0;146;0
-WireConnection;166;1;234;0
 WireConnection;119;0;13;0
 WireConnection;119;1;125;0
 WireConnection;119;2;120;0
@@ -4865,7 +4870,7 @@ WireConnection;190;0;211;0
 WireConnection;190;1;192;0
 WireConnection;181;0;211;0
 WireConnection;181;1;180;0
-WireConnection;1;0;162;0
+WireConnection;1;0;242;0
 WireConnection;1;1;166;0
 WireConnection;1;3;133;0
 WireConnection;1;4;124;0
@@ -4898,11 +4903,16 @@ WireConnection;159;0;154;2
 WireConnection;206;0;187;0
 WireConnection;202;0;206;0
 WireConnection;234;0;159;0
-WireConnection;163;0;52;0
-WireConnection;163;1;205;0
 WireConnection;205;0;203;0
 WireConnection;205;1;235;0
 WireConnection;237;0;203;0
 WireConnection;223;0;159;0
+WireConnection;166;0;146;0
+WireConnection;166;1;234;0
+WireConnection;163;0;52;0
+WireConnection;163;1;205;0
+WireConnection;242;0;162;0
+WireConnection;242;1;240;0
+WireConnection;240;0;238;0
 ASEEND*/
-//CHKSM=F357A095534BD73892DA8643A018B18F5907C131
+//CHKSM=8ECF1E0A589EB562C81576E6DFAD13A4A6F0978F
