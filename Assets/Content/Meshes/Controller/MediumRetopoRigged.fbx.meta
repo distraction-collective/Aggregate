@@ -495,12 +495,12 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1.0000001}
     - name: clavicle_l
       parentName: spine_03
-      position: {x: -0.20046538, y: 0.009996056, z: -0.04774264}
+      position: {x: -0.158, y: 0.02, z: -0.05}
       rotation: {x: 0.21209279, y: -0.6448648, z: -0.0660999, w: 0.73129815}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: upperarm_l
       parentName: clavicle_l
-      position: {x: -0.14278974, y: -0.025180358, z: -0.012686539}
+      position: {x: -0.125, y: -0.063, z: -0.032}
       rotation: {x: -0.00047788353, y: -0.039632626, z: 0.20118205, w: 0.97875166}
       scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: lowerarm_l
@@ -585,12 +585,12 @@ ModelImporter:
       scale: {x: 1.0000002, y: 1.0000001, z: 0.99999994}
     - name: clavicle_r
       parentName: spine_03
-      position: {x: -0.20046529, y: 0.0099956505, z: 0.047742777}
+      position: {x: -0.158, y: 0.02, z: 0.045}
       rotation: {x: 0.6448656, y: 0.21208866, z: 0.7312988, w: 0.06609737}
       scale: {x: 1.0000001, y: 1, z: 1.0000001}
     - name: upperarm_r
       parentName: clavicle_r
-      position: {x: 0.1427896, y: 0.025180273, z: 0.012687014}
+      position: {x: 0.125, y: 0.063, z: 0.032}
       rotation: {x: -0.00047966445, y: -0.03963682, z: 0.20119506, w: 0.9787488}
       scale: {x: 1, y: 0.99999994, z: 1.0000001}
     - name: lowerarm_r
@@ -876,7 +876,7 @@ ModelImporter:
     - name: CC_Base_R_ToeBaseShareBone
       parentName: foot_r
       position: {x: -0.040795013, y: 0.15920402, z: 0.002107787}
-      rotation: {x: 0.025389502, y: 0.72225547, z: -0.04814806, w: 0.6894811}
+      rotation: {x: 0.025389507, y: 0.72225547, z: -0.04814807, w: 0.6894811}
       scale: {x: 0.9999999, y: 0.99999994, z: 0.9999999}
     - name: CC_Base_R_ThighTwist02
       parentName: thigh_r

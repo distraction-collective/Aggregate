@@ -124,7 +124,7 @@ public class PlayerHealth : MonoBehaviour {
   void OnGUI() {
     if (healthToggleActivated) {
         // Affiche "IMMORTAL DEBUG MODE" en haut à gauche de l'écran
-        GUI.Label(new Rect(10, 10, 200, 20), "IMMORTAL DEBUG MODE");
+        GUI.Label(new Rect(10, 30, 200, 20), "IMMORTAL DEBUG MODE");
     }
   }
 

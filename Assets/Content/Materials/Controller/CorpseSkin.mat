@@ -68,6 +68,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DetailmapNormal:
+        m_Texture: {fileID: 2800000, guid: b3d940e75e1f5d24684cd93a2758e1bf, type: 3}
+        m_Scale: {x: 8, y: 8}
+        m_Offset: {x: 0, y: 0}
+    - _DetailmapSmoothness:
+        m_Texture: {fileID: 2800000, guid: 14057a2a60be5bd4fab09fb65e1e3524, type: 3}
+        m_Scale: {x: 4, y: 4}
+        m_Offset: {x: 0, y: 0}
     - _Distortion:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -109,11 +117,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopDiffuse:
-        m_Texture: {fileID: 2800000, guid: fcf3b4ef240a09946a50851bbce86b8d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 574baba92c689704eaff5dd38847e8cc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopNormalMap:
-        m_Texture: {fileID: 2800000, guid: dde1bdf0ff047fc4b930b81aec617935, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9f370d7f9c0a64f4da8ef0cda6e27ef5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -141,6 +149,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DetailNormalValue: 1.81
     - _Distortion: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -151,19 +160,21 @@ Material:
     - _Intensity: 1
     - _Metallic: 0.15
     - _NormalInfluence: 1
-    - _NormalValue: 2.04
-    - _NormalValue_1: 1
-    - _NormalValue_2: 1
-    - _NormalValue_3: 1
+    - _NormalValue: 1.87
+    - _NormalValue_1: 1.67
+    - _NormalValue_2: 1.46
+    - _NormalValue_3: 0.44
     - _OcclusionStrength: 1
     - _Parallax: 0.0069
+    - _PseudoSS_radius: 1.9
+    - _PseudoSS_shadowReponse: 0.07
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SSS_Intensity: 1
     - _SSS_Power: 1
     - _Size: 1
-    - _Smoothness: 0.147
+    - _Smoothness: 0.75
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 10
@@ -171,8 +182,8 @@ Material:
     - _SrcBlendAlpha: 1
     - _Strength: 0
     - _Surface: 0
-    - _TopNormalValue: 1.53
-    - _UpBlendValue: 0.525
+    - _TopNormalValue: 0
+    - _UpBlendValue: 0.885
     - _Wave_GlobalSpeed: 1
     - _Wave_Intensity: 0.04
     - _Wave_Shape: 1
@@ -181,8 +192,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0.64705884}
     - _Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0.64705884}
-    - _ColorEffectOnBasic: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0}
-    - _ColorEffectOnTop: {r: 1, g: 1, b: 1, a: 0}
+    - _ColorEffectOnBasic: {r: 0.8928622, g: 0.905534, b: 0.9716981, a: 0}
+    - _ColorEffectOnTop: {r: 0.18284085, g: 0.26889083, b: 0.9056604, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Main_Color_1: {r: 0, g: 1, b: 0.06761169, a: 0}
     - _Main_Color_2: {r: 1, g: 0, b: 0.8358784, a: 0}
