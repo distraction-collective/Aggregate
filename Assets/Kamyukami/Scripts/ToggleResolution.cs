@@ -1,63 +1,61 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
-public class ToggleResolution : MonoBehaviour
+public class ToggleRenderScale : MonoBehaviour
 {
-    // Indique si la résolution est actuellement restreinte.
-    private bool isRestricted = false;
+    // Indique si le mode "demi résolution" est activé.
+    private bool isHalfResolution = false;
     
-    // Stocke la résolution complète (initiale).
-    private int fullWidth;
-    private int fullHeight;
-
-    // Variables pour l'affichage du texte.
+    // Référence vers l'asset URP utilisé.
+    private UniversalRenderPipelineAsset urpAsset;
+    
+    // Variables pour l'affichage temporaire du texte.
     private string displayText = "";
     private float displayTime = 0f;
 
     void Start()
     {
-        // Récupère la résolution actuelle (par exemple, la résolution native de l'écran).
-        fullWidth = Screen.currentResolution.width;
-        fullHeight = Screen.currentResolution.height;
+        // Récupère l'asset URP via GraphicsSettings.
+        urpAsset = (UniversalRenderPipelineAsset)GraphicsSettings.renderPipelineAsset;
+        
+        // Cache le curseur de la souris.
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        // Vérifie si la touche "O" est pressée.
-        if (Input.GetKeyDown(KeyCode.O))
+        // Utilise le nouveau système d'Input pour détecter la touche O.
+        if (Keyboard.current != null && Keyboard.current.tKey.wasPressedThisFrame)
         {
-            if (isRestricted)
+            if (isHalfResolution)
             {
-                // Retour à la résolution complète.
-                Screen.SetResolution(fullWidth, fullHeight, Screen.fullScreen);
-                isRestricted = false;
-                displayText = "Resolution set to Native";
+                // Retour au render scale natif.
+                urpAsset.renderScale = 1f;
+                isHalfResolution = false;
+                displayText = "Render Scale: Native";
             }
             else
             {
-                // Passage en mode restreint à 1920x1080.
-                Screen.SetResolution(1920, 1080, Screen.fullScreen);
-                isRestricted = true;
-                displayText = "Resolution set to 1920x1080";
+                // Passe au render scale à 0.5 pour alléger le rendu.
+                urpAsset.renderScale = 0.5f;
+                isHalfResolution = true;
+                displayText = "Render Scale: 0.5x";
             }
-            // Afficher le texte pendant 3 secondes.
+            // Affiche le message pendant 3 secondes.
             displayTime = 3f;
         }
 
-        // Réduire le temps d'affichage.
+        // Réduit le temps d'affichage.
         if (displayTime > 0)
-        {
             displayTime -= Time.deltaTime;
-            if (displayTime < 0)
-                displayTime = 0;
-        }
     }
 
     void OnGUI()
     {
-        // Affiche le texte si le timer est actif.
+        // Affiche le message si le timer est actif.
         if (displayTime > 0)
-        {
             GUI.Label(new Rect(10, 10, 200, 20), displayText);
-        }
     }
 }

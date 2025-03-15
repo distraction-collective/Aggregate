@@ -45,25 +45,35 @@ public class Cinematic : MonoBehaviour {
   }
 
   void OnAnimationEnd(PlayableDirector _) {
-    // restore the player at a new respawn point
-    Vector3 pos = respawnAt.transform.position;
-    health.respawn_position = pos;
-    player.transform.position = pos;
-    player.FootstepAudioVolume = savedFootstepsAudioVolume;
-    if (health == null) {
-      Debug.LogError("health is null");
-    }
-    if (health._puppetMaster == null) {
-      Debug.LogError("puppet master is null");
-    }
-    health._puppetMaster.Teleport(pos, player.transform.rotation, true);
-    player.enabled = true;
-    foreach (var r in skinnedMeshRenderers) {
-      r.enabled = true;
-    }
-    foreach (var r in particleSystemRenderers) {
-      r.enabled = true;
-    }
-    onCinematicEnd.Invoke();
+  // Restaurer le joueur à un nouveau point de respawn avec la bonne orientation
+  Vector3 pos = respawnAt.transform.position;
+  Quaternion rot = respawnAt.transform.rotation; // récupération de l'orientation
+  
+  health.respawn_position = pos;
+  player.transform.position = pos;
+  player.transform.rotation = rot; // application de l'orientation
+  
+  player.FootstepAudioVolume = savedFootstepsAudioVolume;
+  
+  if (health == null) {
+    Debug.LogError("health is null");
   }
+  if (health._puppetMaster == null) {
+    Debug.LogError("puppet master is null");
+  }
+  
+  // Utiliser la rotation de respawnAt pour la téléportation
+  health._puppetMaster.Teleport(pos, rot, true);
+  
+  player.enabled = true;
+  
+  foreach (var r in skinnedMeshRenderers) {
+    r.enabled = true;
+  }
+  foreach (var r in particleSystemRenderers) {
+    r.enabled = true;
+  }
+  onCinematicEnd.Invoke();
+}
+
 }

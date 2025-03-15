@@ -95,9 +95,9 @@ public class PlayerHealth : MonoBehaviour {
 
   void Update() { 
 
-    if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame) {
+    if (Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame) {
         healthToggleActivated = !healthToggleActivated;
-        speedMultiplierActivated = !speedMultiplierActivated;
+        //speedMultiplierActivated = !speedMultiplierActivated;
         Debug.Log("Health toggle " + (healthToggleActivated ? "activé" : "désactivé"));
         // Si activé, on force immédiatement la vie à max
         if (healthToggleActivated) {
@@ -106,11 +106,9 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
-    // Toggle pour multiplier la vitesse de course avec la touche S
-    //if (Keyboard.current != null && Keyboard.current.sKey.wasPressedThisFrame) {
-    //        speedMultiplierActivated = !speedMultiplierActivated;
-    //        Debug.Log("Speed multiplier " + (speedMultiplierActivated ? "activé" : "désactivé"));
-    //}
+    if (Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame) {
+        speedMultiplierActivated = !speedMultiplierActivated;        
+    }
     
     CheckSafe();
     UpdateMovementSpeed();
@@ -123,9 +121,15 @@ public class PlayerHealth : MonoBehaviour {
 
   void OnGUI() {
     if (healthToggleActivated) {
-        // Affiche "IMMORTAL DEBUG MODE" en haut à gauche de l'écran
-        GUI.Label(new Rect(10, 30, 200, 20), "IMMORTAL DEBUG MODE");
+        // Affiche "GOD DEBUG MODE" en haut à gauche de l'écran
+        GUI.Label(new Rect(10, 30, 200, 20), "GOD DEBUG MODE");
     }
+
+    if (speedMultiplierActivated) {
+        // Affiche "GOD DEBUG MODE" en haut à gauche de l'écran
+        GUI.Label(new Rect(10, 50, 200, 20), "FASTASFUCK DEBUG MODE");
+    }
+
   }
 
   private void CheckSafe() {
