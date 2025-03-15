@@ -1,4 +1,4 @@
-// Made with Amplify Shader Editor v1.9.2.2
+// Made with Amplify Shader Editor v1.9.2.1
 // Available at the Unity Asset Store - http://u3d.as/y3X 
 Shader "__Corjn__/Simple Blended triplanar World"
 {
@@ -207,10 +207,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
 			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
 			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
-			
 			#pragma multi_compile_fragment _ _SHADOWS_SOFT
-		
-			
 			#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
 			#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
 			#pragma multi_compile_fragment _ _LIGHT_LAYERS
@@ -263,9 +260,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
-				float4 tangentOS : TANGENT;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
+				float4 ase_tangent : TANGENT;
 				float4 texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
@@ -275,7 +272,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexOutput
 			{
-				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				ASE_SV_POSITION_QUALIFIERS float4 clipPos : SV_POSITION;
 				float4 clipPosV : TEXCOORD0;
 				float4 lightmapUVOrVertexSH : TEXCOORD1;
 				half4 fogFactorAndVertexLight : TEXCOORD2;
@@ -392,7 +389,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				o.ase_color = v.ase_color;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -400,19 +397,21 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 vertexValue = defaultVertexValue;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
-				v.normalOS = v.normalOS;
-				v.tangentOS = v.tangentOS;
+				v.ase_normal = v.ase_normal;
 
-				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.positionOS.xyz );
-				VertexNormalInputs normalInput = GetVertexNormalInputs( v.normalOS, v.tangentOS );
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
+				float3 positionVS = TransformWorldToView( positionWS );
+				float4 positionCS = TransformWorldToHClip( positionWS );
 
-				o.tSpace0 = float4( normalInput.normalWS, vertexInput.positionWS.x );
-				o.tSpace1 = float4( normalInput.tangentWS, vertexInput.positionWS.y );
-				o.tSpace2 = float4( normalInput.bitangentWS, vertexInput.positionWS.z );
+				VertexNormalInputs normalInput = GetVertexNormalInputs( v.ase_normal, v.ase_tangent );
+
+				o.tSpace0 = float4( normalInput.normalWS, positionWS.x);
+				o.tSpace1 = float4( normalInput.tangentWS, positionWS.y);
+				o.tSpace2 = float4( normalInput.bitangentWS, positionWS.z);
 
 				#if defined(LIGHTMAP_ON)
 					OUTPUT_LIGHTMAP_UV( v.texcoord1, unity_LightmapST, o.lightmapUVOrVertexSH.xy );
@@ -431,10 +430,10 @@ Shader "__Corjn__/Simple Blended triplanar World"
 					o.lightmapUVOrVertexSH.xy = v.texcoord.xy * unity_LightmapST.xy + unity_LightmapST.zw;
 				#endif
 
-				half3 vertexLight = VertexLighting( vertexInput.positionWS, normalInput.normalWS );
+				half3 vertexLight = VertexLighting( positionWS, normalInput.normalWS );
 
 				#ifdef ASE_FOG
-					half fogFactor = ComputeFogFactor( vertexInput.positionCS.z );
+					half fogFactor = ComputeFogFactor( positionCS.z );
 				#else
 					half fogFactor = 0;
 				#endif
@@ -442,11 +441,14 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
+					vertexInput.positionWS = positionWS;
+					vertexInput.positionCS = positionCS;
 					o.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				o.positionCS = vertexInput.positionCS;
-				o.clipPosV = vertexInput.positionCS;
+				o.clipPos = positionCS;
+				o.clipPosV = positionCS;
 				return o;
 			}
 
@@ -454,8 +456,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
-				float4 tangentOS : TANGENT;
+				float3 ase_normal : NORMAL;
+				float4 ase_tangent : TANGENT;
 				float4 texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
@@ -475,9 +477,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.tangentOS = v.tangentOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
+				o.ase_tangent = v.ase_tangent;
 				o.texcoord = v.texcoord;
 				o.texcoord1 = v.texcoord1;
 				o.texcoord2 = v.texcoord2;
@@ -518,9 +520,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.tangentOS = patch[0].tangentOS * bary.x + patch[1].tangentOS * bary.y + patch[2].tangentOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
+				o.ase_tangent = patch[0].ase_tangent * bary.x + patch[1].ase_tangent * bary.y + patch[2].ase_tangent * bary.z;
 				o.texcoord = patch[0].texcoord * bary.x + patch[1].texcoord * bary.y + patch[2].texcoord * bary.z;
 				o.texcoord1 = patch[0].texcoord1 * bary.x + patch[1].texcoord1 * bary.y + patch[2].texcoord1 * bary.z;
 				o.texcoord2 = patch[0].texcoord2 * bary.x + patch[1].texcoord2 * bary.y + patch[2].texcoord2 * bary.z;
@@ -528,9 +530,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -555,7 +557,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 
 				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+					LODFadeCrossFade( IN.clipPos );
 				#endif
 
 				#if defined(ENABLE_TERRAIN_PERPIXEL_NORMAL)
@@ -576,7 +578,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float4 ClipPos = IN.clipPosV;
 				float4 ScreenPos = ComputeScreenPos( IN.clipPosV );
 
-				float2 NormalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.positionCS);
+				float2 NormalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.clipPos);
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
 					ShadowCoords = IN.shadowCoord;
@@ -631,7 +633,6 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float2 temp_output_107_0_g3 = ddx( Triplanar_UV271_g3 );
 				float2 temp_output_110_0_g3 = ddy( Triplanar_UV271_g3 );
 				float4 Output_Triplanar295_g3 = ( ( ( ( tex2D( _Albedo, UV153_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W153_g3 ) + ( tex2D( _Albedo, UV253_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W253_g3 ) + ( tex2D( _Albedo, UV353_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W353_g3 ) ) * W0108_g3 ) + ( W1108_g3 * ( ( tex2D( _Albedo, UV183_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W183_g3 ) + ( tex2D( _Albedo, UV283_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W283_g3 ) + ( tex2D( _Albedo, UV383_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W383_g3 ) ) ) + ( W2108_g3 * ( ( tex2D( _Albedo, UV1117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W1117_g3 ) + ( tex2D( _Albedo, UV2117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W2117_g3 ) + ( tex2D( _Albedo, UV3117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W3117_g3 ) ) ) );
-				
 				float localStochasticTiling53_g2 = ( 0.0 );
 				float2 temp_output_104_0_g2 = _Tile;
 				float3 temp_output_80_0_g2 = WorldPosition;
@@ -679,6 +680,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float4 Output_Triplanar295_g2 = ( ( ( ( tex2D( _Normal, UV153_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W153_g2 ) + ( tex2D( _Normal, UV253_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W253_g2 ) + ( tex2D( _Normal, UV353_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W353_g2 ) ) * W0108_g2 ) + ( W1108_g2 * ( ( tex2D( _Normal, UV183_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W183_g2 ) + ( tex2D( _Normal, UV283_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W283_g2 ) + ( tex2D( _Normal, UV383_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W383_g2 ) ) ) + ( W2108_g2 * ( ( tex2D( _Normal, UV1117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W1117_g2 ) + ( tex2D( _Normal, UV2117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W2117_g2 ) + ( tex2D( _Normal, UV3117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W3117_g2 ) ) ) );
 				float3 unpack336 = UnpackNormalScale( Output_Triplanar295_g2, _Normal_Scale );
 				unpack336.z = lerp( 1, unpack336.z, saturate(_Normal_Scale) );
+				float3 temp_output_345_0 = SHADERGRAPH_REFLECTION_PROBE(float3( 0,0,0 ),unpack336,0.0);
 				
 				float4 lerpResult248 = lerp( IN.ase_color , float4( 0,0,0,0 ) , _Vertex_Color_Scale);
 				
@@ -730,7 +732,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float4 break31_g4 = Output_Triplanar295_g4;
 				
 
-				float3 BaseColor = ( Output_Triplanar295_g3 * _Color ).rgb;
+				float3 BaseColor = ( ( Output_Triplanar295_g3 * _Color ) + float4( ( temp_output_345_0 * float3( 0.1,0.1,0.1 ) ) , 0.0 ) ).rgb;
 				float3 Normal = unpack336;
 				float3 Emission = lerpResult248.rgb;
 				float3 Specular = 0.5;
@@ -747,7 +749,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 Translucency = 1;
 
 				#ifdef ASE_DEPTH_WRITE_ON
-					float DepthValue = IN.positionCS.z;
+					float DepthValue = IN.clipPos.z;
 				#endif
 
 				#ifdef _CLEARCOAT
@@ -837,7 +839,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#endif
 
 				#ifdef _DBUFFER
-					ApplyDecalToSurfaceData(IN.positionCS, surfaceData, inputData);
+					ApplyDecalToSurfaceData(IN.clipPos, surfaceData, inputData);
 				#endif
 
 				half4 color = UniversalFragmentPBR( inputData, surfaceData);
@@ -1024,18 +1026,18 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
-				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				ASE_SV_POSITION_QUALIFIERS float4 clipPos : SV_POSITION;
 				float4 clipPosV : TEXCOORD0;
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 positionWS : TEXCOORD1;
+					float3 worldPos : TEXCOORD1;
 				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					float4 shadowCoord : TEXCOORD2;
@@ -1098,27 +1100,27 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 
 				float3 vertexValue = defaultVertexValue;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				v.ase_normal = v.ase_normal;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					o.positionWS = positionWS;
+					o.worldPos = positionWS;
 				#endif
 
-				float3 normalWS = TransformObjectToWorldDir(v.normalOS);
+				float3 normalWS = TransformObjectToWorldDir(v.ase_normal);
 
 				#if _CASTING_PUNCTUAL_LIGHT_SHADOW
 					float3 lightDirectionWS = normalize(_LightPosition - positionWS);
@@ -1126,23 +1128,23 @@ Shader "__Corjn__/Simple Blended triplanar World"
 					float3 lightDirectionWS = _LightDirection;
 				#endif
 
-				float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
+				float4 clipPos = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
 
 				#if UNITY_REVERSED_Z
-					positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+					clipPos.z = min(clipPos.z, UNITY_NEAR_CLIP_VALUE);
 				#else
-					positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+					clipPos.z = max(clipPos.z, UNITY_NEAR_CLIP_VALUE);
 				#endif
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
 					vertexInput.positionWS = positionWS;
-					vertexInput.positionCS = positionCS;
+					vertexInput.positionCS = clipPos;
 					o.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				o.positionCS = positionCS;
-				o.clipPosV = positionCS;
+				o.clipPos = clipPos;
+				o.clipPosV = clipPos;
 				return o;
 			}
 
@@ -1150,7 +1152,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -1166,8 +1168,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
 				
 				return o;
 			}
@@ -1205,15 +1207,15 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
 				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -1235,7 +1237,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 WorldPosition = IN.positionWS;
+					float3 WorldPosition = IN.worldPos;
 				#endif
 
 				float4 ShadowCoords = float4( 0, 0, 0, 0 );
@@ -1257,7 +1259,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float AlphaClipThresholdShadow = 0.5;
 
 				#ifdef ASE_DEPTH_WRITE_ON
-					float DepthValue = IN.positionCS.z;
+					float DepthValue = IN.clipPos.z;
 				#endif
 
 				#ifdef _ALPHATEST_ON
@@ -1269,7 +1271,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#endif
 
 				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+					LODFadeCrossFade( IN.clipPos );
 				#endif
 
 				#ifdef ASE_DEPTH_WRITE_ON
@@ -1316,7 +1318,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
-
+			
 			#if defined(LOD_FADE_CROSSFADE)
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
             #endif
@@ -1333,18 +1335,18 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
-				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				ASE_SV_POSITION_QUALIFIERS float4 clipPos : SV_POSITION;
 				float4 clipPosV : TEXCOORD0;
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-				float3 positionWS : TEXCOORD1;
+				float3 worldPos : TEXCOORD1;
 				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 				float4 shadowCoord : TEXCOORD2;
@@ -1404,7 +1406,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -1412,25 +1414,28 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 vertexValue = defaultVertexValue;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
-
-				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.positionOS.xyz );
+				v.ase_normal = v.ase_normal;
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
+				float4 positionCS = TransformWorldToHClip( positionWS );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					o.positionWS = vertexInput.positionWS;
+					o.worldPos = positionWS;
 				#endif
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
+					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
+					vertexInput.positionWS = positionWS;
+					vertexInput.positionCS = positionCS;
 					o.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				o.positionCS = vertexInput.positionCS;
-				o.clipPosV = vertexInput.positionCS;
+				o.clipPos = positionCS;
+				o.clipPosV = positionCS;
 				return o;
 			}
 
@@ -1438,7 +1443,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -1454,8 +1459,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
 				
 				return o;
 			}
@@ -1493,15 +1498,15 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
 				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -1523,7 +1528,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-				float3 WorldPosition = IN.positionWS;
+				float3 WorldPosition = IN.worldPos;
 				#endif
 
 				float4 ShadowCoords = float4( 0, 0, 0, 0 );
@@ -1542,9 +1547,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
-
 				#ifdef ASE_DEPTH_WRITE_ON
-					float DepthValue = IN.positionCS.z;
+					float DepthValue = IN.clipPos.z;
 				#endif
 
 				#ifdef _ALPHATEST_ON
@@ -1552,7 +1556,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#endif
 
 				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+					LODFadeCrossFade( IN.clipPos );
 				#endif
 
 				#ifdef ASE_DEPTH_WRITE_ON
@@ -1605,8 +1609,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
 				float4 texcoord0 : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
@@ -1616,9 +1620,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexOutput
 			{
-				float4 positionCS : SV_POSITION;
+				float4 clipPos : SV_POSITION;
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 positionWS : TEXCOORD0;
+					float3 worldPos : TEXCOORD0;
 				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					float4 shadowCoord : TEXCOORD1;
@@ -1671,6 +1675,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			#endif
 
 			sampler2D _Albedo;
+			sampler2D _Normal;
 
 
 			void StochasticTiling( float2 UV, out float2 UV1, out float2 UV2, out float2 UV3, out float W1, out float W2, out float W3 )
@@ -1727,7 +1732,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				float3 ase_worldNormal = TransformObjectToWorldNormal(v.normalOS);
+				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
 				o.ase_texcoord4.xyz = ase_worldNormal;
 				
 				o.ase_color = v.ase_color;
@@ -1736,7 +1741,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				o.ase_texcoord4.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -1744,25 +1749,25 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 vertexValue = defaultVertexValue;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				v.ase_normal = v.ase_normal;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					o.positionWS = positionWS;
+					o.worldPos = positionWS;
 				#endif
 
-				o.positionCS = MetaVertexPosition( v.positionOS, v.texcoord1.xy, v.texcoord1.xy, unity_LightmapST, unity_DynamicLightmapST );
+				o.clipPos = MetaVertexPosition( v.vertex, v.texcoord1.xy, v.texcoord1.xy, unity_LightmapST, unity_DynamicLightmapST );
 
 				#ifdef EDITOR_VISUALIZATION
 					float2 VizUV = 0;
 					float4 LightCoord = 0;
-					UnityEditorVizData(v.positionOS.xyz, v.texcoord0.xy, v.texcoord1.xy, v.texcoord2.xy, VizUV, LightCoord);
+					UnityEditorVizData(v.vertex.xyz, v.texcoord0.xy, v.texcoord1.xy, v.texcoord2.xy, VizUV, LightCoord);
 					o.VizUV = float4(VizUV, 0, 0);
 					o.LightCoord = LightCoord;
 				#endif
@@ -1770,7 +1775,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
 					vertexInput.positionWS = positionWS;
-					vertexInput.positionCS = o.positionCS;
+					vertexInput.positionCS = o.clipPos;
 					o.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
@@ -1781,7 +1786,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
+				float3 ase_normal : NORMAL;
 				float4 texcoord0 : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
@@ -1801,8 +1806,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
 				o.texcoord0 = v.texcoord0;
 				o.texcoord1 = v.texcoord1;
 				o.texcoord2 = v.texcoord2;
@@ -1843,8 +1848,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
 				o.texcoord0 = patch[0].texcoord0 * bary.x + patch[1].texcoord0 * bary.y + patch[2].texcoord0 * bary.z;
 				o.texcoord1 = patch[0].texcoord1 * bary.x + patch[1].texcoord1 * bary.y + patch[2].texcoord1 * bary.z;
 				o.texcoord2 = patch[0].texcoord2 * bary.x + patch[1].texcoord2 * bary.y + patch[2].texcoord2 * bary.z;
@@ -1852,9 +1857,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -1872,7 +1877,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 WorldPosition = IN.positionWS;
+					float3 WorldPosition = IN.worldPos;
 				#endif
 
 				float4 ShadowCoords = float4( 0, 0, 0, 0 );
@@ -1931,11 +1936,59 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float2 temp_output_107_0_g3 = ddx( Triplanar_UV271_g3 );
 				float2 temp_output_110_0_g3 = ddy( Triplanar_UV271_g3 );
 				float4 Output_Triplanar295_g3 = ( ( ( ( tex2D( _Albedo, UV153_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W153_g3 ) + ( tex2D( _Albedo, UV253_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W253_g3 ) + ( tex2D( _Albedo, UV353_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W353_g3 ) ) * W0108_g3 ) + ( W1108_g3 * ( ( tex2D( _Albedo, UV183_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W183_g3 ) + ( tex2D( _Albedo, UV283_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W283_g3 ) + ( tex2D( _Albedo, UV383_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W383_g3 ) ) ) + ( W2108_g3 * ( ( tex2D( _Albedo, UV1117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W1117_g3 ) + ( tex2D( _Albedo, UV2117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W2117_g3 ) + ( tex2D( _Albedo, UV3117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W3117_g3 ) ) ) );
+				float localStochasticTiling53_g2 = ( 0.0 );
+				float2 temp_output_104_0_g2 = _Tile;
+				float3 temp_output_80_0_g2 = WorldPosition;
+				float2 Triplanar_UV050_g2 = ( temp_output_104_0_g2 * (temp_output_80_0_g2).zy );
+				float2 UV53_g2 = Triplanar_UV050_g2;
+				float2 UV153_g2 = float2( 0,0 );
+				float2 UV253_g2 = float2( 0,0 );
+				float2 UV353_g2 = float2( 0,0 );
+				float W153_g2 = 0.0;
+				float W253_g2 = 0.0;
+				float W353_g2 = 0.0;
+				StochasticTiling( UV53_g2 , UV153_g2 , UV253_g2 , UV353_g2 , W153_g2 , W253_g2 , W353_g2 );
+				float2 temp_output_57_0_g2 = ddx( Triplanar_UV050_g2 );
+				float2 temp_output_58_0_g2 = ddy( Triplanar_UV050_g2 );
+				float localTriplanarWeights108_g2 = ( 0.0 );
+				float3 WorldNormal108_g2 = ase_worldNormal;
+				float W0108_g2 = 0.0;
+				float W1108_g2 = 0.0;
+				float W2108_g2 = 0.0;
+				TriplanarWeights( WorldNormal108_g2 , W0108_g2 , W1108_g2 , W2108_g2 );
+				float localStochasticTiling83_g2 = ( 0.0 );
+				float2 Triplanar_UV164_g2 = ( temp_output_104_0_g2 * (temp_output_80_0_g2).zx );
+				float2 UV83_g2 = Triplanar_UV164_g2;
+				float2 UV183_g2 = float2( 0,0 );
+				float2 UV283_g2 = float2( 0,0 );
+				float2 UV383_g2 = float2( 0,0 );
+				float W183_g2 = 0.0;
+				float W283_g2 = 0.0;
+				float W383_g2 = 0.0;
+				StochasticTiling( UV83_g2 , UV183_g2 , UV283_g2 , UV383_g2 , W183_g2 , W283_g2 , W383_g2 );
+				float2 temp_output_86_0_g2 = ddx( Triplanar_UV164_g2 );
+				float2 temp_output_92_0_g2 = ddy( Triplanar_UV164_g2 );
+				float localStochasticTiling117_g2 = ( 0.0 );
+				float2 Triplanar_UV271_g2 = ( temp_output_104_0_g2 * (temp_output_80_0_g2).xy );
+				float2 UV117_g2 = Triplanar_UV271_g2;
+				float2 UV1117_g2 = float2( 0,0 );
+				float2 UV2117_g2 = float2( 0,0 );
+				float2 UV3117_g2 = float2( 0,0 );
+				float W1117_g2 = 0.0;
+				float W2117_g2 = 0.0;
+				float W3117_g2 = 0.0;
+				StochasticTiling( UV117_g2 , UV1117_g2 , UV2117_g2 , UV3117_g2 , W1117_g2 , W2117_g2 , W3117_g2 );
+				float2 temp_output_107_0_g2 = ddx( Triplanar_UV271_g2 );
+				float2 temp_output_110_0_g2 = ddy( Triplanar_UV271_g2 );
+				float4 Output_Triplanar295_g2 = ( ( ( ( tex2D( _Normal, UV153_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W153_g2 ) + ( tex2D( _Normal, UV253_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W253_g2 ) + ( tex2D( _Normal, UV353_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W353_g2 ) ) * W0108_g2 ) + ( W1108_g2 * ( ( tex2D( _Normal, UV183_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W183_g2 ) + ( tex2D( _Normal, UV283_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W283_g2 ) + ( tex2D( _Normal, UV383_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W383_g2 ) ) ) + ( W2108_g2 * ( ( tex2D( _Normal, UV1117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W1117_g2 ) + ( tex2D( _Normal, UV2117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W2117_g2 ) + ( tex2D( _Normal, UV3117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W3117_g2 ) ) ) );
+				float3 unpack336 = UnpackNormalScale( Output_Triplanar295_g2, _Normal_Scale );
+				unpack336.z = lerp( 1, unpack336.z, saturate(_Normal_Scale) );
+				float3 temp_output_345_0 = SHADERGRAPH_REFLECTION_PROBE(float3( 0,0,0 ),unpack336,0.0);
 				
 				float4 lerpResult248 = lerp( IN.ase_color , float4( 0,0,0,0 ) , _Vertex_Color_Scale);
 				
 
-				float3 BaseColor = ( Output_Triplanar295_g3 * _Color ).rgb;
+				float3 BaseColor = ( ( Output_Triplanar295_g3 * _Color ) + float4( ( temp_output_345_0 * float3( 0.1,0.1,0.1 ) ) , 0.0 ) ).rgb;
 				float3 Emission = lerpResult248.rgb;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
@@ -1999,17 +2052,17 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
-				float4 positionCS : SV_POSITION;
+				float4 clipPos : SV_POSITION;
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 positionWS : TEXCOORD0;
+					float3 worldPos : TEXCOORD0;
 				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					float4 shadowCoord : TEXCOORD1;
@@ -2057,6 +2110,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			#endif
 
 			sampler2D _Albedo;
+			sampler2D _Normal;
 
 
 			void StochasticTiling( float2 UV, out float2 UV1, out float2 UV2, out float2 UV3, out float W1, out float W2, out float W3 )
@@ -2113,7 +2167,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_TRANSFER_INSTANCE_ID( v, o );
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
 
-				float3 ase_worldNormal = TransformObjectToWorldNormal(v.normalOS);
+				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
 				o.ase_texcoord2.xyz = ase_worldNormal;
 				
 				
@@ -2121,7 +2175,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				o.ase_texcoord2.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -2129,24 +2183,28 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 vertexValue = defaultVertexValue;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				v.ase_normal = v.ase_normal;
 
-				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.positionOS.xyz );
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
+				float4 positionCS = TransformWorldToHClip( positionWS );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					o.positionWS = vertexInput.positionWS;
+					o.worldPos = positionWS;
 				#endif
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
+					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
+					vertexInput.positionWS = positionWS;
+					vertexInput.positionCS = positionCS;
 					o.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				o.positionCS = vertexInput.positionCS;
+				o.clipPos = positionCS;
 
 				return o;
 			}
@@ -2155,7 +2213,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -2171,8 +2229,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
 				
 				return o;
 			}
@@ -2210,15 +2268,15 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
 				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -2236,7 +2294,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 WorldPosition = IN.positionWS;
+					float3 WorldPosition = IN.worldPos;
 				#endif
 
 				float4 ShadowCoords = float4( 0, 0, 0, 0 );
@@ -2295,9 +2353,57 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float2 temp_output_107_0_g3 = ddx( Triplanar_UV271_g3 );
 				float2 temp_output_110_0_g3 = ddy( Triplanar_UV271_g3 );
 				float4 Output_Triplanar295_g3 = ( ( ( ( tex2D( _Albedo, UV153_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W153_g3 ) + ( tex2D( _Albedo, UV253_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W253_g3 ) + ( tex2D( _Albedo, UV353_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W353_g3 ) ) * W0108_g3 ) + ( W1108_g3 * ( ( tex2D( _Albedo, UV183_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W183_g3 ) + ( tex2D( _Albedo, UV283_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W283_g3 ) + ( tex2D( _Albedo, UV383_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W383_g3 ) ) ) + ( W2108_g3 * ( ( tex2D( _Albedo, UV1117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W1117_g3 ) + ( tex2D( _Albedo, UV2117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W2117_g3 ) + ( tex2D( _Albedo, UV3117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W3117_g3 ) ) ) );
+				float localStochasticTiling53_g2 = ( 0.0 );
+				float2 temp_output_104_0_g2 = _Tile;
+				float3 temp_output_80_0_g2 = WorldPosition;
+				float2 Triplanar_UV050_g2 = ( temp_output_104_0_g2 * (temp_output_80_0_g2).zy );
+				float2 UV53_g2 = Triplanar_UV050_g2;
+				float2 UV153_g2 = float2( 0,0 );
+				float2 UV253_g2 = float2( 0,0 );
+				float2 UV353_g2 = float2( 0,0 );
+				float W153_g2 = 0.0;
+				float W253_g2 = 0.0;
+				float W353_g2 = 0.0;
+				StochasticTiling( UV53_g2 , UV153_g2 , UV253_g2 , UV353_g2 , W153_g2 , W253_g2 , W353_g2 );
+				float2 temp_output_57_0_g2 = ddx( Triplanar_UV050_g2 );
+				float2 temp_output_58_0_g2 = ddy( Triplanar_UV050_g2 );
+				float localTriplanarWeights108_g2 = ( 0.0 );
+				float3 WorldNormal108_g2 = ase_worldNormal;
+				float W0108_g2 = 0.0;
+				float W1108_g2 = 0.0;
+				float W2108_g2 = 0.0;
+				TriplanarWeights( WorldNormal108_g2 , W0108_g2 , W1108_g2 , W2108_g2 );
+				float localStochasticTiling83_g2 = ( 0.0 );
+				float2 Triplanar_UV164_g2 = ( temp_output_104_0_g2 * (temp_output_80_0_g2).zx );
+				float2 UV83_g2 = Triplanar_UV164_g2;
+				float2 UV183_g2 = float2( 0,0 );
+				float2 UV283_g2 = float2( 0,0 );
+				float2 UV383_g2 = float2( 0,0 );
+				float W183_g2 = 0.0;
+				float W283_g2 = 0.0;
+				float W383_g2 = 0.0;
+				StochasticTiling( UV83_g2 , UV183_g2 , UV283_g2 , UV383_g2 , W183_g2 , W283_g2 , W383_g2 );
+				float2 temp_output_86_0_g2 = ddx( Triplanar_UV164_g2 );
+				float2 temp_output_92_0_g2 = ddy( Triplanar_UV164_g2 );
+				float localStochasticTiling117_g2 = ( 0.0 );
+				float2 Triplanar_UV271_g2 = ( temp_output_104_0_g2 * (temp_output_80_0_g2).xy );
+				float2 UV117_g2 = Triplanar_UV271_g2;
+				float2 UV1117_g2 = float2( 0,0 );
+				float2 UV2117_g2 = float2( 0,0 );
+				float2 UV3117_g2 = float2( 0,0 );
+				float W1117_g2 = 0.0;
+				float W2117_g2 = 0.0;
+				float W3117_g2 = 0.0;
+				StochasticTiling( UV117_g2 , UV1117_g2 , UV2117_g2 , UV3117_g2 , W1117_g2 , W2117_g2 , W3117_g2 );
+				float2 temp_output_107_0_g2 = ddx( Triplanar_UV271_g2 );
+				float2 temp_output_110_0_g2 = ddy( Triplanar_UV271_g2 );
+				float4 Output_Triplanar295_g2 = ( ( ( ( tex2D( _Normal, UV153_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W153_g2 ) + ( tex2D( _Normal, UV253_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W253_g2 ) + ( tex2D( _Normal, UV353_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W353_g2 ) ) * W0108_g2 ) + ( W1108_g2 * ( ( tex2D( _Normal, UV183_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W183_g2 ) + ( tex2D( _Normal, UV283_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W283_g2 ) + ( tex2D( _Normal, UV383_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W383_g2 ) ) ) + ( W2108_g2 * ( ( tex2D( _Normal, UV1117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W1117_g2 ) + ( tex2D( _Normal, UV2117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W2117_g2 ) + ( tex2D( _Normal, UV3117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W3117_g2 ) ) ) );
+				float3 unpack336 = UnpackNormalScale( Output_Triplanar295_g2, _Normal_Scale );
+				unpack336.z = lerp( 1, unpack336.z, saturate(_Normal_Scale) );
+				float3 temp_output_345_0 = SHADERGRAPH_REFLECTION_PROBE(float3( 0,0,0 ),unpack336,0.0);
 				
 
-				float3 BaseColor = ( Output_Triplanar295_g3 * _Color ).rgb;
+				float3 BaseColor = ( ( Output_Triplanar295_g3 * _Color ) + float4( ( temp_output_345_0 * float3( 0.1,0.1,0.1 ) ) , 0.0 ) ).rgb;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 
@@ -2369,21 +2475,21 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
-				float4 tangentOS : TANGENT;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
+				float4 ase_tangent : TANGENT;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
-				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				ASE_SV_POSITION_QUALIFIERS float4 clipPos : SV_POSITION;
 				float4 clipPosV : TEXCOORD0;
 				float3 worldNormal : TEXCOORD1;
 				float4 worldTangent : TEXCOORD2;
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 positionWS : TEXCOORD3;
+					float3 worldPos : TEXCOORD3;
 				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					float4 shadowCoord : TEXCOORD4;
@@ -2489,7 +2595,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 				
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -2497,32 +2603,33 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 vertexValue = defaultVertexValue;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
-				v.tangentOS = v.tangentOS;
-
-				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.positionOS.xyz );
-
-				float3 normalWS = TransformObjectToWorldNormal( v.normalOS );
-				float4 tangentWS = float4( TransformObjectToWorldDir( v.tangentOS.xyz ), v.tangentOS.w );
+				v.ase_normal = v.ase_normal;
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
+				float3 normalWS = TransformObjectToWorldNormal( v.ase_normal );
+				float4 tangentWS = float4(TransformObjectToWorldDir( v.ase_tangent.xyz), v.ase_tangent.w);
+				float4 positionCS = TransformWorldToHClip( positionWS );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					o.positionWS = vertexInput.positionWS;
+					o.worldPos = positionWS;
 				#endif
 
 				o.worldNormal = normalWS;
 				o.worldTangent = tangentWS;
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
+					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
+					vertexInput.positionWS = positionWS;
+					vertexInput.positionCS = positionCS;
 					o.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				o.positionCS = vertexInput.positionCS;
-				o.clipPosV = vertexInput.positionCS;
+				o.clipPos = positionCS;
+				o.clipPosV = positionCS;
 				return o;
 			}
 
@@ -2530,8 +2637,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
-				float4 tangentOS : TANGENT;
+				float3 ase_normal : NORMAL;
+				float4 ase_tangent : TANGENT;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -2547,9 +2654,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.tangentOS = v.tangentOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
+				o.ase_tangent = v.ase_tangent;
 				
 				return o;
 			}
@@ -2587,16 +2694,16 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.tangentOS = patch[0].tangentOS * bary.x + patch[1].tangentOS * bary.y + patch[2].tangentOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
+				o.ase_tangent = patch[0].ase_tangent * bary.x + patch[1].ase_tangent * bary.y + patch[2].ase_tangent * bary.z;
 				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -2622,7 +2729,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 WorldPosition = IN.positionWS;
+					float3 WorldPosition = IN.worldPos;
 				#endif
 
 				float4 ShadowCoords = float4( 0, 0, 0, 0 );
@@ -2693,7 +2800,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 				#ifdef ASE_DEPTH_WRITE_ON
-					float DepthValue = IN.positionCS.z;
+					float DepthValue = IN.clipPos.z;
 				#endif
 
 				#ifdef _ALPHATEST_ON
@@ -2701,7 +2808,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#endif
 
 				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+					LODFadeCrossFade( IN.clipPos );
 				#endif
 
 				#ifdef ASE_DEPTH_WRITE_ON
@@ -2772,10 +2879,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
 			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
 			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
-			
 			#pragma multi_compile_fragment _ _SHADOWS_SOFT
-		
-			
 			#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
 			#pragma multi_compile_fragment _ _RENDER_PASS_ENABLED
 
@@ -2825,9 +2929,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
-				float4 tangentOS : TANGENT;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
+				float4 ase_tangent : TANGENT;
 				float4 texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
@@ -2837,7 +2941,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexOutput
 			{
-				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				ASE_SV_POSITION_QUALIFIERS float4 clipPos : SV_POSITION;
 				float4 clipPosV : TEXCOORD0;
 				float4 lightmapUVOrVertexSH : TEXCOORD1;
 				half4 fogFactorAndVertexLight : TEXCOORD2;
@@ -2955,7 +3059,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 				o.ase_color = v.ase_color;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -2963,20 +3067,22 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 vertexValue = defaultVertexValue;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
-				v.tangentOS = v.tangentOS;
+				v.ase_normal = v.ase_normal;
 
-				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.positionOS.xyz );
-				VertexNormalInputs normalInput = GetVertexNormalInputs( v.normalOS, v.tangentOS );
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
+				float3 positionVS = TransformWorldToView( positionWS );
+				float4 positionCS = TransformWorldToHClip( positionWS );
 
-				o.tSpace0 = float4( normalInput.normalWS, vertexInput.positionWS.x);
-				o.tSpace1 = float4( normalInput.tangentWS, vertexInput.positionWS.y);
-				o.tSpace2 = float4( normalInput.bitangentWS, vertexInput.positionWS.z);
+				VertexNormalInputs normalInput = GetVertexNormalInputs( v.ase_normal, v.ase_tangent );
+
+				o.tSpace0 = float4( normalInput.normalWS, positionWS.x);
+				o.tSpace1 = float4( normalInput.tangentWS, positionWS.y);
+				o.tSpace2 = float4( normalInput.bitangentWS, positionWS.z);
 
 				#if defined(LIGHTMAP_ON)
 					OUTPUT_LIGHTMAP_UV(v.texcoord1, unity_LightmapST, o.lightmapUVOrVertexSH.xy);
@@ -2995,16 +3101,19 @@ Shader "__Corjn__/Simple Blended triplanar World"
 					o.lightmapUVOrVertexSH.xy = v.texcoord.xy * unity_LightmapST.xy + unity_LightmapST.zw;
 				#endif
 
-				half3 vertexLight = VertexLighting( vertexInput.positionWS, normalInput.normalWS );
+				half3 vertexLight = VertexLighting( positionWS, normalInput.normalWS );
 
 				o.fogFactorAndVertexLight = half4(0, vertexLight);
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
+					vertexInput.positionWS = positionWS;
+					vertexInput.positionCS = positionCS;
 					o.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				o.positionCS = vertexInput.positionCS;
-				o.clipPosV = vertexInput.positionCS;
+				o.clipPos = positionCS;
+				o.clipPosV = positionCS;
 				return o;
 			}
 
@@ -3012,8 +3121,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
-				float4 tangentOS : TANGENT;
+				float3 ase_normal : NORMAL;
+				float4 ase_tangent : TANGENT;
 				float4 texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
@@ -3033,9 +3142,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.tangentOS = v.tangentOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
+				o.ase_tangent = v.ase_tangent;
 				o.texcoord = v.texcoord;
 				o.texcoord1 = v.texcoord1;
 				o.texcoord2 = v.texcoord2;
@@ -3076,9 +3185,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.tangentOS = patch[0].tangentOS * bary.x + patch[1].tangentOS * bary.y + patch[2].tangentOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
+				o.ase_tangent = patch[0].ase_tangent * bary.x + patch[1].ase_tangent * bary.y + patch[2].ase_tangent * bary.z;
 				o.texcoord = patch[0].texcoord * bary.x + patch[1].texcoord * bary.y + patch[2].texcoord * bary.z;
 				o.texcoord1 = patch[0].texcoord1 * bary.x + patch[1].texcoord1 * bary.y + patch[2].texcoord1 * bary.z;
 				o.texcoord2 = patch[0].texcoord2 * bary.x + patch[1].texcoord2 * bary.y + patch[2].texcoord2 * bary.z;
@@ -3086,9 +3195,9 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -3110,7 +3219,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 
 				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+					LODFadeCrossFade( IN.clipPos );
 				#endif
 
 				#if defined(ENABLE_TERRAIN_PERPIXEL_NORMAL)
@@ -3131,7 +3240,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float4 ClipPos = IN.clipPosV;
 				float4 ScreenPos = ComputeScreenPos( IN.clipPosV );
 
-				float2 NormalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.positionCS);
+				float2 NormalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.clipPos);
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
 					ShadowCoords = IN.shadowCoord;
@@ -3188,7 +3297,6 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float2 temp_output_107_0_g3 = ddx( Triplanar_UV271_g3 );
 				float2 temp_output_110_0_g3 = ddy( Triplanar_UV271_g3 );
 				float4 Output_Triplanar295_g3 = ( ( ( ( tex2D( _Albedo, UV153_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W153_g3 ) + ( tex2D( _Albedo, UV253_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W253_g3 ) + ( tex2D( _Albedo, UV353_g3, temp_output_57_0_g3, temp_output_58_0_g3 ) * W353_g3 ) ) * W0108_g3 ) + ( W1108_g3 * ( ( tex2D( _Albedo, UV183_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W183_g3 ) + ( tex2D( _Albedo, UV283_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W283_g3 ) + ( tex2D( _Albedo, UV383_g3, temp_output_86_0_g3, temp_output_92_0_g3 ) * W383_g3 ) ) ) + ( W2108_g3 * ( ( tex2D( _Albedo, UV1117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W1117_g3 ) + ( tex2D( _Albedo, UV2117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W2117_g3 ) + ( tex2D( _Albedo, UV3117_g3, temp_output_107_0_g3, temp_output_110_0_g3 ) * W3117_g3 ) ) ) );
-				
 				float localStochasticTiling53_g2 = ( 0.0 );
 				float2 temp_output_104_0_g2 = _Tile;
 				float3 temp_output_80_0_g2 = WorldPosition;
@@ -3236,6 +3344,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float4 Output_Triplanar295_g2 = ( ( ( ( tex2D( _Normal, UV153_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W153_g2 ) + ( tex2D( _Normal, UV253_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W253_g2 ) + ( tex2D( _Normal, UV353_g2, temp_output_57_0_g2, temp_output_58_0_g2 ) * W353_g2 ) ) * W0108_g2 ) + ( W1108_g2 * ( ( tex2D( _Normal, UV183_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W183_g2 ) + ( tex2D( _Normal, UV283_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W283_g2 ) + ( tex2D( _Normal, UV383_g2, temp_output_86_0_g2, temp_output_92_0_g2 ) * W383_g2 ) ) ) + ( W2108_g2 * ( ( tex2D( _Normal, UV1117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W1117_g2 ) + ( tex2D( _Normal, UV2117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W2117_g2 ) + ( tex2D( _Normal, UV3117_g2, temp_output_107_0_g2, temp_output_110_0_g2 ) * W3117_g2 ) ) ) );
 				float3 unpack336 = UnpackNormalScale( Output_Triplanar295_g2, _Normal_Scale );
 				unpack336.z = lerp( 1, unpack336.z, saturate(_Normal_Scale) );
+				float3 temp_output_345_0 = SHADERGRAPH_REFLECTION_PROBE(float3( 0,0,0 ),unpack336,0.0);
 				
 				float4 lerpResult248 = lerp( IN.ase_color , float4( 0,0,0,0 ) , _Vertex_Color_Scale);
 				
@@ -3287,7 +3396,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float4 break31_g4 = Output_Triplanar295_g4;
 				
 
-				float3 BaseColor = ( Output_Triplanar295_g3 * _Color ).rgb;
+				float3 BaseColor = ( ( Output_Triplanar295_g3 * _Color ) + float4( ( temp_output_345_0 * float3( 0.1,0.1,0.1 ) ) , 0.0 ) ).rgb;
 				float3 Normal = unpack336;
 				float3 Emission = lerpResult248.rgb;
 				float3 Specular = 0.5;
@@ -3304,7 +3413,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 Translucency = 1;
 
 				#ifdef ASE_DEPTH_WRITE_ON
-					float DepthValue = IN.positionCS.z;
+					float DepthValue = IN.clipPos.z;
 				#endif
 
 				#ifdef _ALPHATEST_ON
@@ -3313,7 +3422,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 				InputData inputData = (InputData)0;
 				inputData.positionWS = WorldPosition;
-				inputData.positionCS = IN.positionCS;
+				inputData.positionCS = IN.clipPos;
 				inputData.shadowCoord = ShadowCoords;
 
 				#ifdef _NORMALMAP
@@ -3364,7 +3473,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				#endif
 
 				#ifdef _DBUFFER
-					ApplyDecal(IN.positionCS,
+					ApplyDecal(IN.clipPos,
 						BaseColor,
 						Specular,
 						inputData.normalWS,
@@ -3438,15 +3547,15 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
-				float4 positionCS : SV_POSITION;
+				float4 clipPos : SV_POSITION;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
@@ -3510,7 +3619,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -3518,16 +3627,16 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 vertexValue = defaultVertexValue;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				v.ase_normal = v.ase_normal;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
 
-				o.positionCS = TransformWorldToHClip(positionWS);
+				o.clipPos = TransformWorldToHClip(positionWS);
 
 				return o;
 			}
@@ -3536,7 +3645,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -3552,8 +3661,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
 				
 				return o;
 			}
@@ -3591,15 +3700,15 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
 				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -3682,15 +3791,15 @@ Shader "__Corjn__/Simple Blended triplanar World"
 
 			struct VertexInput
 			{
-				float4 positionOS : POSITION;
-				float3 normalOS : NORMAL;
+				float4 vertex : POSITION;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
-				float4 positionCS : SV_POSITION;
+				float4 clipPos : SV_POSITION;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
@@ -3754,7 +3863,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -3762,15 +3871,15 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				float3 vertexValue = defaultVertexValue;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					v.vertex.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					v.vertex.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				v.ase_normal = v.ase_normal;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
-				o.positionCS = TransformWorldToHClip(positionWS);
+				float3 positionWS = TransformObjectToWorld( v.vertex.xyz );
+				o.clipPos = TransformWorldToHClip(positionWS);
 
 				return o;
 			}
@@ -3779,7 +3888,7 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			struct VertexControl
 			{
 				float4 vertex : INTERNALTESSPOS;
-				float3 normalOS : NORMAL;
+				float3 ase_normal : NORMAL;
 				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -3795,8 +3904,8 @@ Shader "__Corjn__/Simple Blended triplanar World"
 				VertexControl o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
+				o.vertex = v.vertex;
+				o.ase_normal = v.ase_normal;
 				
 				return o;
 			}
@@ -3834,15 +3943,15 @@ Shader "__Corjn__/Simple Blended triplanar World"
 			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
 				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
+				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
 				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = o.vertex.xyz - patch[i].ase_normal * (dot(o.vertex.xyz, patch[i].ase_normal) - dot(patch[i].vertex.xyz, patch[i].ase_normal));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				o.vertex.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.vertex.xyz;
 				#endif
 				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
 				return VertexFunction(o);
@@ -3893,12 +4002,12 @@ Shader "__Corjn__/Simple Blended triplanar World"
 	Fallback Off
 }
 /*ASEBEGIN
-Version=19202
+Version=19201
 Node;AmplifyShaderEditor.RangedFloatNode;249;916.3365,-495.9478;Inherit;False;Property;_Vertex_Color_Scale;Vertex_Color_Scale;7;0;Create;True;0;0;0;False;0;False;1;1;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.VertexColorNode;245;1003.776,-666.6688;Inherit;False;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;221;1067.982,-783.2871;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.LerpOp;248;1300.995,-665.4586;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;314;2214.889,-647.8948;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;0;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;314;2214.889,-654.8948;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;0;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;316;2214.889,-647.8948;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=ShadowCaster;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;317;2214.889,-647.8948;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;DepthOnly;0;3;DepthOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;True;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;True;1;LightMode=DepthOnly;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;318;2214.889,-647.8948;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;Meta;0;4;Meta;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Meta;False;False;0;;0;0;Standard;0;False;0
@@ -3918,7 +4027,6 @@ Node;AmplifyShaderEditor.WorldNormalVector;334;-372.8762,-986.0308;Inherit;False
 Node;AmplifyShaderEditor.TexturePropertyNode;122;-47.0354,-995.6183;Float;True;Property;_Albedo;Albedo;0;0;Create;True;0;0;0;False;0;False;None;6fe2b20f107f92347b74becec066d706;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.FunctionNode;326;291.4982,-416.6714;Inherit;False;Procedural Sample;-1;;2;f5379ff72769e2b4495e5ce2f004d8d4;2,157,2,315,2;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
 Node;AmplifyShaderEditor.RangedFloatNode;235;322.9728,-114.9821;Inherit;False;Property;_Normal_Scale;Normal_Scale;6;0;Create;True;0;0;0;False;0;False;1;0.212;0;2;0;1;FLOAT;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;315;2227.889,-654.8948;Float;False;True;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;__Corjn__/Simple Blended triplanar World;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;21;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;;0;0;Standard;40;Workflow;1;638393874020855921;Surface;0;0;  Refraction Model;0;0;  Blend;0;0;Two Sided;0;638394057362210428;Fragment Normal Space,InvertActionOnDeselection;0;0;Forward Only;0;0;Transmission;0;0;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;0;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;DOTS Instancing;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;0;  Early Z;0;0;Vertex Position,InvertActionOnDeselection;1;0;Debug Display;0;0;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;True;True;True;False;;False;0
 Node;AmplifyShaderEditor.FunctionNode;325;458.6982,-982.6714;Inherit;False;Procedural Sample;-1;;3;f5379ff72769e2b4495e5ce2f004d8d4;2,157,2,315,2;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
 Node;AmplifyShaderEditor.FunctionNode;338;345.597,61.24144;Inherit;False;Procedural Sample;-1;;4;f5379ff72769e2b4495e5ce2f004d8d4;2,157,2,315,2;7;82;SAMPLER2D;0;False;158;SAMPLER2DARRAY;0;False;183;FLOAT;0;False;5;FLOAT2;0,0;False;80;FLOAT3;0,0,0;False;104;FLOAT2;1,1;False;74;SAMPLERSTATE;0;False;5;COLOR;0;FLOAT;32;FLOAT;33;FLOAT;34;FLOAT;35
 Node;AmplifyShaderEditor.TexturePropertyNode;123;-217.6342,-493.4207;Float;True;Property;_Normal;Normal;4;0;Create;True;0;0;0;False;0;False;None;29226acbf60bd8a4b884b6563f6f518c;True;bump;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
@@ -3930,6 +4038,10 @@ Node;AmplifyShaderEditor.RangedFloatNode;14;1403.737,-59.14899;Float;False;Prope
 Node;AmplifyShaderEditor.OneMinusNode;342;1085.006,-91.96814;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;222;726.1268,-728.5128;Float;False;Property;_Color;Color;1;1;[HDR];Create;True;0;0;0;False;0;False;1,1,1,0;1,1,1,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.Vector2Node;343;-156.994,-707.9681;Inherit;False;Property;_Tile;Tile;8;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;315;2227.889,-654.8948;Float;False;True;-1;2;UnityEditor.ShaderGraphLitGUI;0;12;__Corjn__/Simple Blended triplanar World;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;20;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;;0;0;Standard;41;Workflow;1;638393874020855921;Surface;0;0;  Refraction Model;0;0;  Blend;0;0;Two Sided;0;638394057362210428;Fragment Normal Space,InvertActionOnDeselection;0;0;Forward Only;0;0;Transmission;0;0;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;0;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;DOTS Instancing;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;0;  Early Z;0;0;Vertex Position,InvertActionOnDeselection;1;0;Debug Display;0;0;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;True;True;True;False;;False;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;347;1692.03,-809.3283;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT3;0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;348;1531.03,-890.3283;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0.1,0.1,0.1;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.ReflectionProbeNode;345;1321.874,-978.5608;Inherit;False;3;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;1;FLOAT3;0
 WireConnection;221;0;325;0
 WireConnection;221;1;222;0
 WireConnection;248;0;245;0
@@ -3943,11 +4055,6 @@ WireConnection;333;0;332;0
 WireConnection;333;1;330;0
 WireConnection;326;82;123;0
 WireConnection;326;104;343;0
-WireConnection;315;0;221;0
-WireConnection;315;1;336;0
-WireConnection;315;2;248;0
-WireConnection;315;3;337;0
-WireConnection;315;4;341;0
 WireConnection;325;82;122;0
 WireConnection;325;104;343;0
 WireConnection;338;82;339;0
@@ -3957,5 +4064,14 @@ WireConnection;336;1;235;0
 WireConnection;341;0;342;0
 WireConnection;341;1;14;0
 WireConnection;342;0;338;32
+WireConnection;315;0;347;0
+WireConnection;315;1;336;0
+WireConnection;315;2;248;0
+WireConnection;315;3;337;0
+WireConnection;315;4;341;0
+WireConnection;347;0;221;0
+WireConnection;347;1;348;0
+WireConnection;348;0;345;0
+WireConnection;345;1;336;0
 ASEEND*/
-//CHKSM=9D95874EBC49C2756BC0D64D37D78AD806BF9E31
+//CHKSM=0C1822A7B61016AF3143A4115EDF8657F0C1C057
