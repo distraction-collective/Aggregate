@@ -134,7 +134,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Lightfade: 0
+    - _Lightfade: 1
     - _MaskSpeed: 0.13
     - _MaskTile: 1
     - _Metallic: 0.65

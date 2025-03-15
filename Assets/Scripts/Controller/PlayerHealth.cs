@@ -58,23 +58,23 @@ public class PlayerHealth : MonoBehaviour {
   public Texture2D struggle_map;
   public Vector3 respawn_position;
 
-    // Vitesse de base stockées lors du démarrage
+ // Vitesse de base stockées lors du démarrage
   private float normalSprintSpeed;
   private float normalMoveSpeed;
     
-  // Toggles
-  private bool healthToggleActivated = false; // pour immortal (touche I)
-  private bool speedMultiplierActivated = false; // pour multiplier les vitesses (touche S)
+  // Toggles pour immortal (touche I)
+  private bool healthToggleActivated = false; 
+  private bool speedMultiplierActivated = false;
 
 
   void Awake() {
     
-    InitializeValues();
+   InitializeValues();
 
-    if (_thirdPersonController != null) {
+   if (_thirdPersonController != null) {
             normalSprintSpeed = _thirdPersonController.SprintSpeed;
             normalMoveSpeed = _thirdPersonController.MoveSpeed;
-    }
+   }
   
   }
 
@@ -97,18 +97,20 @@ public class PlayerHealth : MonoBehaviour {
 
     if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame) {
         healthToggleActivated = !healthToggleActivated;
+        speedMultiplierActivated = !speedMultiplierActivated;
         Debug.Log("Health toggle " + (healthToggleActivated ? "activé" : "désactivé"));
         // Si activé, on force immédiatement la vie à max
         if (healthToggleActivated) {
             _currentHealthValue = maxHealthValue;
+            
         }
     }
 
     // Toggle pour multiplier la vitesse de course avec la touche S
-    if (Keyboard.current != null && Keyboard.current.sKey.wasPressedThisFrame) {
-            speedMultiplierActivated = !speedMultiplierActivated;
-            Debug.Log("Speed multiplier " + (speedMultiplierActivated ? "activé (x4)" : "désactivé (x1)"));
-    }
+    //if (Keyboard.current != null && Keyboard.current.sKey.wasPressedThisFrame) {
+    //        speedMultiplierActivated = !speedMultiplierActivated;
+    //        Debug.Log("Speed multiplier " + (speedMultiplierActivated ? "activé" : "désactivé"));
+    //}
     
     CheckSafe();
     UpdateMovementSpeed();
