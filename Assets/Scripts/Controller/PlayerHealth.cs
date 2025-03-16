@@ -5,6 +5,8 @@ using StarterAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using System.Linq;
+using UnityEngine.VFX;
+
 
 namespace DesirePaths {
 public class PlayerHealth : MonoBehaviour {
@@ -65,6 +67,9 @@ public class PlayerHealth : MonoBehaviour {
   // Toggles pour immortal (touche I)
   private bool healthToggleActivated = false; 
   private bool speedMultiplierActivated = false;
+
+  //public VisualEffect vfxDamages;
+
 
 
   void Awake() {
@@ -191,11 +196,13 @@ public class PlayerHealth : MonoBehaviour {
     _dangerVolume.weight = 0f;
     _playerInputs.DeactivateInput();
     _playerInputs.enabled = false;
-    _characterController.enabled =
-        false; // character controller has own definition of position, so we
+    _characterController.enabled = false; // character controller has own definition of position, so we
                // cant change position unless deactivated
     _thirdPersonController.enabled = false;
     _puppetMaster.Kill();
+   // if (vfxDamages != null)
+   // vfxDamages.SetBool("Kill", true);
+
 
     PlayerDeathEvent.Invoke(safe, _thirdPersonController.transform.position);
 
@@ -216,7 +223,12 @@ public class PlayerHealth : MonoBehaviour {
     _characterController.enabled = true;
     _thirdPersonController.enabled = true;
     _controllerAnimator.SetTrigger("KneelUp"); // RespawnAnim
+
+   // if (vfxDamages != null)
+   // vfxDamages.SetBool("Kill", false);
+
     Invoke(nameof(GiveControlBack), 1.5f);
+    
   }
 
   void GiveControlBack() {

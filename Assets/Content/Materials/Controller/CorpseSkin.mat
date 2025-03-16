@@ -193,7 +193,7 @@ Material:
     - _BaseColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0.64705884}
     - _Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0.64705884}
     - _ColorEffectOnBasic: {r: 0.8928622, g: 0.905534, b: 0.9716981, a: 0}
-    - _ColorEffectOnTop: {r: 0.18284085, g: 0.26889083, b: 0.9056604, a: 0}
+    - _ColorEffectOnTop: {r: 0.71320754, g: 0.72268254, b: 0.7924528, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Main_Color_1: {r: 0, g: 1, b: 0.06761169, a: 0}
     - _Main_Color_2: {r: 1, g: 0, b: 0.8358784, a: 0}
